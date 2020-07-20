@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         checkAttack();
+        checkToward();
     }
 
     private void FixedUpdate()
@@ -70,11 +71,24 @@ public class PlayerController : MonoBehaviour
         }
         else if(Input.GetMouseButtonUp(0))
         {
-            if (weaponPoint.currWeapon.isStoragePowerWeapon)
+            if (weaponPoint.currWeapon.isStoragePowerWeapon && weaponPoint.currWeapon.isStoragePower)
             {
                 weaponPoint.currWeapon.Attack();
             }
         }
 
+    }
+
+    void checkToward()
+    {
+        
+        if(Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
+        {
+            transform.rotation = Quaternion.Euler(0,0,0);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180.0f, 0);
+        }
     }
 }

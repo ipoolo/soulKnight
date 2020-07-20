@@ -13,10 +13,12 @@ public class WeaponPoint : MonoBehaviour
     void Start()
     {
         isFollow = true;
-        GameObject weaponObject = Instantiate((GameObject)Resources.Load("Weapon/Slash"), transform.position, Quaternion.identity);
+        GameObject weaponObject = Instantiate((GameObject)Resources.Load("Weapon/Bow"), transform.position, Quaternion.identity);
         currWeapon = weaponObject.GetComponent<Weapon>();
         currWeapon.transform.SetParent(transform);
-        currWeapon.transform.position += new Vector3(currWeapon.rectTransform.sizeDelta.x / 2 * currWeapon.rectTransform.localScale.x, 0, 0);
+        if (weaponObject.GetComponent<Weapon>().isCloseInWeapon) {
+            currWeapon.transform.position += new Vector3(currWeapon.rectTransform.sizeDelta.x / 2 * currWeapon.rectTransform.localScale.x, 0, 0);
+        }
 
     }
 
@@ -40,7 +42,7 @@ public class WeaponPoint : MonoBehaviour
         isFollow = false;
     }
 
-    public void continueFollow()
+    public  void continueFollow()
     {
         isFollow = true;
     }

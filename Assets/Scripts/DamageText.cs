@@ -25,6 +25,6 @@ public class DamageText : MonoBehaviour
 
     public void setDamageText(float _damage)
     {
-        text.text = _damage+"";
+        text.text = _damage.ToString("0");
     }
 }

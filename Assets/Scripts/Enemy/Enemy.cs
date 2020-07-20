@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.iOS;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -141,17 +142,19 @@ public class Enemy : MonoBehaviour
 
     private void reduceHealth(float _reduceValue)
     {
-        health -= _reduceValue;
+        float floorValue = Mathf.FloorToInt(_reduceValue);
+        health -= floorValue;
         //掉血粒子效果
         Instantiate(psEffect,transform.position,Quaternion.identity);
         //掉血数值 (暴击值和普通值这里应该通过配置设置不同效果)
-        Instantiate(canvasDamage, transform.position, Quaternion.identity).GetComponent<DamageText>().setDamageText(_reduceValue);
+        Instantiate(canvasDamage, transform.position, Quaternion.identity).GetComponent<DamageText>().setDamageText(floorValue);
 
         if (health <= 0)
         {
 
             //新建死亡效果
-            Instantiate(enemyDeathAnim, transform.position, Quaternion.identity);
+            
+            Instantiate(Resources.Load("EnemyDeath"), transform.position, Quaternion.identity);
             //新建宝物掉落
             GameObject hp_bar = Instantiate((GameObject)Resources.Load("Coin"));
             hp_bar.transform.position = transform.position;

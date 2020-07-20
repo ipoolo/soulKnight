@@ -5,21 +5,21 @@ using UnityEngine;
 public class Slash : Weapon 
 {
     // Start is called before the first frame update
-    new void Start()
+    public override void Start()
     {
         base.Start();
     }
 
     // Update is called once per frame
-    new void Update()
+    public override void Update()
     {
         base.Update();
     }
 
-    public new void Attack()
+    public override void AttackBody()
     {
-        base.Attack();
-        
+        base.AttackBody();
+
     }
 
     private new void OnTriggerEnter2D(Collider2D other)

@@ -11,21 +11,23 @@ public class Weapon : MonoBehaviour
     [SerializeField] public bool isCloseInWeapon;
 
     [SerializeField] public float powerMaxSecond;
+    
     private float storagePowersustainTime;
 
     private float attackTimer;
-    private bool canAttack;
+    [HideInInspector]  public bool canAttack;
     private GameObject player;
     private WeaponPoint weaponPoint;
 
     public bool isStoragePowerWeapon;
-    private bool isStoragePower;
+    public bool isStoragePower;
     private PowerController powerController;
+    public float powerBarValue;
 
-    
 
 
-    public void Start()
+
+    public virtual void Start()
     {
         animator = GetComponent<Animator>();
         rectTransform = GetComponent<RectTransform>();
@@ -39,7 +41,7 @@ public class Weapon : MonoBehaviour
         powerController = GameObject.FindGameObjectWithTag("UI_PowerBar").GetComponent<PowerController>();
     }
 
-    public void Update()
+    public virtual void Update()
     {
         if (attackTimer >= attackInterval)
         {
@@ -51,34 +53,51 @@ public class Weapon : MonoBehaviour
         }
         attackTimer += Time.deltaTime;
 
-        if (isStoragePower) {
+        if (isStoragePower)
+        {
             storagePowersustainTime += Time.deltaTime;
-            if (powerMaxSecond != 0) { 
+            if (powerMaxSecond != 0)
+            {
                 float tempPowerValue = storagePowersustainTime / powerMaxSecond;
-                float powerBarValue = tempPowerValue > powerMaxSecond ? powerMaxSecond : tempPowerValue;
+                powerBarValue = tempPowerValue > 1 ? 1 : tempPowerValue;
                 powerController.updatePowerBarValue(powerBarValue);
             }
         }
-                    
+
     }
 
     public void Attack()
     {
-        if (canAttack) {
+        if (canAttack)
+        {
             if (animator != null)
             {
-                animator.Play("fire",0,.0f);
+                animator.Play("fire", 0, .0f);
                 animator.SetBool("Fire", true);
-                attackTimer = 0.0f;
                 weaponPoint.pauseFollow();
             }
 
+            if (isStoragePowerWeapon)
+            {
+                if (isStoragePower) { 
+                    AttackBody();
+                }
+            }
+            else
+            {
+                AttackBody();
+            }
             //powerBar处理
             isStoragePower = false;
             powerController.hidePowerBar();
         }
         Debug.Log("a");
-        
+
+    }
+
+    public virtual void AttackBody()
+    {
+        attackTimer = 0.0f;
     }
 
     public void finishAnim()
@@ -88,15 +107,17 @@ public class Weapon : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (isCloseInWeapon) { 
-        //近战武器触发伤害
-            if (other.CompareTag("Enemy")) { 
+        if (isCloseInWeapon)
+        {
+            //近战武器触发伤害
+            if (other.CompareTag("Enemy"))
+            {
                 //{
                 Enemy emeny = other.GetComponent<Enemy>();
                 Transform temp = GameObject.FindGameObjectWithTag("WeaponPoint").GetComponent<Transform>();
                 float zRotaion = temp.rotation.eulerAngles.z;
-                Vector3 tempV =  Quaternion.AngleAxis(zRotaion, Vector3.forward) * Vector3.right;
-                Debug.Log(zRotaion + "zRotaion||||"+tempV + "tempV");
+                Vector3 tempV = Quaternion.AngleAxis(zRotaion, Vector3.forward) * Vector3.right;
+                Debug.Log(zRotaion + "zRotaion||||" + tempV + "tempV");
                 emeny.receiverDamageWithRepelVector(damage, tempV);
                 //emeny.receiverDamage(damage, player.transform.position, 1.0f);
             }
@@ -106,9 +127,11 @@ public class Weapon : MonoBehaviour
     //StoragePower
     public void StoragePower()
     {
-        Debug.Log("wp_StoragePower");
-        storagePowersustainTime = 0.0f;
-        isStoragePower = true;
-        powerController.showPowerBar();
+        if (canAttack)
+        {
+            storagePowersustainTime = 0.0f;
+            isStoragePower = true;
+            powerController.showPowerBar();
+        }
     }
 }

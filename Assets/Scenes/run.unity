@@ -279,7 +279,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162741824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.89, y: 0, z: 0}
+  m_LocalPosition: {x: 1.496, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 446224737}
@@ -297,12 +297,12 @@ PrefabInstance:
     - target: {fileID: 8415336382906914424, guid: 9e61702e91c1fe845825b769d135b5ec,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.658534
+      value: -1.91
       objectReference: {fileID: 0}
     - target: {fileID: 8415336382906914424, guid: 9e61702e91c1fe845825b769d135b5ec,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.0156
+      value: 5.26
       objectReference: {fileID: 0}
     - target: {fileID: 8415336382906914424, guid: 9e61702e91c1fe845825b769d135b5ec,
         type: 3}
@@ -584,7 +584,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446224736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.197, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 162741830}
@@ -890,7 +890,7 @@ PrefabInstance:
     - target: {fileID: 8415336382906914424, guid: 9e61702e91c1fe845825b769d135b5ec,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.35
+      value: -8.26
       objectReference: {fileID: 0}
     - target: {fileID: 8415336382906914424, guid: 9e61702e91c1fe845825b769d135b5ec,
         type: 3}
@@ -946,6 +946,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BatBase (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8415336382906914427, guid: 9e61702e91c1fe845825b769d135b5ec,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e61702e91c1fe845825b769d135b5ec, type: 3}
