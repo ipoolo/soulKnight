@@ -177,3 +177,6 @@ MonoBehaviour:
   rectTransform: {fileID: 1235735566952876734}
   damage: 1
   attackInterval: 0.5
+  isCloseInWeapon: 1
+  powerMaxSecond: 1
+  isStoragePowerWeapon: 1

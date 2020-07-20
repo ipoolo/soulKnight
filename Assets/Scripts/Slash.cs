@@ -16,9 +16,9 @@ public class Slash : Weapon
         base.Update();
     }
 
-    public new void attack()
+    public new void Attack()
     {
-        base.attack();
+        base.Attack();
         
     }
 

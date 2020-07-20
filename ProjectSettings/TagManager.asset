@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WeaponPoint
   - Enemy
+  - UI_PowerBar
   layers:
   - Default
   - TransparentFX
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: hide
+    uniqueID: 3110683459
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

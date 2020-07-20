@@ -8,10 +8,20 @@ public class Weapon : MonoBehaviour
     public RectTransform rectTransform;
     [SerializeField] public float damage;
     [SerializeField] public float attackInterval;
+    [SerializeField] public bool isCloseInWeapon;
+
+    [SerializeField] public float powerMaxSecond;
+    private float storagePowersustainTime;
+
     private float attackTimer;
     private bool canAttack;
     private GameObject player;
     private WeaponPoint weaponPoint;
+
+    public bool isStoragePowerWeapon;
+    private bool isStoragePower;
+    private PowerController powerController;
+
     
 
 
@@ -25,6 +35,8 @@ public class Weapon : MonoBehaviour
 
         weaponPoint = GameObject.FindGameObjectWithTag("WeaponPoint").GetComponent<WeaponPoint>();
         player = GameObject.FindGameObjectWithTag("Player");
+
+        powerController = GameObject.FindGameObjectWithTag("UI_PowerBar").GetComponent<PowerController>();
     }
 
     public void Update()
@@ -38,9 +50,19 @@ public class Weapon : MonoBehaviour
             canAttack = false;
         }
         attackTimer += Time.deltaTime;
+
+        if (isStoragePower) {
+            storagePowersustainTime += Time.deltaTime;
+            if (powerMaxSecond != 0) { 
+                float tempPowerValue = storagePowersustainTime / powerMaxSecond;
+                float powerBarValue = tempPowerValue > powerMaxSecond ? powerMaxSecond : tempPowerValue;
+                powerController.updatePowerBarValue(powerBarValue);
+            }
+        }
+                    
     }
 
-    public void attack()
+    public void Attack()
     {
         if (canAttack) {
             if (animator != null)
@@ -50,6 +72,10 @@ public class Weapon : MonoBehaviour
                 attackTimer = 0.0f;
                 weaponPoint.pauseFollow();
             }
+
+            //powerBar处理
+            isStoragePower = false;
+            powerController.hidePowerBar();
         }
         Debug.Log("a");
         
@@ -62,17 +88,27 @@ public class Weapon : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-
-        //武器触发伤害
-        if (other.CompareTag("Enemy")) { 
-            //{
-            Enemy emeny = other.GetComponent<Enemy>();
-            Transform temp = GameObject.FindGameObjectWithTag("WeaponPoint").GetComponent<Transform>();
-            float zRotaion = temp.rotation.eulerAngles.z;
-            Vector3 tempV =  Quaternion.AngleAxis(zRotaion, Vector3.forward) * Vector3.right;
-            Debug.Log(zRotaion + "zRotaion||||"+tempV + "tempV");
-            emeny.receiverDamageWithRepelVector(damage, tempV);
-            //emeny.receiverDamage(damage, player.transform.position, 1.0f);
+        if (isCloseInWeapon) { 
+        //近战武器触发伤害
+            if (other.CompareTag("Enemy")) { 
+                //{
+                Enemy emeny = other.GetComponent<Enemy>();
+                Transform temp = GameObject.FindGameObjectWithTag("WeaponPoint").GetComponent<Transform>();
+                float zRotaion = temp.rotation.eulerAngles.z;
+                Vector3 tempV =  Quaternion.AngleAxis(zRotaion, Vector3.forward) * Vector3.right;
+                Debug.Log(zRotaion + "zRotaion||||"+tempV + "tempV");
+                emeny.receiverDamageWithRepelVector(damage, tempV);
+                //emeny.receiverDamage(damage, player.transform.position, 1.0f);
+            }
         }
+    }
+
+    //StoragePower
+    public void StoragePower()
+    {
+        Debug.Log("wp_StoragePower");
+        storagePowersustainTime = 0.0f;
+        isStoragePower = true;
+        powerController.showPowerBar();
     }
 }
