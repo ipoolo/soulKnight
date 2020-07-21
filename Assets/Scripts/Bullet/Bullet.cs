@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
 
 
     public GameObject targetObject;
-    public Vector3 targetPosition;
+    public Vector3 targetDirection;
     //自动巡航用
 
     //加减速待完成
@@ -54,11 +54,11 @@ public class Bullet : MonoBehaviour
     {
         if(isAutoFollow && targetObject != null)
         {
-            if (targetPosition == Vector3.zero) { 
-                targetPosition = targetObject.transform.position;
+            if (targetDirection == Vector3.zero) {
+                targetDirection = targetObject.transform.position - transform.position;
             }
             //自动跟踪
-            Vector3 direction = targetPosition - transform.position;
+            Vector3 direction = targetDirection;
             Quaternion changeQuaternion = Quaternion.FromToRotation(transform.right, direction);
 
             //方向 //速度
@@ -74,12 +74,12 @@ public class Bullet : MonoBehaviour
     
     private void PointToTarget()
     {
-        if (targetPosition == Vector3.zero)
+        if (targetDirection == Vector3.zero)
         {
-            targetPosition = targetObject.transform.position;
+            targetDirection = targetObject.transform.position - transform.position;
         }
-        //自动跟踪
-        Vector3 direction = targetPosition - transform.position;
+        //跟踪
+        Vector3 direction = targetDirection;
         Quaternion changeQuaternion = Quaternion.FromToRotation(transform.right, direction);
 
 
