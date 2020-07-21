@@ -69,4 +69,5 @@ public class StatePanelController : MonoBehaviour
         manaScrollbarAnimator.Play("Base Layer.shake",0,0.0f);
     }
 
+
 }
