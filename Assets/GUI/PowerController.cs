@@ -22,7 +22,17 @@ public class PowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //检查是否转向了
+        CheckTurn();
+    }
+
+    private void CheckTurn()
+    {
+        if (Vector3.Dot(Vector3.right, transform.right) < 0 )
+        {
+            transform.rotation *= Quaternion.Euler(0,0,180);
+        }
+
     }
 
     public void showPowerBar()
