@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\GUI\PowerController.cs" />
     <Compile Include="Assets\Scripts\BloodEffect.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\BulletArrow.cs" />
@@ -74,6 +73,9 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyDeath.cs" />
     <Compile Include="Assets\Scripts\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\PlayerStateContoller.cs" />
+    <Compile Include="Assets\Scripts\PowerController.cs" />
+    <Compile Include="Assets\Scripts\StatePanel\StatePanelController.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bow.cs" />
     <Compile Include="Assets\Scripts\Weapon\Slash.cs" />
     <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />

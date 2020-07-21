@@ -7,8 +7,8 @@ TagManager:
   - WeaponPoint
   - Enemy
   - UI_PowerBar
-  - Test
   - Bullet
+  - StatePanel
   layers:
   - Default
   - TransparentFX
@@ -51,4 +51,7 @@ TagManager:
     locked: 0
   - name: Weapon
     uniqueID: 69812251
+    locked: 0
+  - name: UI
+    uniqueID: 2583822441
     locked: 0

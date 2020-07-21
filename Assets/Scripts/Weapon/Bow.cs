@@ -11,14 +11,12 @@ public class Bow : Weapon
     // Start is called before the first frame update
     public override void Start()
     {
-        Debug.Log("last");
         base.Start();
     }
 
     // Update is called once per frame
     public override void Update()
     {
-        Debug.Log("last");
         base.Update();
     }
 
