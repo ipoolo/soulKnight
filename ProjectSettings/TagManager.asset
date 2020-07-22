@@ -59,9 +59,9 @@ TagManager:
   - name: Weapon
     uniqueID: 69812251
     locked: 0
-  - name: UI
-    uniqueID: 2583822441
-    locked: 0
   - name: ForeGround
     uniqueID: 3600088263
+    locked: 0
+  - name: UI
+    uniqueID: 2583822441
     locked: 0
