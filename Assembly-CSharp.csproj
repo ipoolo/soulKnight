@@ -714,7 +714,16 @@
       <HintPath>E:/UnityWorkSpace/SoulKnight/SoulKnight/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="SuperTiled2UnityEditor.csproj">
+      <Project>{E1D42CF9-6A25-4265-CCA2-FF9AEB93BD1F}</Project>
+      <Name>SuperTiled2UnityEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="SuperTiled2Unity.csproj">
+      <Project>{FB8333E1-4238-EE69-743A-124562D9B045}</Project>
+      <Name>SuperTiled2Unity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

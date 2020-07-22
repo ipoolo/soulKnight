@@ -9,6 +9,7 @@ TagManager:
   - UI_PowerBar
   - Bullet
   - StatePanel
+  - ForeGround
   layers:
   - Default
   - TransparentFX
@@ -20,12 +21,12 @@ TagManager:
   - 
   - Weapon
   - Emeny
-  - Bullet
-  - 
-  - 
-  - 
-  - 
-  - 
+  - BulletPlayer
+  - Item
+  - BackGround
+  - Wall
+  - Player
+  - BulletEmeny
   - 
   - 
   - 
@@ -49,9 +50,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Enemy
+    uniqueID: 3553028773
+    locked: 0
+  - name: Player
+    uniqueID: 746028777
+    locked: 0
   - name: Weapon
     uniqueID: 69812251
     locked: 0
   - name: UI
     uniqueID: 2583822441
+    locked: 0
+  - name: ForeGround
+    uniqueID: 3600088263
     locked: 0
