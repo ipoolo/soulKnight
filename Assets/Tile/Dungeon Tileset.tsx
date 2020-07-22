@@ -33,6 +33,18 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="112">
+  <properties>
+   <property name="unity:layer" value="Item"/>
+  </properties>
+  <objectgroup draworder="index" id="2">
+   <object id="1" x="-32" y="-32" width="80" height="80">
+    <properties>
+     <property name="unity:IsTrigger" type="bool" value="true"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="113" terrain=",,,0">
   <objectgroup draworder="index" id="5">
    <object id="10" x="6.14769" y="4.29057">
