@@ -7,18 +7,25 @@ using UnityEngine.SocialPlatforms;
 
 public class Enemy : MonoBehaviour
 {
+
     public Transform BottomLeft;
     public Transform TopRight;
     public float waitTime;
     public float moveSpeed;
+    [SerializeField] public float moveSpeedLevelUpScale;
+    public float damage;
+    [SerializeField] public float damageLevelUpScale;
+
     public float senseRaidus;
 
-    public GameObject canvasDamage;
+    public GameObject canvasDamage;//绘制伤害
     public GameObject enemyDeathAnim;
 
     public float maxHealth;
     public float health;
     public float turnRedTime;
+    public float patrolTime;
+    public float patrolTimer;
 
     public GameObject psEffect;//这里可以写的基类，提高复用
 
@@ -45,6 +52,11 @@ public class Enemy : MonoBehaviour
         originalColor = render.color;
         health = maxHealth;
 
+        //巡逻跟踪时间
+        if(patrolTime == 0)
+        {
+            patrolTime = 2;
+        }
         calculateNewTarget();
     }
 
@@ -62,9 +74,16 @@ public class Enemy : MonoBehaviour
             default: 
                 patrol();
                 break;
-
         }
         
+    }
+
+    public virtual bool enemyLevelUpRulesBody(Enemy _enmey, int _level)
+    {
+        // ture 配置好了，false未配置 调用系统配置
+        _enmey.moveSpeed += _level * moveSpeedLevelUpScale;
+        _enmey.damage += _level * damageLevelUpScale;
+        return true;
     }
 
     public void checkIsFollowToPlayer()
@@ -78,7 +97,6 @@ public class Enemy : MonoBehaviour
         {
             enemyState = 0;
         }
-
     }
 
     public void fellowToPlayer()
@@ -88,12 +106,21 @@ public class Enemy : MonoBehaviour
 
     private void patrol()
     {
-        if (isRunning) { 
-            if((targetPosition - transform.position).sqrMagnitude < 0.2f)
+        if (isRunning) {
+            patrolTimer += Time.deltaTime;
+            //超时或者到达都进入休息，并且寻找新目标(防止目标为不可抵达)
+            if ((targetPosition - transform.position).sqrMagnitude < 0.2f)
             {
                 //等待 然后新目标
                 isRunning = false;
                 Invoke("calculateNewTarget",waitTime);
+                patrolTimer = 0;
+            }
+            if (patrolTimer >= patrolTime)
+            {
+                isRunning = false;
+                Invoke("calculateNewTarget", waitTime);
+                patrolTimer = 0;
             }
             transform.position = Vector3.MoveTowards(transform.position, targetPosition,Time.deltaTime * moveSpeed);
         }
@@ -132,8 +159,6 @@ public class Enemy : MonoBehaviour
     public void receiverDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
         transform.position += _repelVector;
-
-
         reduceHealth(_damage);
 
         renderRed();
