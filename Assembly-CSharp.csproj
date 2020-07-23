@@ -66,7 +66,7 @@
     <Compile Include="Assets\Scripts\BloodEffect.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\BulletArrow.cs" />
-    <Compile Include="Assets\Scripts\Coin.cs" />
+    <Compile Include="Assets\Scripts\CoinAreaController.cs" />
     <Compile Include="Assets\Scripts\DamageText.cs" />
     <Compile Include="Assets\Scripts\Enemy\Bat.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
@@ -74,10 +74,11 @@
     <Compile Include="Assets\Scripts\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\InterFace\InteractionInterface.cs" />
+    <Compile Include="Assets\Scripts\Item\Coin.cs" />
     <Compile Include="Assets\Scripts\Item\Hint.cs" />
     <Compile Include="Assets\Scripts\Item\Item.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\PlayerStateContoller.cs" />
+    <Compile Include="Assets\Scripts\PlayerStateController.cs" />
     <Compile Include="Assets\Scripts\PowerController.cs" />
     <Compile Include="Assets\Scripts\StatePanel\StatePanelController.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bow.cs" />

@@ -26,8 +26,6 @@ public class PlayerController : MonoBehaviour
         rid2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         weaponPoint = GetComponentInChildren<WeaponPoint>();
-
-
     }
 
     // Update is called once per frame
@@ -36,6 +34,21 @@ public class PlayerController : MonoBehaviour
         checkAttack();
         checkToward();
         checkInteractionList();
+        //test
+        test();
+    }
+
+    public void test()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().coinAdd(2);
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().coinReduce(1);
+        }
     }
 
     private void FixedUpdate()
