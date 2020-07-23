@@ -214,12 +214,24 @@ public class PlayerStateController : MonoBehaviour
         if (isReceiveDamage)
         {
             isReceiveDamage = false;
-            Vector3 tmp = _repelVector.normalized * receiveRepelVectorScale;
-            player.transform.position += tmp;//其实就是player这里偷懒没有获取
+            Vector3 tmp = _repelVector.normalized * 10;
+            player.GetComponent<Rigidbody2D>().velocity = tmp;
+
+            //test
+            player.GetComponent<PlayerController>().isOutController = true;
+            StartCoroutine("playerBackToContoller");
+            //test-e
             reduceHealth(_damage);
             renderWhiteAndTurnInvincibilityLayer();
         }
     }
+
+    IEnumerator playerBackToContoller()
+    {
+        yield return new WaitForSeconds(0.05f);
+        player.GetComponent<PlayerController>().isOutController = false;
+        
+    } 
 
     private void reduceHealth(float _reduceValue)
     {

@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     public List<InteractionInterface> interactionList;
 
+    public bool isOutController;
+
     private void Awake()
     {
         interactionList = new List<InteractionInterface>();
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
         rid2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         weaponPoint = GetComponentInChildren<WeaponPoint>();
+        isOutController = false;
     }
 
     // Update is called once per frame
@@ -34,6 +37,8 @@ public class PlayerController : MonoBehaviour
         checkAttack();
         checkToward();
         checkInteractionList();
+
+
         //test
         test();
     }
@@ -53,8 +58,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        playerMove();
-        
+        if (!isOutController) { 
+            playerMove();
+        }
+
     }
 
     void playerMove()
