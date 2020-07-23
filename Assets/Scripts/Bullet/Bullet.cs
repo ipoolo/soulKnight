@@ -135,8 +135,9 @@ public class Bullet : MonoBehaviour
         //旋转
         transform.rotation *= rotation;
         //移动postion
-        transform.position = new Vector3(contactPoin2D.point.x + reflectVector.normalized.x * scaleX,
+        reflectPosition = new Vector3(contactPoin2D.point.x + reflectVector.normalized.x * scaleX,
             contactPoin2D.point.y + reflectVector.normalized.y * scaleY, 0);
+        transform.position = reflectPosition;
         updateSpeed();
 
 

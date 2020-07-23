@@ -24,8 +24,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8415336382774465364}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.91, y: -3.12, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.02, y: -3.12, z: 0}
+  m_LocalScale: {x: 0.900294, y: 0.9750958, z: 1}
   m_Children: []
   m_Father: {fileID: 8415336382906914424}
   m_RootOrder: 2
@@ -92,7 +92,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8415336382969722801}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.9882202, y: -2.0787153, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8415336382906914424}
@@ -220,6 +220,9 @@ MonoBehaviour:
   TopRight: {fileID: 8415336383316984982}
   waitTime: 2
   moveSpeed: 3
+  moveSpeedLevelUpScale: 0
+  damage: 0
+  damageLevelUpScale: 0
   senseRaidus: 30
   canvasDamage: {fileID: 8517629138960482143, guid: a01643e1c4b65c64bb658698211aa550,
     type: 3}
@@ -228,6 +231,8 @@ MonoBehaviour:
   maxHealth: 2
   health: 2
   turnRedTime: 0.1
+  patrolTime: 0
+  patrolTimer: 0
   psEffect: {fileID: 7372007832080357348, guid: 3ae6f25391c7dd04aa81c2ef35b863d8,
     type: 3}
 --- !u!1 &8415336383316984977
@@ -254,8 +259,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8415336383316984977}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.78, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.903, y: 3.208, z: 0}
+  m_LocalScale: {x: 0.900294, y: 0.9750958, z: 1}
   m_Children: []
   m_Father: {fileID: 8415336382906914424}
   m_RootOrder: 1
