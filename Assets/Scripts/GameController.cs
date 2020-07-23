@@ -75,7 +75,6 @@ public class GameController : MonoBehaviour
         GameObject prefabs = (GameObject)enemyPrefabs[getRamdomEnemyTypeIndex()];
         Enemy enemy = Instantiate(prefabs, startTransform.position,startTransform.rotation).GetComponentInChildren<Enemy>();
         configEnemy(enemy, _level);
-
         enemyList.Add(enemy);
     }
 
