@@ -1543,7 +1543,7 @@ GameObject:
   - component: {fileID: 810962552}
   m_Layer: 8
   m_Name: PlayerStateContoller
-  m_TagString: Untagged
+  m_TagString: PlayerStateController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1582,6 +1582,7 @@ MonoBehaviour:
   maxArmor: 20
   mana: 100
   maxMana: 200
+  coinNum: 0
   recoverArmorStepTime: 2
   recoverArmorStepValue: 1
   recoverArmorInterruptTime: 5

@@ -15,6 +15,8 @@ public class PlayerStateController : MonoBehaviour
     public int mana;
     public int maxMana;
 
+    public int coinNum;
+
     public float recoverArmorStepTime;
     public int recoverArmorStepValue;
     public float recoverArmorInterruptTime;
@@ -23,13 +25,27 @@ public class PlayerStateController : MonoBehaviour
 
     private bool isRecoverArmor;
 
+    private CoinAreaController cac;
+
 
     // Start is called before the first frame update
     void Start()
     {
         statePanel = GameObject.FindGameObjectWithTag("StatePanel");
         spController = statePanel.GetComponent<StatePanelController>();
+
+        configDefault();
         updateStatePlane();
+        
+
+    }
+
+    private void configDefault()
+    {
+        //coin 
+        coinNum = 0;
+        cac = GameObject.FindGameObjectWithTag("CoinAreaController").GetComponent<CoinAreaController>();
+
         isRecoverArmor = true;
     }
 
@@ -130,4 +146,35 @@ public class PlayerStateController : MonoBehaviour
         updateStatePlane();
     }
 
+    //coin
+    //coinSetting
+    public void coinAdd(int addeNum)
+    {
+        coinNum += addeNum;
+        //update coinUI
+        updateCoinUI();
+    }
+
+    public void updateCoinUI()
+    {
+        cac.updateCoinnNum(coinNum);
+    }
+
+    public bool coinReduce(int reduceNum)
+    {
+        if (coinNum >= reduceNum)
+        {
+            coinNum -= reduceNum;
+            //update coinUI
+            updateCoinUI();
+            return true;
+        }
+        else
+        {
+            //coin ui_text Shake
+            cac.CoinAreaShake();
+            return false;
+        }
+
+    }
 }

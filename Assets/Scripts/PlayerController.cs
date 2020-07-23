@@ -42,12 +42,12 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().coinAdd(2);
+            GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>().coinAdd(2);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>().coinReduce(1);
+            GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>().coinReduce(1);
         }
     }
 

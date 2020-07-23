@@ -9,7 +9,7 @@ public class Coin : MonoBehaviour
     public int coinValue;
     public float followSpeed;
 
-    private GameController gc;
+    private PlayerStateController psc;
     private GameObject player;
 
     public float senseRaidus;
@@ -31,7 +31,7 @@ public class Coin : MonoBehaviour
     private void configDefault()
     {
         canReceiver = false;
-        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        psc = GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>();
         player = GameObject.FindGameObjectWithTag("Player");
         if (coinValue == 0)
         {
@@ -97,7 +97,7 @@ public class Coin : MonoBehaviour
     {
         if(canReceiver && other.CompareTag("Player"))
         {
-            gc.coinAdd(coinValue);
+            psc.coinAdd(coinValue);
             Destroy(gameObject);
         }
     }

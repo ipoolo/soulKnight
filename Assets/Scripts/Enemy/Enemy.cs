@@ -135,7 +135,24 @@ public class Enemy : MonoBehaviour
         isRunning = true;
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D _collision)
+    {
+        Collider2D other = _collision.collider;
+        Collider2D self = _collision.otherCollider;
+        if (other.CompareTag("Player"))
+        {
+            touchPlayerBody(_collision , other);
+        }
+        
+    }
+
+    public virtual void touchPlayerBody(Collision2D _collision,Collider2D _player)
+    {
+
+        PlayerController pc = _player.GetComponent<PlayerController>();
+        //pc 受伤伤害
+    }
+    private void OnCollisionExit2D(Collision2D _collision)
     {
         rigid2d.velocity = Vector2.zero;
     }
