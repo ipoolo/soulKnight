@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.iOS;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -42,6 +42,10 @@ public class Enemy : MonoBehaviour
     private Color originalColor;
     private SpriteRenderer render;
 
+    private bool isOutControl;
+    private float outControlTime = 0.05f;
+
+
 
     // Start is called before the first frame update
     public void Start()
@@ -57,24 +61,27 @@ public class Enemy : MonoBehaviour
         {
             patrolTime = 2;
         }
+        isOutControl = false;
         calculateNewTarget();
     }
 
     // Update is called once per frame
     public void Update()
     {
-        checkIsFollowToPlayer();
+        if (!isOutControl) { 
+            checkIsFollowToPlayer();
 
-        switch (enemyState)
-        {
-            case 1:
-                fellowToPlayer();
-                break;
-            case 0:
-            default: 
-                patrol();
-                break;
-        }
+            switch (enemyState)
+            {
+                case 1:
+                    fellowToPlayer();
+                    break;
+                case 0:
+                default:
+                    patrol();
+                    break;
+            }
+      }
         
     }
 
@@ -101,7 +108,11 @@ public class Enemy : MonoBehaviour
 
     public void fellowToPlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, playerPosition, Time.deltaTime * moveSpeed);
+        //将方向拆分给速度
+        Vector3 targetVector = playerPosition - transform.position;
+        Vector3 normalizedVector = targetVector.normalized;
+        Vector3 velocityVector = normalizedVector * moveSpeed;
+        rigid2d.velocity = velocityVector;
     }
 
     private void patrol()
@@ -109,20 +120,28 @@ public class Enemy : MonoBehaviour
         if (isRunning) {
             patrolTimer += Time.deltaTime;
             //超时或者到达都进入休息，并且寻找新目标(防止目标为不可抵达)
+            Debug.DrawLine(transform.position, targetPosition, Color.white);
+
+            Vector3 targetVector = targetPosition - transform.position;
+            Vector3 normalizedVector = targetVector.normalized;
+            Vector3 velocityVector = normalizedVector * moveSpeed;
+            rigid2d.velocity = velocityVector;
             if ((targetPosition - transform.position).sqrMagnitude < 0.2f)
             {
                 //等待 然后新目标
                 isRunning = false;
                 Invoke("calculateNewTarget",waitTime);
                 patrolTimer = 0;
+                rigid2d.velocity = Vector3.zero;
             }
             if (patrolTimer >= patrolTime)
             {
                 isRunning = false;
                 Invoke("calculateNewTarget", waitTime);
                 patrolTimer = 0;
+                rigid2d.velocity = Vector3.zero;
             }
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition,Time.deltaTime * moveSpeed);
+
         }
 
 
@@ -130,8 +149,10 @@ public class Enemy : MonoBehaviour
 
     private void calculateNewTarget()
     {
-        targetPosition = new Vector3(UnityEngine.Random.Range(BottomLeft.position.x, TopRight.position.x),
-            UnityEngine.Random.Range(BottomLeft.position.y, TopRight.position.y), 0);
+        targetPosition = new Vector3(Random.Range(BottomLeft.position.x, TopRight.position.x),
+            Random.Range(BottomLeft.position.y, TopRight.position.y), 0);
+        GameObject target = new GameObject();
+        target.transform.position = targetPosition;
         isRunning = true;
     }
 
@@ -160,29 +181,22 @@ public class Enemy : MonoBehaviour
         rigid2d.velocity = Vector2.zero;
     }
 
-    public void receiverDamage(float _damage, Vector3 _hitPosition , float _repelDistance)
+
+    public void receiverDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
-
-        //击退
-        Vector3 temp = transform.position - _hitPosition;
-        temp = temp.normalized * _repelDistance;
-        transform.position += temp;
-
-        //扣血
+        isOutControl = true;
+        Debug.Log("_repelVector"+ _repelVector);
+        rigid2d.velocity = _repelVector;
+        //StartCoroutine("backToUnderControl");
         reduceHealth(_damage);
-
-        //变红
         renderRed();
 
     }
 
-    public void receiverDamageWithRepelVector(float _damage, Vector3 _repelVector)
+    IEnumerator backToUnderControl()
     {
-        transform.position += _repelVector;
-        reduceHealth(_damage);
-
-        renderRed();
-
+        yield return new WaitForSeconds(outControlTime);
+        isOutControl = false;
     }
 
     private void reduceHealth(float _reduceValue)
