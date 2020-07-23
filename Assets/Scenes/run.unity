@@ -1515,7 +1515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  baseEnemyNum: 0
+  baseEnemyNum: 5
   spwanStepWaitTime: 1
   coinNum: 0
 --- !u!4 &734323970
@@ -1593,6 +1593,8 @@ MonoBehaviour:
   canvasDamage: {fileID: 0}
   render: {fileID: 0}
   canvasDamageOffsetY: 0.5
+  playerRigidbody2D: {fileID: 0}
+  pc: {fileID: 0}
   invincibilityTime: 1
 --- !u!1 &889094214 stripped
 GameObject:

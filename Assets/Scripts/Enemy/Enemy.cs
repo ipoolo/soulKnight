@@ -120,8 +120,6 @@ public class Enemy : MonoBehaviour
         if (isRunning) {
             patrolTimer += Time.deltaTime;
             //超时或者到达都进入休息，并且寻找新目标(防止目标为不可抵达)
-            Debug.DrawLine(transform.position, targetPosition, Color.white);
-
             Vector3 targetVector = targetPosition - transform.position;
             Vector3 normalizedVector = targetVector.normalized;
             Vector3 velocityVector = normalizedVector * moveSpeed;
@@ -142,6 +140,10 @@ public class Enemy : MonoBehaviour
                 rigid2d.velocity = Vector3.zero;
             }
 
+        }
+        else
+        {
+            rigid2d.velocity = Vector3.zero;
         }
 
 
@@ -176,18 +178,13 @@ public class Enemy : MonoBehaviour
 
 
     }
-    private void OnCollisionExit2D(Collision2D _collision)
-    {
-        rigid2d.velocity = Vector2.zero;
-    }
 
 
     public void receiverDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
         isOutControl = true;
-        Debug.Log("_repelVector"+ _repelVector);
-        rigid2d.velocity = _repelVector;
-        //StartCoroutine("backToUnderControl");
+        rigid2d.velocity = _repelVector / outControlTime;
+        StartCoroutine("backToUnderControl");
         reduceHealth(_damage);
         renderRed();
 
@@ -222,7 +219,6 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject, 0.1f);
         }
         
-        Debug.Log("enemyH；"+health);
     }
 
     private void renderRed()

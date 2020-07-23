@@ -38,15 +38,16 @@ public class PlayerStateController : MonoBehaviour
     private bool isReceiveDamage;
 
     public float canvasDamageOffsetY;
+    public Rigidbody2D playerRigidbody2D;
+    public PlayerController pc;
+
+    private float outControlTime = 0.05f;
 
     [SerializeField] public float invincibilityTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        statePanel = GameObject.FindGameObjectWithTag("StatePanel");
-        spController = statePanel.GetComponent<StatePanelController>();
-
         configDefault();
         updateStatePlane();
 
@@ -57,10 +58,17 @@ public class PlayerStateController : MonoBehaviour
     {
         //coin 
         coinNum = 0;
-        cac = GameObject.FindGameObjectWithTag("CoinAreaController").GetComponent<CoinAreaController>();
         player = GameObject.FindGameObjectWithTag("Player") as GameObject;
+        playerRigidbody2D = player.GetComponent<Rigidbody2D>();
+
+        statePanel = GameObject.FindGameObjectWithTag("StatePanel");
+        spController = statePanel.GetComponent<StatePanelController>();
+
+        cac = GameObject.FindGameObjectWithTag("CoinAreaController").GetComponent<CoinAreaController>();
         psEffect = Resources.Load("Partcles/PS_BloodEffect") as GameObject;
         canvasDamage = Resources.Load("CanvasDamage") as GameObject;
+        pc = player.GetComponent<PlayerController>();
+
         isRecoverArmor = true;
         render = gameObject.GetComponentInParent<SpriteRenderer>();
         originalColor = render.color;
@@ -214,13 +222,12 @@ public class PlayerStateController : MonoBehaviour
         if (isReceiveDamage)
         {
             isReceiveDamage = false;
-            Vector3 tmp = _repelVector.normalized * 10;
-            player.GetComponent<Rigidbody2D>().velocity = tmp;
+            Vector3 tmp = _repelVector.normalized / outControlTime;
+            playerRigidbody2D.velocity = tmp;
 
-            //test
-            player.GetComponent<PlayerController>().isOutController = true;
+            pc.isOutController = true;
             StartCoroutine("playerBackToContoller");
-            //test-e
+
             reduceHealth(_damage);
             renderWhiteAndTurnInvincibilityLayer();
         }
@@ -228,8 +235,8 @@ public class PlayerStateController : MonoBehaviour
 
     IEnumerator playerBackToContoller()
     {
-        yield return new WaitForSeconds(0.05f);
-        player.GetComponent<PlayerController>().isOutController = false;
+        yield return new WaitForSeconds(outControlTime);
+        pc.isOutController = false;
         
     } 
 
