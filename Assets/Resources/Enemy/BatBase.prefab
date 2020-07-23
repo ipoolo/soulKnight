@@ -221,7 +221,7 @@ MonoBehaviour:
   waitTime: 2
   moveSpeed: 3
   moveSpeedLevelUpScale: 0
-  damage: 0
+  damage: 1
   damageLevelUpScale: 0
   senseRaidus: 30
   canvasDamage: {fileID: 8517629138960482143, guid: a01643e1c4b65c64bb658698211aa550,

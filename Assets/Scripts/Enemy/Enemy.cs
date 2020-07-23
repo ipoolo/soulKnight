@@ -149,8 +149,11 @@ public class Enemy : MonoBehaviour
     public virtual void touchPlayerBody(Collision2D _collision,Collider2D _player)
     {
 
-        PlayerController pc = _player.GetComponent<PlayerController>();
-        //pc 受伤伤害
+        PlayerStateController pc = _player.GetComponentInChildren<PlayerStateController>();
+        //pc 受伤伤害 TODO
+        pc.receiverDamageWithRepelVector(damage, _player.transform.position - transform.position);
+
+
     }
     private void OnCollisionExit2D(Collision2D _collision)
     {

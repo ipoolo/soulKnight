@@ -1583,9 +1583,16 @@ MonoBehaviour:
   mana: 100
   maxMana: 200
   coinNum: 0
+  receiveRepelVectorScale: 0.5
+  player: {fileID: 0}
   recoverArmorStepTime: 2
   recoverArmorStepValue: 1
   recoverArmorInterruptTime: 5
+  psEffect: {fileID: 0}
+  canvasDamage: {fileID: 0}
+  render: {fileID: 0}
+  canvasDamageOffsetY: 0.5
+  invincibilityTime: 1
 --- !u!1 &889094214 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 670073210382819672, guid: 438827d4e4ba3b048b76396258ba255e,

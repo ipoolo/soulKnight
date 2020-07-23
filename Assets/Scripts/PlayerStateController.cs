@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerStateController : MonoBehaviour
@@ -16,6 +17,8 @@ public class PlayerStateController : MonoBehaviour
     public int maxMana;
 
     public int coinNum;
+    public float receiveRepelVectorScale;
+    public GameObject player;
 
     public float recoverArmorStepTime;
     public int recoverArmorStepValue;
@@ -27,6 +30,16 @@ public class PlayerStateController : MonoBehaviour
 
     private CoinAreaController cac;
 
+    public GameObject psEffect;//粒子效果
+    public GameObject canvasDamage;
+    public SpriteRenderer render;
+    private Color originalColor;
+    private bool isLayerShake;
+    private bool isReceiveDamage;
+
+    public float canvasDamageOffsetY;
+
+    [SerializeField] public float invincibilityTime;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +49,7 @@ public class PlayerStateController : MonoBehaviour
 
         configDefault();
         updateStatePlane();
-        
+
 
     }
 
@@ -45,8 +58,27 @@ public class PlayerStateController : MonoBehaviour
         //coin 
         coinNum = 0;
         cac = GameObject.FindGameObjectWithTag("CoinAreaController").GetComponent<CoinAreaController>();
-
+        player = GameObject.FindGameObjectWithTag("Player") as GameObject;
+        psEffect = Resources.Load("Partcles/PS_BloodEffect") as GameObject;
+        canvasDamage = Resources.Load("CanvasDamage") as GameObject;
         isRecoverArmor = true;
+        render = gameObject.GetComponentInParent<SpriteRenderer>();
+        originalColor = render.color;
+
+        if (invincibilityTime == 0)
+        {
+            invincibilityTime = 2.0f;
+        }
+        if(canvasDamageOffsetY == 0)
+        {
+            canvasDamageOffsetY = 0.5f;
+        }
+        if(receiveRepelVectorScale == 0.0f)
+        {
+            receiveRepelVectorScale = 1.0f;
+        }
+
+        isReceiveDamage = true;
     }
 
     // Update is called once per frame
@@ -66,7 +98,7 @@ public class PlayerStateController : MonoBehaviour
         else
         {
             recoverArmorInterruptCounter += Time.deltaTime;
-            if(recoverArmorInterruptCounter >= recoverArmorInterruptTime)
+            if (recoverArmorInterruptCounter >= recoverArmorInterruptTime)
             {
                 isRecoverArmor = true;
                 recoverArmorInterruptCounter = 0;
@@ -76,13 +108,14 @@ public class PlayerStateController : MonoBehaviour
         }
     }
 
-    public bool receiveDamageWithRepel(int damage , Vector3 repelV)
+    private bool receiveDamage(int damage)
     {
         bool receiveSuccess = true;
         int temp = armor - damage;
 
         //开启中断recoverArmorInterruptCounter
         isRecoverArmor = false;
+        recoverArmorInterruptCounter = 0;//重新计时
 
         if (temp >= 0)
         {
@@ -93,26 +126,22 @@ public class PlayerStateController : MonoBehaviour
         {
             armor = 0;
             health -= math.abs(temp);
-            if(health <= 0)
+            if (health <= 0)
             {
                 //血量不足以吸收伤害
                 health = 0;
                 receiveSuccess = false;
+                //TODO
+                Debug.Log("PlayerDeal");
             }
         }
         updateStatePlane();
         return receiveSuccess;
     }
 
-
-    public bool receiveDamage(int damage)
-    {
-        return receiveDamageWithRepel(damage , Vector3.zero);
-    }
-
     public bool receiveManaReduce(int manaReduce)
     {
-        if(mana == 0)
+        if (mana == 0)
         {
             return false;
         }
@@ -176,5 +205,68 @@ public class PlayerStateController : MonoBehaviour
             return false;
         }
 
+    }
+
+    //receiveDamage
+    public void receiverDamageWithRepelVector(float _damage, Vector3 _repelVector)
+    {
+
+        if (isReceiveDamage)
+        {
+            isReceiveDamage = false;
+            Vector3 tmp = _repelVector.normalized * receiveRepelVectorScale;
+            player.transform.position += tmp;//其实就是player这里偷懒没有获取
+            reduceHealth(_damage);
+            renderWhiteAndTurnInvincibilityLayer();
+        }
+    }
+
+    private void reduceHealth(float _reduceValue)
+    {
+        int floorValue = Mathf.FloorToInt(_reduceValue);
+
+        //掉血粒子效果 （可以设置专门的出血位）
+        Instantiate(psEffect, transform.position, Quaternion.identity);
+        //掉血数值 (暴击值和普通值这里应该通过配置设置不同效果)
+        Vector3 tmp = transform.position;
+        tmp += new Vector3(0, canvasDamageOffsetY,0);
+        Instantiate(canvasDamage, tmp, Quaternion.identity).GetComponent<DamageText>().setDamageText(floorValue);
+        //扣血
+        receiveDamage(floorValue);
+
+    }
+
+    private void renderWhiteAndTurnInvincibilityLayer()
+    {
+        render.color = Color.red;
+        StartCoroutine("BackToOriginalColorAndUninvincibility");
+        player.layer = LayerMask.NameToLayer("InvincibilityLayer");
+    }
+
+    IEnumerator BackToOriginalColorAndUninvincibility()
+    {
+        isLayerShake = true;
+        StartCoroutine("layerShake");
+        yield return new WaitForSeconds(invincibilityTime);
+        isLayerShake = false;
+        render.color = originalColor;
+        isReceiveDamage = true;
+        player.layer = LayerMask.NameToLayer("Player");
+    }
+
+    IEnumerator layerShake()
+    {
+        while (isLayerShake)
+        {
+            if (render.color != Color.red)
+            {
+                render.color = Color.red;
+            }
+            else
+            {
+                render.color = Color.yellow;
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 }

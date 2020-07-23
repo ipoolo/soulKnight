@@ -102,7 +102,7 @@ public class Bullet : MonoBehaviour
             //emeny.receiverDamage(damage, player.transform.position, 1.0f);
         }
 
-        string[] layerNames = { "Wall" };
+        string[] layerNames = { "Wall" ,"Item"};
         if (selfCollider.IsTouchingLayers(LayerMask.GetMask(layerNames)))
         {
            
