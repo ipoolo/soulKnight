@@ -11,6 +11,7 @@ TagManager:
   - StatePanel
   - ForeGround
   - WavePoint
+  - CoinAreaController
   layers:
   - Default
   - TransparentFX

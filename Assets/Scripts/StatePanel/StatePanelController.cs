@@ -37,7 +37,7 @@ public class StatePanelController : MonoBehaviour
             temp = (float) curr / max;
         }
         hpScrollbar.size = temp > 1 ? 1 : temp;
-        hpText.text = curr + "/" + max;
+        hpText.text = curr.ToString("#00") + "/" + max;
         
     }
 
@@ -50,7 +50,7 @@ public class StatePanelController : MonoBehaviour
             temp = (float) curr / max;
         }
         armorScrollbar.size = temp > 1 ? 1 : temp;
-        armorText.text = curr + "/" + max;
+        armorText.text = curr.ToString("#00") + "/" + max;
     }
 
     public void changeMana(int curr, int max)
@@ -61,12 +61,12 @@ public class StatePanelController : MonoBehaviour
             temp = (float) curr / max;
         }
         manaScrollbar.size = temp > 1 ? 1 : temp;
-        manaText.text = curr + "/" + max;
+        manaText.text = curr.ToString("#00") + "/" + max;
     }
 
     public void shakeManaBar()
     {
-        manaScrollbarAnimator.Play("Base Layer.shake",0,0.0f);
+        manaScrollbarAnimator.Play("Base Layer.Shake",0,0.0f);
     }
 
 

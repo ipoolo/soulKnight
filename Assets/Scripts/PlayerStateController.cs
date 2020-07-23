@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerStateContoller : MonoBehaviour
+public class PlayerStateController : MonoBehaviour
 {
     public GameObject statePanel;
     public StatePanelController spController;

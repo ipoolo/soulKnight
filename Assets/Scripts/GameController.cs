@@ -15,13 +15,25 @@ public class GameController : MonoBehaviour
     private int lastStartIndex = -1;
     private int lastEnemyPrefabIndex = -1;
 
+    public int coinNum;
+    private CoinAreaController cac;
+
     // Start is called before the first frame update
     void Start()
     {
         configEnemyPrefabs();
         collectEnemyStartPoints();
         configEnemyList();
+        configDefault();
         WaveSpawn();
+        
+    }
+
+    private void configDefault()
+    {
+        coinNum = 0;
+
+        cac = GameObject.FindGameObjectWithTag("CoinAreaController").GetComponent<CoinAreaController>();
     }
 
     // Update is called once per frame
@@ -121,6 +133,34 @@ public class GameController : MonoBehaviour
         return _index;
     }
 
+    //coinSetting
+    public void coinAdd(int addeNum)
+    {
+        coinNum += addeNum;
+        //update coinUI
+        updateCoinUI();
+    }
 
+    public void updateCoinUI()
+    {
+        cac.updateCoinnNum(coinNum);
+    }
+
+    public bool coinReduce(int reduceNum)
+    {
+        if (coinNum >= reduceNum) {
+            coinNum -= reduceNum;
+            //update coinUI
+            updateCoinUI();
+            return true;
+        }
+        else
+        {
+            //coin ui_text Shake
+            cac.CoinAreaShake();
+            return false;
+        }
+
+    }
 
 }
