@@ -29,7 +29,9 @@ public class Bow : Weapon
         //限制mousePosition 
         b.targetDirection = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         b.damage = damage * (1 + powerBarValue);
-        
+        b.speed *= (1 + powerBarValue);
+
+
     }
 
 

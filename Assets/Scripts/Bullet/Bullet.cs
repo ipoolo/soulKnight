@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField]public float Speed;
+    [SerializeField]public float speed;
     [SerializeField]public int ejectionNum;
     [SerializeField]public float offsetRadius;
     [SerializeField]public float liftTime;
@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]public float damage;
     [SerializeField]public float repelPower;
     [SerializeField]public float turnSpeed;
+    [SerializeField]public float reboundTimes;
 
     public Rigidbody2D rigid2D;
     private RectTransform rectTransform;
@@ -34,8 +35,8 @@ public class Bullet : MonoBehaviour
         transform.rotation *= Quaternion.Euler(0, 0, Random.Range(-offsetRadius, offsetRadius));
         //将子弹移出炮孔
         transform.position += new Vector3(rectTransform.rect.width * rectTransform.sizeDelta.x / 2, 0, 0);
-        
-        rigid2D.velocity = transform.right * Speed;
+
+        updateSpeed();
         rigid2D.gravityScale = 0.0f;
 
         Destroy(gameObject, liftTime);
@@ -46,8 +47,6 @@ public class Bullet : MonoBehaviour
     public void Update()
     {
         autoFollowTarget();
-
-        rigid2D.velocity = transform.right * Speed;
     }
 
     public void autoFollowTarget()
@@ -70,6 +69,7 @@ public class Bullet : MonoBehaviour
             }
 
         }
+        updateSpeed();
     }
     
     private void PointToTarget()
@@ -87,12 +87,14 @@ public class Bullet : MonoBehaviour
         transform.rotation = targetQuaternion;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D _collision)
     {
 
-        if (collision.collider.CompareTag("Enemy"))
+        Collider2D other = _collision.collider;
+        Collider2D selfCollider = _collision.otherCollider;
+        if (other.CompareTag("Enemy"))
         {
-            Enemy emeny = collision.collider.GetComponent<Enemy>();
+            Enemy emeny = other.GetComponent<Enemy>();
             emeny.receiverDamageWithRepelVector(damage, transform.right.normalized * repelPower);
             
             Instantiate(Resources.Load("EnemyDeath"),transform.position,Quaternion.identity);
@@ -100,6 +102,60 @@ public class Bullet : MonoBehaviour
             //emeny.receiverDamage(damage, player.transform.position, 1.0f);
         }
 
+        string[] layerNames = { "Wall" };
+        if (selfCollider.IsTouchingLayers(LayerMask.GetMask(layerNames)))
+        {
+           
+            if (reboundTimes > 0) {
+                ReboundBody(_collision);
+                reboundTimes--;
+            }
+            else
+            {
+                knockWallBody(_collision);
+            }
+            //emeny.receiverDamage(damage, player.transform.position, 1.0f);
+        }
+
+    }
+
+    public void ReboundBody(Collision2D _collision)
+    {
+        Vector3 reflectPosition;
+        Vector3 reflectVector;
+        ContactPoint2D contactPoin2D= _collision.contacts[0];
+        //获得反射向量
+        reflectVector = Vector2.Reflect(transform.right, contactPoin2D.normal);
+        //获得旋转角度
+        Quaternion rotation = Quaternion.FromToRotation(transform.right, reflectVector);
+        //计算反射后position
+
+        float scaleX = Mathf.Abs(contactPoin2D.point.x - transform.position.x);
+        float scaleY = Mathf.Abs(contactPoin2D.point.y - transform.position.y);
+        //旋转
+        transform.rotation *= rotation;
+        //移动postion
+        transform.position = new Vector3(contactPoin2D.point.x + reflectVector.normalized.x * scaleX,
+            contactPoin2D.point.y + reflectVector.normalized.y * scaleY, 0);
+        updateSpeed();
+
+
+    }
+    public void updateSpeed()
+    {
+        updateSpeed(speed);
+    }
+
+    public void updateSpeed(float _speed)
+    {
+        speed = _speed;
+        rigid2D.velocity = transform.right * speed;
+    }
+
+    public void knockWallBody(Collision2D _collision)
+    {
+            Instantiate(Resources.Load("EnemyDeath"),transform.position,Quaternion.identity);
+            Destroy(gameObject);
     }
 
 }

@@ -76,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 69812251
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fcc5014e6533f774284ddc5765e2e42d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -107,8 +107,8 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &405724270304420309
 BoxCollider2D:
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e604c44df03a9242bab603c19497d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 10
+  speed: 8
   ejectionNum: 0
   offsetRadius: 15
   liftTime: 5
@@ -156,5 +156,7 @@ MonoBehaviour:
   damage: 1
   repelPower: 0.5
   turnSpeed: 5
+  reboundTimes: 1
   rigid2D: {fileID: 405724270304420308}
   targetObject: {fileID: 0}
+  targetDirection: {x: 0, y: 0, z: 0}
