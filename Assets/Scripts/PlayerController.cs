@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.iOS;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -53,6 +54,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>().coinReduce(1);
+
+            Instantiate(Resources.Load("Buff") as GameObject, Vector3.zero, Quaternion.identity).GetComponent<Buff>().BuffLoad(gameObject, PersistentStateTargetType.player) ;
         }
     }
 

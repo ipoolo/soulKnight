@@ -42,6 +42,11 @@ public class PlayerStateController : MonoBehaviour
     public PlayerController pc;
 
     private float outControlTime = 0.05f;
+    public Vector3 buffPositionOffset = new Vector3(0, 0, 0);
+
+    //buff
+    private List<Buff> buffList = new List<Buff>();
+    //debuff
 
     [SerializeField] public float invincibilityTime;
 
@@ -287,5 +292,44 @@ public class PlayerStateController : MonoBehaviour
             }
             yield return new WaitForSeconds(0.2f);
         }
+    }
+
+    //buffList
+    public void addBuff(Buff _buff)
+    {
+        Buff existSameBuff = null;
+        //验重
+        if(checkBuffIsExist(_buff.ToString(),out existSameBuff))
+        {
+            buffList.Remove(existSameBuff);
+            existSameBuff.BuffUnLoad();
+        }
+
+        buffList.Add(_buff);
+
+        Debug.Log("buffList"+ buffList.Count);
+    }
+
+    private bool checkBuffIsExist(string _buffName,out Buff _existSameBuff)
+    {
+        bool returnValue = false;
+        _existSameBuff = null;
+
+        foreach (Buff buff in buffList)
+        {
+            if(buff.ToString().Equals(_buffName))
+            {
+                returnValue = true;
+                _existSameBuff = buff;
+            }
+        }
+ 
+        return returnValue;
+
+    }
+
+    public void removeBuff(Buff _buff)
+    {
+        buffList.Remove(_buff);
     }
 }

@@ -1514,8 +1514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41243487fb054cd4e9d8ba2f6588e6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
-  baseEnemyNum: 5
+  level: 0
+  baseEnemyNum: 0
   spwanStepWaitTime: 1
   coinNum: 0
 --- !u!4 &734323970
@@ -1595,6 +1595,7 @@ MonoBehaviour:
   canvasDamageOffsetY: 0.5
   playerRigidbody2D: {fileID: 0}
   pc: {fileID: 0}
+  buffPositionOffset: {x: 0, y: 0, z: 0}
   invincibilityTime: 1
 --- !u!1 &889094214 stripped
 GameObject:
@@ -1842,7 +1843,7 @@ PrefabInstance:
     - target: {fileID: 2453722648217992783, guid: bf32262791e477e4ab1047be4520a360,
         type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf32262791e477e4ab1047be4520a360, type: 3}

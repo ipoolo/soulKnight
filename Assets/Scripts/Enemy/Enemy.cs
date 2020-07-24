@@ -45,7 +45,10 @@ public class Enemy : MonoBehaviour
     private bool isOutControl;
     private float outControlTime = 0.05f;
 
+    public Vector3 buffPositionOffset = new Vector3(0,1,0);
 
+    //buff
+    private List<Buff> buffList = new List<Buff>();
 
     // Start is called before the first frame update
     public void Start()
@@ -153,8 +156,6 @@ public class Enemy : MonoBehaviour
     {
         targetPosition = new Vector3(Random.Range(BottomLeft.position.x, TopRight.position.x),
             Random.Range(BottomLeft.position.y, TopRight.position.y), 0);
-        GameObject target = new GameObject();
-        target.transform.position = targetPosition;
         isRunning = true;
     }
 
@@ -214,9 +215,9 @@ public class Enemy : MonoBehaviour
             //新建宝物掉落
             GameObject hp_bar = Instantiate((GameObject)Resources.Load("Coin"));
             hp_bar.transform.position = transform.position;
-            
+
             //销毁自己
-            Destroy(gameObject, 0.1f);
+            GetComponentInParent<EnemyBase>().baseDestory();
         }
         
     }
@@ -232,6 +233,45 @@ public class Enemy : MonoBehaviour
     {   
         yield return new WaitForSeconds(turnRedTime);
         render.color = originalColor;
+    }
+
+    //buffList
+    public void addBuff(Buff _buff)
+    {
+        Buff existSameBuff = null;
+        //验重
+        if (checkBuffIsExist(_buff.ToString(), out existSameBuff))
+        {
+            buffList.Remove(existSameBuff);
+            existSameBuff.BuffUnLoad();
+        }
+
+        buffList.Add(_buff);
+
+        Debug.Log("buffList" + buffList);
+    }
+
+    private bool checkBuffIsExist(string _buffName, out Buff _existSameBuff)
+    {
+        bool returnValue = false;
+        _existSameBuff = null;
+
+        foreach (Buff buff in buffList)
+        {
+            if (buff.ToString().Equals(_buffName))
+            {
+                returnValue = true;
+                _existSameBuff = buff;
+            }
+        }
+
+        return returnValue;
+
+    }
+
+    public void removeBuff(Buff _buff)
+    {
+        buffList.Remove(_buff);
     }
 
 }
