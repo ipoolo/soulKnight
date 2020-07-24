@@ -31,11 +31,8 @@ public class BuffAttackRecovery : Buff, BuffReceiveHittingDamageInterFace
                 break;
             case PersistentStateTargetType.player:
                 playerStateController.RestoreHealth(recoveryHp);
-                //TestDot
-                //playerStateController.receiverDamage(1.0f);
                 break;
         }
-        Debug.Log("recoveryHp");
 
         return damage;
 

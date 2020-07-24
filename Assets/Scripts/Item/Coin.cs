@@ -97,7 +97,7 @@ public class Coin : MonoBehaviour
     {
         if(canReceiver && other.CompareTag("Player"))
         {
-            psc.coinAdd(coinValue);
+            psc.CoinAdd(coinValue);
             Destroy(gameObject);
         }
     }

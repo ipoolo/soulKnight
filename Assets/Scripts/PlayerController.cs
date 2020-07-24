@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>().coinAdd(2);
+            GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>().CoinAdd(2);
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -136,7 +136,6 @@ public class PlayerController : MonoBehaviour
 
     public void Add2InteractionList(InteractionInterface ob)
     {
-        Debug.Log("Add2InteractionList");
 
         if (ob is InteractionInterface)
         {
@@ -154,7 +153,6 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        Debug.Log("listA:" + interactionList.Count);
         
     }
 
@@ -169,12 +167,10 @@ public class PlayerController : MonoBehaviour
                 //是否是最后一个
                 if (interactionList.IndexOf(ob) == (interactionList.Count - 1))
                 {
-                    Debug.Log("listR0:" + interactionList.Count);
                     ob.HideFoucsArror();
                 }
                 interactionList.Remove(ob);
                 
-                Debug.Log("listR2:" + interactionList.Count);
                 if (interactionList.Count > 0)
                 {
                     //倒数第二个显示(现在的倒数第一个)
@@ -183,7 +179,6 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        Debug.Log("listR3:" + interactionList.Count);
 
     }
 

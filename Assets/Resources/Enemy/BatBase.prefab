@@ -234,7 +234,7 @@ MonoBehaviour:
   waitTime: 2
   moveSpeed: 3
   moveSpeedLevelUpScale: 0
-  damage: 1
+  damage: 2
   damageLevelUpScale: 0
   senseRaidus: 30
   canvasDamage: {fileID: 8517629138960482143, guid: a01643e1c4b65c64bb658698211aa550,
@@ -248,6 +248,7 @@ MonoBehaviour:
   patrolTimer: 0
   psEffect: {fileID: 7372007832080357348, guid: 3ae6f25391c7dd04aa81c2ef35b863d8,
     type: 3}
+  buffPositionOffset: {x: 0, y: 1, z: 0}
 --- !u!1 &8415336383316984977
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,7 +59,7 @@ public class Buff : MonoBehaviour
             case PersistentStateTargetType.player:
                 playerStateController = _target.GetComponentInChildren<PlayerStateController>();
                 targetGb = playerStateController.transform.parent.gameObject;
-                playerStateController.addBuff(this);
+                playerStateController.AddBuff(this);
                 break;
             case PersistentStateTargetType.noTarget:
                 break;
@@ -112,11 +112,11 @@ public class Buff : MonoBehaviour
         BuffUnLoadBody();
         if (enemy != null)
         {
-            enemy.removeBuff(this);
+            enemy.RemoveBuff(this);
         }
         if (playerStateController != null)
         {
-            playerStateController.removeBuff(this);
+            playerStateController.RemoveBuff(this);
         }
         Destroy(buffSprite);
         Destroy(gameObject);
@@ -126,4 +126,7 @@ public class Buff : MonoBehaviour
 
     }
 
+    public class BuffReceiveHittedDamageInterFace
+    {
+    }
 }

@@ -4,7 +4,12 @@ using UnityEngine;
 
 interface BuffInterFace
 {
-    List<Buff> getBuffList();
+    List<Buff> GetBuffList();
+}
+
+interface DeBuffInterFace
+{
+    List<Buff> GetDeBuffList();
 }
 
 interface BuffReceiveHittingDamageInterFace

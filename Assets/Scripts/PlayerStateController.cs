@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerStateController : MonoBehaviour,BuffInterFace
@@ -58,13 +57,13 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
     // Start is called before the first frame update
     void Start()
     {
-        configDefault();
-        updateStatePlane();
+        ConfigDefault();
+        UpdateStatePlane();
 
 
     }
 
-    private void configDefault()
+    private void ConfigDefault()
     {
         //coin 
         coinNum = 0;
@@ -108,7 +107,7 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
             if (recoverArmorCounter >= recoverArmorStepTime)
             {
                 //等待时间触发恢复
-                recoverArmor(recoverArmorStepValue);
+                RecoverArmor(recoverArmorStepValue);
                 //reset
                 recoverArmorCounter = 0;
             }
@@ -133,12 +132,12 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
             int tmp = health + _hp;
             health = tmp > maxHealth ? maxHealth : tmp;
             //restoreEffect
-            restoreEffect();
-            updateStatePlane();
+            RestoreEffect();
+            UpdateStatePlane();
         }
     }
 
-    private void restoreEffect()
+    private void RestoreEffect()
     {
         //加一点粒子效果
         if (restoreEffectPathStrInRes.Length != 0)
@@ -150,7 +149,7 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
         StartCoroutine("renderBackOriginColor");
     }
 
-    IEnumerator renderBackOriginColor()
+    IEnumerator RenderBackOriginColor()
     {
         yield return new WaitForSeconds(restoreEffectColorTime);
         render.color = originalColor;
@@ -158,8 +157,8 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
 
 
 
-
-    private bool receiveDamage(int damage)
+    
+    private bool ReceiveDamage(int damage)
     {
         bool receiveSuccess = true;
         int temp = armor - damage;
@@ -186,11 +185,11 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
                 Debug.Log("PlayerDeal");
             }
         }
-        updateStatePlane();
+        UpdateStatePlane();
         return receiveSuccess;
     }
 
-    public bool receiveManaReduce(int manaReduce)
+    public bool ReceiveManaReduce(int manaReduce)
     {
         if (mana == 0)
         {
@@ -207,35 +206,35 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
             mana = 0;
         }
 
-        updateStatePlane();
+        UpdateStatePlane();
 
         return true;
     }
 
-    private void updateStatePlane()
+    private void UpdateStatePlane()
     {
         spController.changeHealth(health, maxHealth);
         spController.changeArmor(armor, maxArmor);
         spController.changeMana(mana, maxMana);
     }
 
-    private void recoverArmor(int i)
+    private void RecoverArmor(int i)
     {
         armor += 1;
         armor = armor >= maxArmor ? maxArmor : armor;
-        updateStatePlane();
+        UpdateStatePlane();
     }
 
     //coin
     //coinSetting
-    public void coinAdd(int addeNum)
+    public void CoinAdd(int addeNum)
     {
         coinNum += addeNum;
         //update coinUI
-        updateCoinUI();
+        UpdateCoinUI();
     }
 
-    public void updateCoinUI()
+    public void UpdateCoinUI()
     {
         cac.updateCoinnNum(coinNum);
     }
@@ -246,7 +245,7 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
         {
             coinNum -= reduceNum;
             //update coinUI
-            updateCoinUI();
+            UpdateCoinUI();
             return true;
         }
         else
@@ -260,11 +259,11 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
 
     //receiveDamage
 
-    public void receiverDamage(float _damage)
+    public void ReceiveDamageWithOutRepel(float _damage)
     {
-        receiverDamageWithRepelVector(_damage, Vector3.zero);
+        ReceiveDamageWithRepelVector(_damage, Vector3.zero);
     }
-    public void receiverDamageWithRepelVector(float _damage, Vector3 _repelVector)
+    public void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
 
         if (isReceiveDamage)
@@ -274,21 +273,38 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
             playerRigidbody2D.velocity = tmp;
 
             pc.isOutController = true;
-            StartCoroutine("playerBackToContoller");
-
-            reduceHealth(_damage);
-            renderWhiteAndTurnInvincibilityLayer();
+            StartCoroutine("PlayerBackToContoller");
+            
+            ReduceHealth(ExcuteHittedBuffEffect(_damage));
+            RenderWhiteAndTurnInvincibilityLayer();
         }
     }
 
-    IEnumerator playerBackToContoller()
+    private float ExcuteHittedBuffEffect(float _damage)
+    {
+        float tmp = _damage;
+        if (this is BuffInterFace)
+        {
+            foreach (Buff buff in buffList)
+            {
+                if (buff is BuffReceiveHittedDamageInterFace)
+                {
+                    tmp = ((BuffReceiveHittedDamageInterFace)buff).BuffReceiveHittedDamageInterFaceBody(tmp);
+                }
+            }
+        }
+
+        return tmp;
+    }
+
+    IEnumerator PlayerBackToContoller()
     {
         yield return new WaitForSeconds(outControlTime);
         pc.isOutController = false;
         
     } 
 
-    private void reduceHealth(float _reduceValue)
+    private void ReduceHealth(float _reduceValue)
     {
         int floorValue = Mathf.FloorToInt(_reduceValue);
 
@@ -299,11 +315,11 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
         tmp += new Vector3(0, canvasDamageOffsetY,0);
         Instantiate(canvasDamage, tmp, Quaternion.identity).GetComponent<DamageText>().setDamageText(floorValue);
         //扣血
-        receiveDamage(floorValue);
+        ReceiveDamage(floorValue);
 
     }
 
-    private void renderWhiteAndTurnInvincibilityLayer()
+    private void RenderWhiteAndTurnInvincibilityLayer()
     {
         render.color = Color.red;
         StartCoroutine("BackToOriginalColorAndUninvincibility");
@@ -313,7 +329,7 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
     IEnumerator BackToOriginalColorAndUninvincibility()
     {
         isLayerShake = true;
-        StartCoroutine("layerShake");
+        StartCoroutine("LayerShake");
         yield return new WaitForSeconds(invincibilityTime);
         isLayerShake = false;
         render.color = originalColor;
@@ -321,7 +337,7 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
         player.layer = LayerMask.NameToLayer("Player");
     }
 
-    IEnumerator layerShake()
+    IEnumerator LayerShake()
     {
         while (isLayerShake)
         {
@@ -338,11 +354,11 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
     }
 
     //buffList
-    public void addBuff(Buff _buff)
+    public void AddBuff(Buff _buff)
     {
         Buff existSameBuff = null;
         //验重
-        if(checkBuffIsExist(_buff.ToString(),out existSameBuff))
+        if(CheckBuffIsExist(_buff.ToString(),out existSameBuff))
         {
             buffList.Remove(existSameBuff);
             existSameBuff.BuffUnLoad();
@@ -353,7 +369,7 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
         Debug.Log("buffList"+ buffList.Count);
     }
 
-    private bool checkBuffIsExist(string _buffName,out Buff _existSameBuff)
+    private bool CheckBuffIsExist(string _buffName,out Buff _existSameBuff)
     {
         bool returnValue = false;
         _existSameBuff = null;
@@ -371,12 +387,12 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
 
     }
 
-    public void removeBuff(Buff _buff)
+    public void RemoveBuff(Buff _buff)
     {
         buffList.Remove(_buff);
     }
 
-    public List<Buff> getBuffList()
+    public List<Buff> GetBuffList()
     {
         return buffList;
     }

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4476269522009105663}
-  - component: {fileID: 7773129281277653400}
+  - component: {fileID: 8440766224046212172}
   m_Layer: 0
   m_Name: Buff
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7773129281277653400
+--- !u!114 &8440766224046212172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4476269522009105660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 326a5725ff244fc4da9a560cf9745c3e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6404bb1c9b8ffda41b3c29f2e2bee0c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 15
@@ -52,4 +52,4 @@ MonoBehaviour:
   buffSprite: {fileID: 0}
   targetGb: {fileID: 0}
   buffType: 0
-  attackRecoveryScale: 1
+  DefenseReduceScale: 0.5

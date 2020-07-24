@@ -123,18 +123,18 @@ public class Weapon : MonoBehaviour
                 float zRotaion = temp.rotation.eulerAngles.z;
                 Vector3 tempV = Quaternion.AngleAxis(zRotaion, Vector3.forward) * Vector3.right;
                 Debug.Log(zRotaion + "zRotaion||||" + tempV + "tempV");
-                emeny.receiverDamageWithRepelVector(ExcuteBuffEffect(damage), tempV);
+                emeny.ReceiveDamageWithRepelVector(ExcuteHittingBuffEffect(damage), tempV);
                 //emeny.receiverDamage(damage, player.transform.position, 1.0f);
             }
         }
     }
 
-    private float ExcuteBuffEffect(float _damage)
+    private float ExcuteHittingBuffEffect(float _damage)
     {
         float tmp = _damage;
         if (castor is BuffInterFace)
         {
-            List<Buff> buffList = (castor as BuffInterFace).getBuffList();
+            List<Buff> buffList = (castor as BuffInterFace).GetBuffList();
             foreach (Buff buff in buffList)
             {
                 if (buff is BuffReceiveHittingDamageInterFace)

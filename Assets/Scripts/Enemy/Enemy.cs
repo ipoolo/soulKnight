@@ -45,6 +45,8 @@ public class Enemy : MonoBehaviour, BuffInterFace
     private bool isOutControl;
     private float outControlTime = 0.05f;
 
+    public bool canReceiveRepel = true;
+
     public Vector3 buffPositionOffset = new Vector3(0,1,0);
 
     //buff
@@ -163,21 +165,21 @@ public class Enemy : MonoBehaviour, BuffInterFace
         Collider2D self = _collision.otherCollider;
         if (other.CompareTag("Player"))
         {
-            touchPlayerBody(_collision , other);
+            TouchPlayerBody(_collision , other);
         }
         
     }
 
-    public virtual void touchPlayerBody(Collision2D _collision,Collider2D _player)
+    public virtual void TouchPlayerBody(Collision2D _collision,Collider2D _player)
     {
 
         PlayerStateController pc = _player.GetComponentInChildren<PlayerStateController>();
         //pc 受伤伤害 TODO
-        pc.receiverDamageWithRepelVector(ExcuteBuffEffect(damage), _player.transform.position - transform.position);
+        pc.ReceiveDamageWithRepelVector(ExcuteHittingBuffEffect(damage), _player.transform.position - transform.position);
 
 
     }
-    private float ExcuteBuffEffect(float _damage)
+    private float ExcuteHittingBuffEffect(float _damage)
     {
         float tmp = _damage;
         if (this is BuffInterFace)
@@ -203,23 +205,44 @@ public class Enemy : MonoBehaviour, BuffInterFace
     }
 
 
-    public void receiverDamageWithRepelVector(float _damage, Vector3 _repelVector)
+    public void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
-        isOutControl = true;
-        rigid2d.velocity = _repelVector / outControlTime;
-        StartCoroutine("backToUnderControl");
-        reduceHealth(_damage);
-        renderRed();
+        if (canReceiveRepel)
+        {
+            isOutControl = true;
+            rigid2d.velocity = _repelVector / outControlTime;
+            StartCoroutine("BackToUnderControl");
+        }
+
+        ReduceHealth(ExcuteHittedBuffEffect(_damage));
+        RenderRed();
 
     }
 
-    IEnumerator backToUnderControl()
+    private float ExcuteHittedBuffEffect(float _damage)
+    {
+        float tmp = _damage;
+        if (this is BuffInterFace)
+        {
+            foreach (Buff buff in buffList)
+            {
+                if (buff is BuffReceiveHittedDamageInterFace)
+                {
+                    tmp = ((BuffReceiveHittedDamageInterFace)buff).BuffReceiveHittedDamageInterFaceBody(tmp);
+                }
+            }
+        }
+
+        return tmp;
+    }
+
+    IEnumerator BackToUnderControl()
     {
         yield return new WaitForSeconds(outControlTime);
         isOutControl = false;
     }
 
-    private void reduceHealth(float _reduceValue)
+    private void ReduceHealth(float _reduceValue)
     {
         int floorValue = Mathf.FloorToInt(_reduceValue);
         health -= floorValue;
@@ -244,7 +267,7 @@ public class Enemy : MonoBehaviour, BuffInterFace
         
     }
 
-    private void renderRed()
+    private void RenderRed()
     {
         render.color = Color.red;
         StartCoroutine("BackToOriginalColor");
@@ -258,11 +281,11 @@ public class Enemy : MonoBehaviour, BuffInterFace
     }
 
     //buffList
-    public void addBuff(Buff _buff)
+    public void AddBuff(Buff _buff)
     {
         Buff existSameBuff = null;
         //验重
-        if (checkBuffIsExist(_buff.ToString(), out existSameBuff))
+        if (CheckBuffIsExist(_buff.ToString(), out existSameBuff))
         {
             buffList.Remove(existSameBuff);
             existSameBuff.BuffUnLoad();
@@ -273,7 +296,7 @@ public class Enemy : MonoBehaviour, BuffInterFace
         Debug.Log("buffList" + buffList);
     }
 
-    private bool checkBuffIsExist(string _buffName, out Buff _existSameBuff)
+    private bool CheckBuffIsExist(string _buffName, out Buff _existSameBuff)
     {
         bool returnValue = false;
         _existSameBuff = null;
@@ -289,12 +312,12 @@ public class Enemy : MonoBehaviour, BuffInterFace
         return returnValue;
     }
 
-    public void removeBuff(Buff _buff)
+    public void RemoveBuff(Buff _buff)
     {
         buffList.Remove(_buff);
     }
 
-    public List<Buff> getBuffList()
+    public List<Buff> GetBuffList()
     {
         return buffList;
     }

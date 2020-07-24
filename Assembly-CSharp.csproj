@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffAttackRecovery.cs" />
+    <Compile Include="Assets\Scripts\Buff\BuffDefenseReduce.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffDotOrHot.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffHPHot.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffInterFace.cs" />

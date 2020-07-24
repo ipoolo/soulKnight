@@ -97,7 +97,7 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Enemy emeny = other.GetComponent<Enemy>();
-            emeny.receiverDamageWithRepelVector(ExcuteBuffEffect(damage), transform.right.normalized * repelPower);
+            emeny.ReceiveDamageWithRepelVector(ExcuteHittingBuffEffect(damage), transform.right.normalized * repelPower);
 
             
             Instantiate(Resources.Load("EnemyDeath"),transform.position,Quaternion.identity);
@@ -122,12 +122,13 @@ public class Bullet : MonoBehaviour
 
     }
 
-    private float ExcuteBuffEffect(float _damage)
+
+    private float ExcuteHittingBuffEffect(float _damage)
     {
         float tmp = _damage;
         if (castor is BuffInterFace)
         {
-            List<Buff>  buffList= (castor as BuffInterFace).getBuffList();
+            List<Buff>  buffList= (castor as BuffInterFace).GetBuffList();
             foreach(Buff buff in buffList)
             {
                 if (buff is BuffReceiveHittingDamageInterFace)
@@ -139,6 +140,8 @@ public class Bullet : MonoBehaviour
         
         return tmp;
     }
+
+
 
     public void ReboundBody(Collision2D _collision)
     {
