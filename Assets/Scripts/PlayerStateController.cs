@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerStateController : MonoBehaviour
+public class PlayerStateController : MonoBehaviour,BuffInterFace
 {
     public GameObject statePanel;
     public StatePanelController spController;
@@ -43,6 +43,11 @@ public class PlayerStateController : MonoBehaviour
 
     private float outControlTime = 0.05f;
     public Vector3 buffPositionOffset = new Vector3(0, 0, 0);
+
+    public string restoreEffectPathStrInRes;
+    public float restoreEffectColorTime;
+    public Color restoreEffectColor;
+
 
     //buff
     private List<Buff> buffList = new List<Buff>();
@@ -127,9 +132,32 @@ public class PlayerStateController : MonoBehaviour
         if(_hp > 0) { 
             int tmp = health + _hp;
             health = tmp > maxHealth ? maxHealth : tmp;
+            //restoreEffect
+            restoreEffect();
             updateStatePlane();
         }
     }
+
+    private void restoreEffect()
+    {
+        //加一点粒子效果
+        if (restoreEffectPathStrInRes.Length != 0)
+        {
+            GameObject effectPSOb = Instantiate(Resources.Load(restoreEffectPathStrInRes) as GameObject, player.transform.position, Quaternion.identity);
+            effectPSOb.transform.parent = player.transform;
+            render.color = restoreEffectColor;
+        }
+        StartCoroutine("renderBackOriginColor");
+    }
+
+    IEnumerator renderBackOriginColor()
+    {
+        yield return new WaitForSeconds(restoreEffectColorTime);
+        render.color = originalColor;
+    }
+
+
+
 
     private bool receiveDamage(int damage)
     {
@@ -346,5 +374,10 @@ public class PlayerStateController : MonoBehaviour
     public void removeBuff(Buff _buff)
     {
         buffList.Remove(_buff);
+    }
+
+    public List<Buff> getBuffList()
+    {
+        return buffList;
     }
 }

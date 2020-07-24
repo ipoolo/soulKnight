@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Bullet : MonoBehaviour
 {
     [SerializeField]public float speed;
@@ -13,6 +14,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]public float repelPower;
     [SerializeField]public float turnSpeed;
     [SerializeField]public float reboundTimes;
+    public object castor;
 
     public Rigidbody2D rigid2D;
     private RectTransform rectTransform;
@@ -95,7 +97,8 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Enemy emeny = other.GetComponent<Enemy>();
-            emeny.receiverDamageWithRepelVector(damage, transform.right.normalized * repelPower);
+            emeny.receiverDamageWithRepelVector(ExcuteBuffEffect(damage), transform.right.normalized * repelPower);
+
             
             Instantiate(Resources.Load("EnemyDeath"),transform.position,Quaternion.identity);
             Destroy(gameObject);
@@ -117,6 +120,24 @@ public class Bullet : MonoBehaviour
             //emeny.receiverDamage(damage, player.transform.position, 1.0f);
         }
 
+    }
+
+    private float ExcuteBuffEffect(float _damage)
+    {
+        float tmp = _damage;
+        if (castor is BuffInterFace)
+        {
+            List<Buff>  buffList= (castor as BuffInterFace).getBuffList();
+            foreach(Buff buff in buffList)
+            {
+                if (buff is BuffReceiveHittingDamageInterFace)
+                {
+                    tmp = ((BuffReceiveHittingDamageInterFace)buff).BuffReceiveHittingDamageInterFaceBody(tmp);
+                }
+            }
+        }
+        
+        return tmp;
     }
 
     public void ReboundBody(Collision2D _collision)

@@ -4,14 +4,16 @@ using UnityEngine;
 
 interface BuffInterFace
 {
-
+    List<Buff> getBuffList();
 }
 
 interface BuffReceiveHittingDamageInterFace
 {
-    void BuffReceiveHittingDamageInterFaceBody(float htitingDamage);
+    float BuffReceiveHittingDamageInterFaceBody(float _hittingDamage);
+    //返回值为处理后的伤害
 }
 interface BuffReceiveHittedDamageInterFace
 {
-    void BuffReceiveHittedDamageInterFaceBody(float hittedDamage);
+    float BuffReceiveHittedDamageInterFaceBody(float _hittedDamage);
+    //返回值为处理后的伤害
 }

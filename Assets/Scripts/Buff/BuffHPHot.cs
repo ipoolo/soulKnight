@@ -6,7 +6,7 @@ public class BuffHPHot : BuffDotOrHot
 {
 
     public int stepHealthChange;
-    public string EffectPathStrInRes;
+    public string effectPathStrInRes;
     public float effectColorTime;
     public Color effectColor;
 
@@ -20,7 +20,7 @@ public class BuffHPHot : BuffDotOrHot
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         base.Update();
     }
@@ -40,24 +40,25 @@ public class BuffHPHot : BuffDotOrHot
                 //playerStateController.receiverDamage(1.0f);
                 break;
         }
+        //效果转移到recoverHP处统一处理
         //加一点粒子效果
-        if (EffectPathStrInRes.Length != 0)
-        {
-            GameObject effectPSOb = Instantiate(Resources.Load(EffectPathStrInRes) as GameObject, targetGb.transform.position, Quaternion.identity);
-            effectPSOb.transform.parent = targetGb.transform;
-            targetRender = targetGb.GetComponentInChildren<SpriteRenderer>();
-            originColor = targetRender.color;
-            targetRender.color = effectColor;
-        }
-        StartCoroutine("renderBackOriginColor");
+        //if (effectPathStrInRes.Length != 0)
+        //{
+        //    GameObject effectPSOb = Instantiate(Resources.Load(effectPathStrInRes) as GameObject, targetGb.transform.position, Quaternion.identity);
+        //    effectPSOb.transform.parent = targetGb.transform;
+        //    targetRender = targetGb.GetComponentInChildren<SpriteRenderer>();
+        //    originColor = targetRender.color;
+        //    targetRender.color = effectColor;
+        //}
+        //StartCoroutine("renderBackOriginColor");
 
     }
 
-    IEnumerator renderBackOriginColor()
-    {
-        yield return new WaitForSeconds(effectColorTime);
-        targetRender.color = originColor;
-    }
+    //IEnumerator renderBackOriginColor()
+    //{
+    //    yield return new WaitForSeconds(effectColorTime);
+    //    targetRender.color = originColor;
+    //}
 
 
 }

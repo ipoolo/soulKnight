@@ -5,7 +5,7 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, BuffInterFace
 {
 
     public Transform BottomLeft;
@@ -173,9 +173,25 @@ public class Enemy : MonoBehaviour
 
         PlayerStateController pc = _player.GetComponentInChildren<PlayerStateController>();
         //pc 受伤伤害 TODO
-        pc.receiverDamageWithRepelVector(damage, _player.transform.position - transform.position);
+        pc.receiverDamageWithRepelVector(ExcuteBuffEffect(damage), _player.transform.position - transform.position);
 
 
+    }
+    private float ExcuteBuffEffect(float _damage)
+    {
+        float tmp = _damage;
+        if (this is BuffInterFace)
+        {
+            foreach (Buff buff in buffList)
+            {
+                if (buff is BuffReceiveHittingDamageInterFace)
+                {
+                    tmp = ((BuffReceiveHittingDamageInterFace)buff).BuffReceiveHittingDamageInterFaceBody(tmp);
+                }
+            }
+        }
+
+        return tmp;
     }
 
     //RestoreHealth
@@ -278,4 +294,8 @@ public class Enemy : MonoBehaviour
         buffList.Remove(_buff);
     }
 
+    public List<Buff> getBuffList()
+    {
+        return buffList;
+    }
 }

@@ -24,6 +24,8 @@ public class Weapon : MonoBehaviour
     private PowerController powerController;
     public float powerBarValue;
 
+    public object castor;
+
 
 
 
@@ -39,6 +41,9 @@ public class Weapon : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         powerController = GameObject.FindGameObjectWithTag("UI_PowerBar").GetComponent<PowerController>();
+        if (castor == null) { 
+            castor = GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>();
+        }
     }
 
     public virtual void Update()
@@ -118,10 +123,28 @@ public class Weapon : MonoBehaviour
                 float zRotaion = temp.rotation.eulerAngles.z;
                 Vector3 tempV = Quaternion.AngleAxis(zRotaion, Vector3.forward) * Vector3.right;
                 Debug.Log(zRotaion + "zRotaion||||" + tempV + "tempV");
-                emeny.receiverDamageWithRepelVector(damage, tempV);
+                emeny.receiverDamageWithRepelVector(ExcuteBuffEffect(damage), tempV);
                 //emeny.receiverDamage(damage, player.transform.position, 1.0f);
             }
         }
+    }
+
+    private float ExcuteBuffEffect(float _damage)
+    {
+        float tmp = _damage;
+        if (castor is BuffInterFace)
+        {
+            List<Buff> buffList = (castor as BuffInterFace).getBuffList();
+            foreach (Buff buff in buffList)
+            {
+                if (buff is BuffReceiveHittingDamageInterFace)
+                {
+                    tmp = ((BuffReceiveHittingDamageInterFace)buff).BuffReceiveHittingDamageInterFaceBody(tmp);
+                }
+            }
+        }
+
+        return tmp;
     }
 
     //StoragePower
