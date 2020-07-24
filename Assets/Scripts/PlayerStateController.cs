@@ -121,6 +121,16 @@ public class PlayerStateController : MonoBehaviour
         }
     }
 
+    //RestoreHealth
+    public void RestoreHealth(int _hp)
+    {
+        if(_hp > 0) { 
+            int tmp = health + _hp;
+            health = tmp > maxHealth ? maxHealth : tmp;
+            updateStatePlane();
+        }
+    }
+
     private bool receiveDamage(int damage)
     {
         bool receiveSuccess = true;
@@ -221,6 +231,11 @@ public class PlayerStateController : MonoBehaviour
     }
 
     //receiveDamage
+
+    public void receiverDamage(float _damage)
+    {
+        receiverDamageWithRepelVector(_damage, Vector3.zero);
+    }
     public void receiverDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
 

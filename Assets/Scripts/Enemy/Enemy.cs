@@ -21,8 +21,8 @@ public class Enemy : MonoBehaviour
     public GameObject canvasDamage;//绘制伤害
     public GameObject enemyDeathAnim;
 
-    public float maxHealth;
-    public float health;
+    public int maxHealth;
+    public int health;
     public float turnRedTime;
     public float patrolTime;
     public float patrolTimer;
@@ -178,6 +178,14 @@ public class Enemy : MonoBehaviour
 
     }
 
+    //RestoreHealth
+
+    public void RestoreHealth(int _hp)
+    {
+        int tmp = health + _hp;
+        health = tmp > maxHealth ? maxHealth : tmp;
+    }
+
 
     public void receiverDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
@@ -197,7 +205,7 @@ public class Enemy : MonoBehaviour
 
     private void reduceHealth(float _reduceValue)
     {
-        float floorValue = Mathf.FloorToInt(_reduceValue);
+        int floorValue = Mathf.FloorToInt(_reduceValue);
         health -= floorValue;
         //掉血粒子效果
         Instantiate(psEffect,transform.position,Quaternion.identity);

@@ -2,23 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DeBuffType
-{
-    deBuffTypeNotDebuff,
-    deBuffTypeDot,
-    deBuffTypeStatedurative,//状态持续性
-    deBuffTypeHittingReceiveDamage,
-    deBuffTypeHittedReceiveDamage,
 
-}
 
 public enum BuffType
 {
-    buffTypeNotBuff,
-    buffTypeDot,
-    buffTypeStatedurative,//状态持续性
-    buffTypeHittingReceiveDamage,
-    buffTypeHittedReceiveDamage,
+    buff,
+    debuff
 
 }
 
@@ -40,7 +29,8 @@ public class Buff : MonoBehaviour
     [SerializeField]public string buffPrefabsResPath = "BuffIndicator";
     [SerializeField]public GameObject buffSpritePrefab;
     [SerializeField]public GameObject buffSprite;
-    private GameObject targetGb;
+    public GameObject targetGb;
+    [SerializeField] public BuffType buffType;
 
     //[SerializeField] public BuffType buffType;
     //[SerializeField] public BuffType buffType;
@@ -57,7 +47,7 @@ public class Buff : MonoBehaviour
         
     }
 
-    public virtual void BuffLoad(GameObject _target, PersistentStateTargetType _targetType)
+    public void BuffLoad(GameObject _target, PersistentStateTargetType _targetType)
     {
         targetType = _targetType;
         switch (_targetType)

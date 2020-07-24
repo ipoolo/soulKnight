@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4476269522009105663}
-  - component: {fileID: 3974209633027040325}
+  - component: {fileID: -8117573391976166050}
   m_Layer: 0
   m_Name: Buff
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3974209633027040325
+--- !u!114 &-8117573391976166050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,18 +40,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 4476269522009105660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 519ad786265b79b4bb51f34da567089a, type: 3}
+  m_Script: {fileID: 11500000, guid: 73f386705d887aa46aadcbea52106716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 2
+  duration: 0
   targetType: 0
   playerStateController: {fileID: 0}
   enemy: {fileID: 0}
   buffPrefabsResPath: BuffIndicator
   buffSpritePrefab: {fileID: 0}
   buffSprite: {fileID: 0}
+  targetGb: {fileID: 0}
+  buffType: 0
   stepTime: 2
   effectTotalTimes: 2
   effectHappenTimes: 0
   timerOffset: 0
   destroyWaitTime: 1
+  stepHealthChange: 1
+  EffectPathStrInRes: Partcles/PS_Hot
+  effectColorTime: 0.5
+  effectColor: {r: 0.007831988, g: 0.8301887, b: 0.03792661, a: 1}

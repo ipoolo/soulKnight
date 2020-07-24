@@ -63,9 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BloodEffect.cs" />
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffDotOrHot.cs" />
+    <Compile Include="Assets\Scripts\Buff\BuffHPHot.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffInterFace.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\BulletArrow.cs" />
@@ -81,6 +81,8 @@
     <Compile Include="Assets\Scripts\Item\Coin.cs" />
     <Compile Include="Assets\Scripts\Item\Hint.cs" />
     <Compile Include="Assets\Scripts\Item\Item.cs" />
+    <Compile Include="Assets\Scripts\Partcles\BloodEffect.cs" />
+    <Compile Include="Assets\Scripts\Partcles\HotEffect.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerStateController.cs" />
     <Compile Include="Assets\Scripts\PowerController.cs" />
