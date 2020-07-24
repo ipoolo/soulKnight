@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BloodEffect.cs" />
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
+    <Compile Include="Assets\Scripts\Buff\BuffDotOrHot.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffInterFace.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\BulletArrow.cs" />

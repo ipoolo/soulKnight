@@ -57,7 +57,7 @@ public class Buff : MonoBehaviour
         
     }
 
-    public void BuffLoad(GameObject _target , PersistentStateTargetType _targetType)
+    public virtual void BuffLoad(GameObject _target, PersistentStateTargetType _targetType)
     {
         targetType = _targetType;
         switch (_targetType)
@@ -76,11 +76,18 @@ public class Buff : MonoBehaviour
         }
         transform.position = targetGb.transform.position;
         transform.parent = targetGb.transform;
-        BuffLoadBody();
-        Invoke("BuffUnLoad", duration);
+        
+        if (BuffLoadBodyAndIsInvoke())
+        {
+            Debug.Log("BUG");
+            Invoke("BuffUnLoad", duration);
+        }
+
+
     }
-    public virtual void BuffLoadBody()
+    public virtual bool BuffLoadBodyAndIsInvoke()
     {
+        bool isInvoke = true;
         //加载BUFF状态 显示效果
         if(buffPrefabsResPath != null && buffSpritePrefab ==null)
         {
@@ -106,6 +113,7 @@ public class Buff : MonoBehaviour
             buffSprite.transform.parent = transform;
             
         }
+        return isInvoke;
     }
 
 

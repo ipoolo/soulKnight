@@ -142,13 +142,11 @@ public class Enemy : MonoBehaviour
                 patrolTimer = 0;
                 rigid2d.velocity = Vector3.zero;
             }
-
         }
         else
         {
             rigid2d.velocity = Vector3.zero;
         }
-
 
     }
 
@@ -264,9 +262,7 @@ public class Enemy : MonoBehaviour
                 _existSameBuff = buff;
             }
         }
-
         return returnValue;
-
     }
 
     public void removeBuff(Buff _buff)
