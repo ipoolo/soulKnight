@@ -126,9 +126,9 @@ public class Bullet : MonoBehaviour
     private float ExcuteHittingBuffEffect(float _damage)
     {
         float tmp = _damage;
-        if (castor is BuffInterFace)
+        if (castor is BuffReceiverInterFace)
         {
-            List<Buff>  buffList= (castor as BuffInterFace).GetBuffList();
+            List<Buff>  buffList= (castor as BuffReceiverInterFace).GetBuffList();
             foreach(Buff buff in buffList)
             {
                 if (buff is BuffReceiveHittingDamageInterFace)

@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.iOS;
 using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class Enemy : MonoBehaviour, BuffInterFace
+public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, SkillFinishCallBack
 {
 
     public Transform BottomLeft;
     public Transform TopRight;
+
+    public Animator animator;
     public float waitTime;
     public float moveSpeed;
     [SerializeField] public float moveSpeedLevelUpScale;
@@ -47,35 +50,51 @@ public class Enemy : MonoBehaviour, BuffInterFace
 
     public bool canReceiveRepel = true;
 
-    public Vector3 buffPositionOffset = new Vector3(0,1,0);
+    public Vector3 buffPositionOffset = new Vector3(0, 1, 0);
 
     //buff
     private List<Buff> buffList = new List<Buff>();
 
+
+    private bool isSkillControl = false;
+
+    private float skillCoolDownTimer = 0;
+
+    public float SkillFireInterval;
+    public List<string> skillResPathList = new List<string>();
+    private Skill currSkill;
+    private SkillConfig currSkillConfig;
+
     // Start is called before the first frame update
     public void Start()
+    {
+        ConfigDefalut();
+        calculateNewTarget();
+    }
+
+    private void ConfigDefalut()
     {
         rigid2d = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         render = GetComponent<SpriteRenderer>();
         originalColor = render.color;
         health = maxHealth;
-
         //巡逻跟踪时间
-        if(patrolTime == 0)
+        if (patrolTime == 0)
         {
             patrolTime = 2;
         }
         isOutControl = false;
-        calculateNewTarget();
+        animator = GetComponent<Animator>();
     }
 
+    private bool skillTimerStop = false;
     // Update is called once per frame
     public void Update()
     {
-        if (!isOutControl) { 
+        //不是技能控制,不是失去控制时执行
+        if (!isOutControl && !isSkillControl) {
             checkIsFollowToPlayer();
-
             switch (enemyState)
             {
                 case 1:
@@ -86,8 +105,35 @@ public class Enemy : MonoBehaviour, BuffInterFace
                     patrol();
                     break;
             }
-      }
-        
+            if (!skillTimerStop) { 
+                skillCoolDownTimer += Time.deltaTime;
+                if(skillCoolDownTimer >= SkillFireInterval)
+                {
+                    //随机选择技能列表技能释放 TODO这里可以做概率触发技能配置
+                    FireRandomSkill();
+                    skillTimerStop = true;
+
+                }
+            }
+        }
+    }
+
+    private void FireRandomSkill()
+    {
+
+        int randomIndex = Random.Range(0, skillResPathList.Count - 1);
+        GameObject skillPrefab = (GameObject)Resources.Load(skillResPathList[randomIndex]);
+        currSkill = ((GameObject)Instantiate(skillPrefab, transform.position, Quaternion.identity)).GetComponent<Skill>();
+        currSkill.transform.position = transform.position;
+        currSkill.transform.parent = transform;
+        currSkillConfig.castor = gameObject;
+        currSkillConfig.animator = animator;
+        currSkillConfig.skillCanSkillControlDelegate = this;
+        currSkillConfig.skillFinishDelegate = this;
+        currSkillConfig.castorIsEnemy = true;
+        currSkill.ConfigSkill(currSkillConfig);
+
+
     }
 
     public virtual bool enemyLevelUpRulesBody(Enemy _enmey, int _level)
@@ -133,7 +179,7 @@ public class Enemy : MonoBehaviour, BuffInterFace
             {
                 //等待 然后新目标
                 isRunning = false;
-                Invoke("calculateNewTarget",waitTime);
+                Invoke("calculateNewTarget", waitTime);
                 patrolTimer = 0;
                 rigid2d.velocity = Vector3.zero;
             }
@@ -165,12 +211,12 @@ public class Enemy : MonoBehaviour, BuffInterFace
         Collider2D self = _collision.otherCollider;
         if (other.CompareTag("Player"))
         {
-            TouchPlayerBody(_collision , other);
+            TouchPlayerBody(_collision, other);
         }
-        
+
     }
 
-    public virtual void TouchPlayerBody(Collision2D _collision,Collider2D _player)
+    public virtual void TouchPlayerBody(Collision2D _collision, Collider2D _player)
     {
 
         PlayerStateController pc = _player.GetComponentInChildren<PlayerStateController>();
@@ -182,7 +228,7 @@ public class Enemy : MonoBehaviour, BuffInterFace
     private float ExcuteHittingBuffEffect(float _damage)
     {
         float tmp = _damage;
-        if (this is BuffInterFace)
+        if (this is BuffReceiverInterFace)
         {
             foreach (Buff buff in buffList)
             {
@@ -222,7 +268,7 @@ public class Enemy : MonoBehaviour, BuffInterFace
     private float ExcuteHittedBuffEffect(float _damage)
     {
         float tmp = _damage;
-        if (this is BuffInterFace)
+        if (this is BuffReceiverInterFace)
         {
             foreach (Buff buff in buffList)
             {
@@ -247,7 +293,7 @@ public class Enemy : MonoBehaviour, BuffInterFace
         int floorValue = Mathf.FloorToInt(_reduceValue);
         health -= floorValue;
         //掉血粒子效果
-        Instantiate(psEffect,transform.position,Quaternion.identity);
+        Instantiate(psEffect, transform.position, Quaternion.identity);
         //掉血数值 (暴击值和普通值这里应该通过配置设置不同效果)
         Instantiate(canvasDamage, transform.position, Quaternion.identity).GetComponent<DamageText>().setDamageText(floorValue);
 
@@ -255,7 +301,7 @@ public class Enemy : MonoBehaviour, BuffInterFace
         {
 
             //新建死亡效果
-            
+
             Instantiate(Resources.Load("EnemyDeath"), transform.position, Quaternion.identity);
             //新建宝物掉落
             GameObject hp_bar = Instantiate((GameObject)Resources.Load("Coin"));
@@ -264,7 +310,7 @@ public class Enemy : MonoBehaviour, BuffInterFace
             //销毁自己
             GetComponentInParent<EnemyBase>().baseDestory();
         }
-        
+
     }
 
     private void RenderRed()
@@ -275,7 +321,7 @@ public class Enemy : MonoBehaviour, BuffInterFace
 
 
     IEnumerator BackToOriginalColor()
-    {   
+    {
         yield return new WaitForSeconds(turnRedTime);
         render.color = originalColor;
     }
@@ -320,5 +366,27 @@ public class Enemy : MonoBehaviour, BuffInterFace
     public List<Buff> GetBuffList()
     {
         return buffList;
+    }
+
+    public void SkillFire(){
+        //animationEeventCall
+        currSkill.turnState2SkillFire();
+    }
+
+    public void SetCanSkillControl(bool _canSkillContro)
+    {
+        isSkillControl = _canSkillContro;
+    }
+
+    public bool getCanSkillControl()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SkillFinishCallBack()
+    {
+        //dosomething;
+        skillCoolDownTimer = 0;
+        skillTimerStop = false;
     }
 }

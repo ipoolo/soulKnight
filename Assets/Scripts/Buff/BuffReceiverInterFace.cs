@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-interface BuffInterFace
+interface BuffReceiverInterFace
 {
     List<Buff> GetBuffList();
 }

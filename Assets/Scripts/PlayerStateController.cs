@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerStateController : MonoBehaviour,BuffInterFace
+public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
 {
     public GameObject statePanel;
     public StatePanelController spController;
 
+    //TODO这类可以再向上抽象接口 npc来实现 基础的血量属性这些的统一(skill buff处就不用判断是玩家还是npc了直接 面向接口编程 ，这里有空再改吧，enemy处和这里统一调整)
     public int health;
     public int maxHealth;
     public int armor;
@@ -283,7 +284,7 @@ public class PlayerStateController : MonoBehaviour,BuffInterFace
     private float ExcuteHittedBuffEffect(float _damage)
     {
         float tmp = _damage;
-        if (this is BuffInterFace)
+        if (this is BuffReceiverInterFace)
         {
             foreach (Buff buff in buffList)
             {
