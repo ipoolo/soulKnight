@@ -32,7 +32,13 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
 
     public GameObject psEffect;//这里可以写的基类，提高复用
 
-    private int enemyState = 0; // 没写枚举，直接用数字代替了0 代表巡逻 1代表追击
+    enum EnemyStateType
+    {
+        enemyStatePatrol,
+        enemyStateFollowPlayer
+
+    }
+    private EnemyStateType enemyStateType = EnemyStateType.enemyStatePatrol; // 没写枚举，直接用数字代替了0 代表巡逻 1代表追击
 
     private bool isRunning;
 
@@ -88,19 +94,23 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
         animator = GetComponent<Animator>();
     }
 
-    private bool skillTimerStop = false;
+    private bool skillTimerStop = true;
     // Update is called once per frame
     public void Update()
     {
+
         //不是技能控制,不是失去控制时执行
         if (!isOutControl && !isSkillControl) {
             checkIsFollowToPlayer();
-            switch (enemyState)
+            switch (enemyStateType)
             {
-                case 1:
+                case EnemyStateType.enemyStatePatrol:
+                    patrol();
+                    break;
+                case EnemyStateType.enemyStateFollowPlayer:
                     fellowToPlayer();
                     break;
-                case 0:
+                
                 default:
                     patrol();
                     break;
@@ -116,22 +126,39 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
                 }
             }
         }
+        //检查运动方向与sprite朝向
+        CheckVelocityDirection();
+
+    }
+
+    private void CheckVelocityDirection()
+    {
+        if(rigid2d.velocity.x >= 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 
     private void FireRandomSkill()
     {
 
         int randomIndex = Random.Range(0, skillResPathList.Count - 1);
-        GameObject skillPrefab = (GameObject)Resources.Load(skillResPathList[randomIndex]);
-        currSkill = ((GameObject)Instantiate(skillPrefab, transform.position, Quaternion.identity)).GetComponent<Skill>();
-        currSkill.transform.position = transform.position;
-        currSkill.transform.parent = transform;
-        currSkillConfig.castor = gameObject;
-        currSkillConfig.animator = animator;
-        currSkillConfig.skillCanSkillControlDelegate = this;
-        currSkillConfig.skillFinishDelegate = this;
-        currSkillConfig.castorIsEnemy = true;
-        currSkill.ConfigSkill(currSkillConfig);
+        if(skillResPathList.Count != 0) { 
+            GameObject skillPrefab = (GameObject)Resources.Load(skillResPathList[randomIndex]);
+            currSkill = ((GameObject)Instantiate(skillPrefab, transform.position, Quaternion.identity)).GetComponent<Skill>();
+            currSkill.transform.position = transform.position;
+            currSkill.transform.parent = transform;
+            currSkillConfig.castor = gameObject;
+            currSkillConfig.animator = animator;
+            currSkillConfig.skillCanSkillControlDelegate = this;
+            currSkillConfig.skillFinishDelegate = this;
+            currSkillConfig.castorIsEnemy = true;
+            currSkill.ConfigSkill(currSkillConfig);
+        }
 
 
     }
@@ -149,11 +176,15 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
         playerPosition = player.transform.position;
         if ((playerPosition - transform.position).sqrMagnitude < senseRaidus)
         {
-            enemyState = 1;
+            enemyStateType = EnemyStateType.enemyStateFollowPlayer;
+            skillTimerStop = false;
+            skillCoolDownTimer = 0;
+            //只有跟踪玩家时才开始计算技能释放
         }
         else
         {
-            enemyState = 0;
+            enemyStateType = EnemyStateType.enemyStatePatrol;
+            skillTimerStop = true;
         }
     }
 
