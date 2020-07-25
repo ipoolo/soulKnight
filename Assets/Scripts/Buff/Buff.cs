@@ -69,7 +69,6 @@ public class Buff : MonoBehaviour
         
         if (BuffLoadBodyAndIsInvoke())
         {
-            Debug.Log("BUG");
             Invoke("BuffUnLoad", duration);
         }
 

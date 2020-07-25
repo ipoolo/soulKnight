@@ -67,9 +67,10 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
     private float skillCoolDownTimer = 0;
 
     public float SkillFireInterval;
-    public List<string> skillResPathList = new List<string>();
+    
     private Skill currSkill;
     private SkillConfig currSkillConfig;
+    public List<string> skillResPathList = new List<string>();
 
     // Start is called before the first frame update
     public void Start()
@@ -157,7 +158,10 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
             currSkillConfig.skillCanSkillControlDelegate = this;
             currSkillConfig.skillFinishDelegate = this;
             currSkillConfig.castorIsEnemy = true;
+            currSkillConfig.targetPosition = playerPosition;
+            currSkillConfig.castorRigidbody2d = rigid2d;
             currSkill.ConfigSkill(currSkillConfig);
+            currSkill.CastSkill();
         }
 
 
@@ -176,9 +180,15 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
         playerPosition = player.transform.position;
         if ((playerPosition - transform.position).sqrMagnitude < senseRaidus)
         {
+            if(enemyStateType == EnemyStateType.enemyStatePatrol)
+            {
+                //状态切换时
+                skillTimerStop = false;
+                skillCoolDownTimer = 0;
+
+            }
             enemyStateType = EnemyStateType.enemyStateFollowPlayer;
-            skillTimerStop = false;
-            skillCoolDownTimer = 0;
+                
             //只有跟踪玩家时才开始计算技能释放
         }
         else

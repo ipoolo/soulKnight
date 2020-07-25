@@ -96,7 +96,6 @@ public class Weapon : MonoBehaviour
             isStoragePower = false;
             powerController.hidePowerBar();
         }
-        Debug.Log("a");
 
     }
 
@@ -166,14 +165,12 @@ public class Weapon : MonoBehaviour
         Vector3 vectorfireP2MouseP = _mousePosition - _firePointPosition;
         targetDirection = vectorfireP2MouseP;
         Vector3 vectortransformP2fireP = _firePointPosition - _transformPosition;
-        Debug.Log("Vector3.Dot(vectorfireP2MouseP, vectortransformP2fireP)!!"+ Vector3.Dot(vectorfireP2MouseP, vectortransformP2fireP));
         if (Vector3.Dot(vectorfireP2MouseP, vectortransformP2fireP) < 0)
         //小于零说明不同向
         {
             targetDirection = Quaternion.Euler(0, 0, 180) * vectorfireP2MouseP;
         }
 
-        Debug.Log("targetDirection" + targetDirection);
         return targetDirection;
     }
 }

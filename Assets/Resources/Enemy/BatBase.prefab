@@ -231,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BottomLeft: {fileID: 8415336382774465365}
   TopRight: {fileID: 8415336383316984982}
+  animator: {fileID: 0}
   waitTime: 2
   moveSpeed: 3
   moveSpeedLevelUpScale: 0
@@ -248,7 +249,11 @@ MonoBehaviour:
   patrolTimer: 0
   psEffect: {fileID: 7372007832080357348, guid: 3ae6f25391c7dd04aa81c2ef35b863d8,
     type: 3}
+  canReceiveRepel: 1
   buffPositionOffset: {x: 0, y: 1, z: 0}
+  SkillFireInterval: 3
+  skillResPathList:
+  - SkillRushAttack
 --- !u!1 &8415336383316984977
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,10 +25,13 @@ public struct SkillConfig
     public object skillCanSkillControlDelegate;
     public object skillFinishDelegate;
     public bool castorIsEnemy;
+    public Vector3 targetPosition;
+    public Rigidbody2D castorRigidbody2d;
 }
 
-enum SkillStateType
+public enum SkillStateType
 {
+    skillTypeNone,
     skillTypeConfig,
     skillTypeCasting,
     skillTypeRunning,
@@ -38,17 +41,17 @@ enum SkillStateType
 
 public class Skill : MonoBehaviour
 {
-    SkillConfig skillConfig;
-    [SerializeField] public  string animationPath;
-    [SerializeField] public string animationLayer;
-    [SerializeField] public float animationAnimTimeOffest;
+    public SkillConfig skillConfig;
+    [SerializeField] public string castingDefaultAnimationPath;
+    [SerializeField] public string castingDefaultAnimationLayer;
+    [SerializeField] public float animPlayTimeOffest;
     [SerializeField] public float skillCastingTime;
     [SerializeField] public bool isLockCastorControllerAtSkillCasting;
     [SerializeField] public bool isLockCastorControllerAtSkillRunnig;
     private float castTimer;
     private float runningTimer;
     private float finishTimer;
-    SkillStateType skillStateType;
+    public SkillStateType skillStateType;
     
 
     // Start is called before the first frame update
@@ -80,6 +83,7 @@ public class Skill : MonoBehaviour
     {
         skillConfig = _skillConfig;
         skillStateType = SkillStateType.skillTypeConfig;
+        Debug.Log("ConfigSkill");
     }
 
     public virtual void CastSkill()
@@ -90,11 +94,13 @@ public class Skill : MonoBehaviour
         }
         castTimer = 0.0f;
         skillStateType = SkillStateType.skillTypeRunning;
+        Debug.Log("CastSkill");
 
     }
 
     private void CastUpdate()
     {
+        Debug.Log("CastUpdate");
         if (castTimer == 0)
         {
             CastSkillOnceBody();
@@ -118,7 +124,7 @@ public class Skill : MonoBehaviour
 
         if (skillConfig.animator != null)
         {
-            skillConfig.animator.Play(animationPath, LayerMask.NameToLayer(animationLayer), animationAnimTimeOffest);
+            skillConfig.animator.Play(castingDefaultAnimationPath, LayerMask.NameToLayer(castingDefaultAnimationLayer), animPlayTimeOffest);
             //skillConfig.animator.runtimeAnimatorController.animationClips[]
             //这里的吟唱到触发是用的计时器，也可以用AnimationEvent，动画剪辑回调到cast 然后传进来改变SkillStateType的状态。
         }
@@ -139,7 +145,7 @@ public class Skill : MonoBehaviour
         runningTimer += Time.deltaTime;
 
         //留给子类之类的做cast动效(粒子效果等)
-        RunningSkillBody(runningTimer);
+        RunningSkillUpdateBody(runningTimer);
         
     }
 
@@ -148,13 +154,13 @@ public class Skill : MonoBehaviour
 
         if (skillConfig.animator != null)
         {
-            skillConfig.animator.Play(animationPath, LayerMask.NameToLayer(animationLayer), animationAnimTimeOffest);
+            skillConfig.animator.Play(castingDefaultAnimationPath, LayerMask.NameToLayer(castingDefaultAnimationLayer), animPlayTimeOffest);
             //skillConfig.animator.runtimeAnimatorController.animationClips[]
             //这里的吟唱到触发是用的计时器，也可以用AnimationEvent，动画剪辑回调到cast 然后传进来改变SkillStateType的状态。
         }
     }
 
-    public virtual void RunningSkillBody(float castTimer)
+    public virtual void RunningSkillUpdateBody(float castTimer)
     {
         //技能子类需要自己设置技能结束
         skillStateType = SkillStateType.skillTypeFinish;
@@ -172,14 +178,14 @@ public class Skill : MonoBehaviour
         finishTimer += Time.deltaTime;
 
         //留给子类之类的做cast动效(粒子效果等)
-        FinishSkillBody(runningTimer);
+        FinishSkillUpdateBody(runningTimer);
     }
     public virtual void FinishSkillOnceBody()
     {
 
     }
 
-    public virtual void FinishSkillBody(float runningTimer)
+    public virtual void FinishSkillUpdateBody(float runningTimer)
     {
         Destroy(gameObject);
     }

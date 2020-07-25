@@ -39,7 +39,6 @@ public class Item : MonoBehaviour,InteractionInterface
         if (ohter.CompareTag("Player"))
         {
             //将自己塞入player的InteractionList;
-            Debug.Log("pc"+ playerController);
             playerController.Add2InteractionList(this);
             OnTriggerEnter2DBody();
         }

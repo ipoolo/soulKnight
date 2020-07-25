@@ -69,7 +69,6 @@ public class GameController : MonoBehaviour
         int num = _level + baseEnemyNum;
         for (int i = 0; i < num; i++)
         {
-            Debug.Log("a");
             SpawnEneny(_level);
             yield return new WaitForSeconds(spwanStepWaitTime);
         }

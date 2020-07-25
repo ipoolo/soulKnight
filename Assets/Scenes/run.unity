@@ -1515,7 +1515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  baseEnemyNum: 0
+  baseEnemyNum: 4
   spwanStepWaitTime: 1
   coinNum: 0
 --- !u!4 &734323970
