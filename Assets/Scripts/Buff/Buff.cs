@@ -47,13 +47,14 @@ public class Buff : MonoBehaviour
         
     }
 
-    public void BuffLoad(GameObject _target, PersistentStateTargetType _targetType)
+    public Buff BuffLoad(GameObject _target, PersistentStateTargetType _targetType)
     {
         targetType = _targetType;
         switch (_targetType)
         {
             case PersistentStateTargetType.enemy:
                 enemy = _target.GetComponentInParent<Enemy>();
+                enemy.AddBuff(this);
                 targetGb = enemy.gameObject;
                 break;
             case PersistentStateTargetType.player:
@@ -66,24 +67,14 @@ public class Buff : MonoBehaviour
         }
         transform.position = targetGb.transform.position;
         transform.parent = targetGb.transform;
-        
-        if (BuffLoadBodyAndIsInvoke())
-        {
-            Invoke("BuffUnLoad", duration);
-        }
 
-
-    }
-    public virtual bool BuffLoadBodyAndIsInvoke()
-    {
-        bool isInvoke = true;
         //加载BUFF状态 显示效果
-        if(buffPrefabsResPath != null && buffSpritePrefab ==null)
+        if (buffPrefabsResPath != null && buffSpritePrefab == null)
         {
             buffSpritePrefab = (GameObject)Resources.Load(buffPrefabsResPath);
         }
 
-        if(buffSpritePrefab != null)
+        if (buffSpritePrefab != null)
         {
             Vector3 buffPositionOffset = Vector3.zero;
             switch (targetType)
@@ -98,13 +89,18 @@ public class Buff : MonoBehaviour
                     break;
             }
             Vector3 position = targetGb.transform.position + buffPositionOffset;
-            buffSprite = Instantiate(buffSpritePrefab, position,Quaternion.identity);
+            buffSprite = Instantiate(buffSpritePrefab, position, Quaternion.identity);
             buffSprite.transform.parent = transform;
-            
-        }
-        return isInvoke;
-    }
 
+        }
+
+        if (BuffLoadBodyAndIsInvokeBody())
+        {
+            Invoke("BuffUnLoad", duration);
+        }
+
+        return this;
+    }
 
     public void BuffUnLoad()
     {
@@ -120,12 +116,16 @@ public class Buff : MonoBehaviour
         Destroy(buffSprite);
         Destroy(gameObject);
     }
+
+    public virtual bool BuffLoadBodyAndIsInvokeBody()
+    {
+        bool isInvoke = true;
+        return isInvoke;
+    }
+
     public virtual void BuffUnLoadBody()
     {
 
     }
 
-    public class BuffReceiveHittedDamageInterFace
-    {
-    }
 }

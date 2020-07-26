@@ -22,7 +22,6 @@ public class SkillRushAttack : Skill
     }
     public override void RunningSkillUpdateBody(float castTimer)
     {
-        Debug.Log("RunningSkillUpdateBody");
         Vector3 targetVector = targetPosition - transform.position;
         Vector3 normalizedVector = targetVector.normalized;
         Vector3 velocityVector = normalizedVector * rushSpeed;

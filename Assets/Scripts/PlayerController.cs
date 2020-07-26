@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] public float moveSpeed;
-
+    private PlayerStateController playerStateController;
 
     private Rigidbody2D rid2d;
   
@@ -30,6 +29,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         weaponPoint = GetComponentInChildren<WeaponPoint>();
         isOutController = false;
+        playerStateController = GetComponentInChildren<PlayerStateController>();
     }
 
     // Update is called once per frame
@@ -55,7 +55,8 @@ public class PlayerController : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>().coinReduce(1);
 
-            Instantiate(Resources.Load("Buff") as GameObject, Vector3.zero, Quaternion.identity).GetComponent<Buff>().BuffLoad(gameObject, PersistentStateTargetType.player) ;
+            Instantiate(Resources.Load("Buff/BuffAttackIncrementPresent") as GameObject, Vector3.zero, Quaternion.identity).GetComponent<Buff>().BuffLoad(gameObject, PersistentStateTargetType.player) ;
+
         }
     }
 
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
-        rid2d.velocity = new Vector2( moveX * moveSpeed , moveY * moveSpeed);
+        rid2d.velocity = new Vector2( moveX * playerStateController.moveSpeed, moveY * playerStateController.moveSpeed);
 
         if(rid2d.velocity.sqrMagnitude > 0.2f)
         {

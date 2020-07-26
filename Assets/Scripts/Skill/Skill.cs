@@ -48,6 +48,8 @@ public class Skill : MonoBehaviour
     [SerializeField] public float skillCastingTime;
     [SerializeField] public bool isLockCastorControllerAtSkillCasting;
     [SerializeField] public bool isLockCastorControllerAtSkillRunnig;
+    [SerializeField] public string skillEffectPrefabsPath;
+    private GameObject skillEffectPrefabs;
     private float castTimer;
     private float runningTimer;
     private float finishTimer;
@@ -83,7 +85,9 @@ public class Skill : MonoBehaviour
     {
         skillConfig = _skillConfig;
         skillStateType = SkillStateType.skillTypeConfig;
-        Debug.Log("ConfigSkill");
+        if (skillEffectPrefabsPath.Length != 0) { 
+            skillEffectPrefabs = (GameObject)Resources.Load(skillEffectPrefabsPath);
+        }
     }
 
     public virtual void CastSkill()
@@ -92,6 +96,11 @@ public class Skill : MonoBehaviour
         {
             LockCastorContorl();
         }
+        if (skillEffectPrefabs) { 
+            GameObject skillEffectGO = Instantiate(skillEffectPrefabs, transform.position, Quaternion.identity);
+            skillEffectGO.transform.parent = transform;
+        }
+
         castTimer = 0.0f;
         skillStateType = SkillStateType.skillTypeRunning;
         Debug.Log("CastSkill");
@@ -151,8 +160,12 @@ public class Skill : MonoBehaviour
 
     public virtual void RunningSkillOnceBody()
     {
+        if (isLockCastorControllerAtSkillRunnig)
+        {
+            LockCastorContorl();
+        }
 
-        if (skillConfig.animator != null)
+        if (skillConfig.animator != null && castingDefaultAnimationPath.Length != 0)
         {
             skillConfig.animator.Play(castingDefaultAnimationPath, LayerMask.NameToLayer(castingDefaultAnimationLayer), animPlayTimeOffest);
             //skillConfig.animator.runtimeAnimatorController.animationClips[]

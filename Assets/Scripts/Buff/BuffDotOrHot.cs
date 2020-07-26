@@ -64,13 +64,14 @@ public class BuffDotOrHot : Buff
         Debug.Log("effect:" + buffTimer);
     }
 
-    public override bool BuffLoadBodyAndIsInvoke()
+    public override bool BuffLoadBodyAndIsInvokeBody()
     {
-        base.BuffLoadBodyAndIsInvoke();
+        base.BuffLoadBodyAndIsInvokeBody();
         //是否立刻生效看配置的timeoffset
         isActiveTimer = true;
         return false;
         //dot完成后自己调用unload不用 buff的unload调用生命周期
+
     }
 
 

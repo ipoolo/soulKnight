@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
 {
     public GameObject statePanel;
+    [SerializeField] public float moveSpeed;
     public StatePanelController spController;
 
     //TODO这类可以再向上抽象接口 npc来实现 基础的血量属性这些的统一(skill buff处就不用判断是玩家还是npc了直接 面向接口编程 ，这里有空再改吧，enemy处和这里统一调整)

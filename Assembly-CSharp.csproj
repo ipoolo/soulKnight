@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
+    <Compile Include="Assets\Scripts\Buff\BuffAttackIncrementPresent.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffAttackRecovery.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffDefenseReduce.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffDotOrHot.cs" />
@@ -90,6 +91,9 @@
     <Compile Include="Assets\Scripts\PowerController.cs" />
     <Compile Include="Assets\Scripts\Skill\CastSkillOnceBody.cs" />
     <Compile Include="Assets\Scripts\Skill\Skill.cs" />
+    <Compile Include="Assets\Scripts\Skill\SkillFireCondition.cs" />
+    <Compile Include="Assets\Scripts\Skill\SkillFireConditionController.cs" />
+    <Compile Include="Assets\Scripts\Skill\SkillRage.cs" />
     <Compile Include="Assets\Scripts\Skill\SkillRushAttack.cs" />
     <Compile Include="Assets\Scripts\StatePanel\StatePanelController.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bow.cs" />
