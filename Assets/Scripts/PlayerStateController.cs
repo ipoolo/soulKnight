@@ -30,16 +30,10 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
     public Rigidbody2D playerRigidbody2D;
     public PlayerController pc;
 
-    private float outControlTime = 0.05f;
 
     public string restoreEffectPathStrInRes;
     public float restoreEffectColorTime;
     public Color restoreEffectColor;
-
-
-    //buff
-    private List<Buff> buffList = new List<Buff>();
-    //debuff
 
     [SerializeField] public float invincibilityTime;
 
@@ -132,15 +126,10 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
         render.color = originalColor;
     }
 
-
-
-    
-
     public override void UpdateStateUIBody()
     {
         UpdateStatePlane();
     }
-
 
     private void UpdateStatePlane()
     {
@@ -148,8 +137,6 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
         spController.changeArmor(armor, maxArmor);
         spController.changeMana(mana, maxMana);
     }
-
-
 
     //coin
     //coinSetting
