@@ -3,31 +3,19 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
+public class PlayerStateController : NPC,BuffReceiverInterFace
 {
     public GameObject statePanel;
-    [SerializeField] public float moveSpeed;
     public StatePanelController spController;
 
     //TODO这类可以再向上抽象接口 npc来实现 基础的血量属性这些的统一(skill buff处就不用判断是玩家还是npc了直接 面向接口编程 ，这里有空再改吧，enemy处和这里统一调整)
-    public int health;
-    public int maxHealth;
-    public int armor;
-    public int maxArmor;
-    public int mana;
-    public int maxMana;
+
 
     public int coinNum;
     public float receiveRepelVectorScale;
     public GameObject player;
 
-    public float recoverArmorStepTime;
-    public int recoverArmorStepValue;
-    public float recoverArmorInterruptTime;
-    private float recoverArmorCounter;
-    private float recoverArmorInterruptCounter;
 
-    private bool isRecoverArmor;
 
     private CoinAreaController cac;
 
@@ -36,29 +24,23 @@ public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
     public SpriteRenderer render;
     private Color originalColor;
     private bool isLayerShake;
-    private bool isReceiveDamage;
+
 
     public float canvasDamageOffsetY;
     public Rigidbody2D playerRigidbody2D;
     public PlayerController pc;
 
-    private float outControlTime = 0.05f;
-    public Vector3 buffPositionOffset = new Vector3(0, 0, 0);
 
     public string restoreEffectPathStrInRes;
     public float restoreEffectColorTime;
     public Color restoreEffectColor;
 
-
-    //buff
-    private List<Buff> buffList = new List<Buff>();
-    //debuff
-
     [SerializeField] public float invincibilityTime;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
+        base.Start();
         ConfigDefault();
         UpdateStatePlane();
 
@@ -81,6 +63,7 @@ public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
         pc = player.GetComponent<PlayerController>();
 
         isRecoverArmor = true;
+
         render = gameObject.GetComponentInParent<SpriteRenderer>();
         originalColor = render.color;
 
@@ -101,43 +84,29 @@ public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        if (isRecoverArmor)
-        {
-            recoverArmorCounter += Time.deltaTime;
-            if (recoverArmorCounter >= recoverArmorStepTime)
-            {
-                //等待时间触发恢复
-                RecoverArmor(recoverArmorStepValue);
-                //reset
-                recoverArmorCounter = 0;
-            }
-        }
-        else
-        {
-            recoverArmorInterruptCounter += Time.deltaTime;
-            if (recoverArmorInterruptCounter >= recoverArmorInterruptTime)
-            {
-                isRecoverArmor = true;
-                recoverArmorInterruptCounter = 0;
-                //中断结束立刻恢复一次(offset一下恢复计数器达到效果)
-                recoverArmorCounter = recoverArmorStepTime;
-            }
-        }
+        base.Update();
     }
 
     //RestoreHealth
-    public void RestoreHealth(int _hp)
+    //public void RestoreHealth(int _hp)
+    //{
+    //    if(_hp > 0) { 
+    //        int tmp = health + _hp;
+    //        health = tmp > maxHealth ? maxHealth : tmp;
+    //        //restoreEffect
+    //        RestoreEffect();
+    //        UpdateStatePlane();
+    //    }
+    //}
+
+    public override void RestoreHealthBody(int _hp)
     {
-        if(_hp > 0) { 
-            int tmp = health + _hp;
-            health = tmp > maxHealth ? maxHealth : tmp;
-            //restoreEffect
-            RestoreEffect();
-            UpdateStatePlane();
-        }
+        RestoreEffect();
+        UpdateStatePlane();
     }
+
 
     private void RestoreEffect()
     {
@@ -157,60 +126,9 @@ public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
         render.color = originalColor;
     }
 
-
-
-    
-    private bool ReceiveDamage(int damage)
+    public override void UpdateStateUIBody()
     {
-        bool receiveSuccess = true;
-        int temp = armor - damage;
-
-        //开启中断recoverArmorInterruptCounter
-        isRecoverArmor = false;
-        recoverArmorInterruptCounter = 0;//重新计时
-
-        if (temp >= 0)
-        {
-            //防御足够吸收
-            armor = temp;
-        }
-        else
-        {
-            armor = 0;
-            health -= math.abs(temp);
-            if (health <= 0)
-            {
-                //血量不足以吸收伤害
-                health = 0;
-                receiveSuccess = false;
-                //TODO
-                Debug.Log("PlayerDeal");
-            }
-        }
         UpdateStatePlane();
-        return receiveSuccess;
-    }
-
-    public bool ReceiveManaReduce(int manaReduce)
-    {
-        if (mana == 0)
-        {
-            return false;
-        }
-
-        int temp = mana - manaReduce;
-        if (temp >= 0)
-        {
-            mana = temp;
-        }
-        else
-        {
-            mana = 0;
-        }
-
-        UpdateStatePlane();
-
-        return true;
     }
 
     private void UpdateStatePlane()
@@ -218,13 +136,6 @@ public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
         spController.changeHealth(health, maxHealth);
         spController.changeArmor(armor, maxArmor);
         spController.changeMana(mana, maxMana);
-    }
-
-    private void RecoverArmor(int i)
-    {
-        armor += 1;
-        armor = armor >= maxArmor ? maxArmor : armor;
-        UpdateStatePlane();
     }
 
     //coin
@@ -261,52 +172,26 @@ public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
 
     //receiveDamage
 
-    public void ReceiveDamageWithOutRepel(float _damage)
+    public override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
-        ReceiveDamageWithRepelVector(_damage, Vector3.zero);
-    }
-    public void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
-    {
-
-        if (isReceiveDamage)
-        {
-            isReceiveDamage = false;
-            Vector3 tmp = _repelVector.normalized / outControlTime;
-            playerRigidbody2D.velocity = tmp;
-
-            pc.isOutController = true;
-            StartCoroutine("PlayerBackToContoller");
-            
-            ReduceHealth(ExcuteHittedBuffEffect(_damage));
+        if (isReceiveDamage) { 
+           isReceiveDamage = false;
             RenderWhiteAndTurnInvincibilityLayer();
-        }
-    }
 
-    private float ExcuteHittedBuffEffect(float _damage)
-    {
-        float tmp = _damage;
-        if (this is BuffReceiverInterFace)
+        }
+        if (isOutControl)
         {
-            foreach (Buff buff in buffList)
-            {
-                if (buff is BuffReceiveHittedDamageInterFace)
-                {
-                    tmp = ((BuffReceiveHittedDamageInterFace)buff).BuffReceiveHittedDamageInterFaceBody(tmp);
-                }
-            }
+            pc.isOutController = true;
         }
-
-        return tmp;
     }
 
-    IEnumerator PlayerBackToContoller()
-    {
-        yield return new WaitForSeconds(outControlTime);
-        pc.isOutController = false;
-        
-    } 
 
-    private void ReduceHealth(float _reduceValue)
+    public override void BackToUnderControlBody(bool _isOutControl)
+    {
+        pc.isOutController = _isOutControl;
+    }
+
+    public override void ReduceHealthBody(float _reduceValue)
     {
         int floorValue = Mathf.FloorToInt(_reduceValue);
 
@@ -355,47 +240,5 @@ public class PlayerStateController : MonoBehaviour,BuffReceiverInterFace
         }
     }
 
-    //buffList
-    public void AddBuff(Buff _buff)
-    {
-        Buff existSameBuff = null;
-        //验重
-        if(CheckBuffIsExist(_buff.ToString(),out existSameBuff))
-        {
-            buffList.Remove(existSameBuff);
-            existSameBuff.BuffUnLoad();
-        }
 
-        buffList.Add(_buff);
-
-        Debug.Log("buffList"+ buffList.Count);
-    }
-
-    private bool CheckBuffIsExist(string _buffName,out Buff _existSameBuff)
-    {
-        bool returnValue = false;
-        _existSameBuff = null;
-
-        foreach (Buff buff in buffList)
-        {
-            if(buff.ToString().Equals(_buffName))
-            {
-                returnValue = true;
-                _existSameBuff = buff;
-            }
-        }
- 
-        return returnValue;
-
-    }
-
-    public void RemoveBuff(Buff _buff)
-    {
-        buffList.Remove(_buff);
-    }
-
-    public List<Buff> GetBuffList()
-    {
-        return buffList;
-    }
 }

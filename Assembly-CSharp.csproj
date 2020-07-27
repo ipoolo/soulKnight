@@ -78,6 +78,15 @@
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyDeath.cs" />
+    <Compile Include="Assets\Scripts\Enemy\NPC.cs" />
+    <Compile Include="Assets\Scripts\Entity\Entity.cs" />
+    <Compile Include="Assets\Scripts\Entity\EntityManager.cs" />
+    <Compile Include="Assets\Scripts\Entity\MessageDispatcher.cs" />
+    <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStateGolbal.cs" />
+    <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStatePatrol.cs" />
+    <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStateTrack.cs" />
+    <Compile Include="Assets\Scripts\FSM\FSMState.cs" />
+    <Compile Include="Assets\Scripts\FSM\StateMachine.cs" />
     <Compile Include="Assets\Scripts\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\InterFace\InteractionInterface.cs" />
@@ -96,6 +105,7 @@
     <Compile Include="Assets\Scripts\Skill\SkillRage.cs" />
     <Compile Include="Assets\Scripts\Skill\SkillRushAttack.cs" />
     <Compile Include="Assets\Scripts\StatePanel\StatePanelController.cs" />
+    <Compile Include="Assets\Scripts\Tools\Singleton.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bow.cs" />
     <Compile Include="Assets\Scripts\Weapon\Slash.cs" />
     <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />

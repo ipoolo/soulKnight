@@ -9,34 +9,38 @@ public class BuffAttackIncrementPresent : Buff
     public override bool BuffLoadBodyAndIsInvokeBody()
     {
         bool isInvoke = true;
-        switch (targetType)
-        {
-            case PersistentStateTargetType.enemy:
-                incrementValue = enemy.moveSpeed * incrementPresent;
-                enemy.moveSpeed += incrementValue;
-                break;
-            case PersistentStateTargetType.player:
-                incrementValue = playerStateController.moveSpeed * incrementPresent;
-                playerStateController.moveSpeed += incrementValue;
-                break;
-            case PersistentStateTargetType.noTarget:
-                break;
-        }
+        //switch (targetType)
+        //{
+        //    case PersistentStateTargetType.enemy:
+        //        incrementValue = enemy.moveSpeed * incrementPresent;
+        //        enemy.moveSpeed += incrementValue;
+        //        break;
+        //    case PersistentStateTargetType.player:
+        //        incrementValue = playerStateController.moveSpeed * incrementPresent;
+        //        playerStateController.moveSpeed += incrementValue;
+        //        break;
+        //    case PersistentStateTargetType.noTarget:
+        //        break;
+        //}
+
+        incrementValue = targetNpc.moveSpeed * incrementPresent;
+        targetNpc.moveSpeed += incrementValue;
         return isInvoke;
     }
 
     public override void BuffUnLoadBody()
     {
-        switch (targetType)
-        {
-            case PersistentStateTargetType.enemy:
-            enemy.moveSpeed -= incrementValue;
-            break;
-            case PersistentStateTargetType.player:
-            playerStateController.moveSpeed -= incrementValue;
-            break;
-            case PersistentStateTargetType.noTarget:
-            break;
-        }
+        //switch (targetType)
+        //{
+        //    case PersistentStateTargetType.enemy:
+        //    enemy.moveSpeed -= incrementValue;
+        //    break;
+        //    case PersistentStateTargetType.player:
+        //    playerStateController.moveSpeed -= incrementValue;
+        //    break;
+        //    case PersistentStateTargetType.noTarget:
+        //    break;
+        //}
+        targetNpc.moveSpeed -= incrementValue;
     }
 }

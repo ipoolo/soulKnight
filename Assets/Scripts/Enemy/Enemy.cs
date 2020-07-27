@@ -6,17 +6,16 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, SkillFinishCallBack
+public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCallBack
 {
 
-    public Transform BottomLeft;
-    public Transform TopRight;
+
 
     public Animator animator;
-    public float waitTime;
-    public float moveSpeed;
+
+
     [SerializeField] public float moveSpeedLevelUpScale;
-    public float damage;
+
     [SerializeField] public float damageLevelUpScale;
 
     public float senseRaidus;
@@ -24,13 +23,17 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
     public GameObject canvasDamage;//绘制伤害
     public GameObject enemyDeathAnim;
 
-    public int maxHealth;
-    public int health;
+
     public float turnRedTime;
     public float patrolTime;
-    public float patrolTimer;
+    [HideInInspector]public float patrolTimer;//计时器
+    public float patrolWaitTime;
+    public Transform patrolBottomLeft;
+    public Transform patrolTopRight;
 
     public GameObject psEffect;//这里可以写的基类，提高复用
+
+    public StateMachine<Enemy> fsm;
 
     enum EnemyStateType
     {
@@ -38,56 +41,40 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
         enemyStateFollowPlayer
 
     }
-    private EnemyStateType enemyStateType = EnemyStateType.enemyStatePatrol; // 没写枚举，直接用数字代替了0 代表巡逻 1代表追击
 
-    private bool isRunning;
-
-    private Rigidbody2D rigid2d;
-
-    private Vector3 targetPosition;
-    private GameObject player;
-    private Vector3 playerPosition;
+    public GameObject player;
+    public Vector3 playerPosition;
 
     private Color originalColor;
     private SpriteRenderer render;
-
-    private bool isOutControl;
-    private float outControlTime = 0.05f;
-
-    public bool canReceiveRepel = true;
-
-    public Vector3 buffPositionOffset = new Vector3(0, 0, 0);
-
-    //buff
-    private List<Buff> buffList = new List<Buff>();
-
-
     private bool isSkillControl = false;
 
-    private float skillCoolDownTimer = 0;
-
+    public float skillCoolDownTimer = 0;
     public float SkillFireInterval;
-
     private float survivalTime;
+
+    public Vector3 patrolTargetPosition;
+    public bool isPatrolRunning;
 
 
     private Skill currSkill;
     private SkillConfig currSkillConfig = new SkillConfig();
     public List<string> skillRandomResPathList = new List<string>();
     public List<string> skillFireConditionPathList = new List<string>();
-
     private List<SkillFireConditionController> skillFireConditionControllerList = new List<SkillFireConditionController>();
 
+    public bool isSkillTimerStop;
+
     // Start is called before the first frame update
-    public void Start()
+    public new void Start()
     {
+        base.Start();
         ConfigDefalut();
-        calculateNewTarget();
+        ConfigFSM();
     }
 
     private void ConfigDefalut()
     {
-        rigid2d = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         render = GetComponent<SpriteRenderer>();
         originalColor = render.color;
@@ -110,67 +97,58 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
         survivalTime = 0;
 
     }
-
-    private bool skillTimerStop = true;
-    // Update is called once per frame
-    public void Update()
+    private void ConfigFSM()
     {
+        fsm = new StateMachine<Enemy>();
+        fsm.ConfigState(this, FSMEnemyStatePatrol.singleInstance, FSMEnemyStateGolbal.singleInstance);
+        //golbalState还没写
+    }
+
+    // Update is called once per frame
+    public new void Update()
+    {
+        base.Update();
         survivalTime += Time.deltaTime;
 
         //不是技能控制,不是失去控制时执行
         if (!isOutControl && !isSkillControl) {
-            checkIsFollowToPlayer();
-            switch (enemyStateType)
-            {
-                case EnemyStateType.enemyStatePatrol:
-                    patrol();
-                    break;
-                case EnemyStateType.enemyStateFollowPlayer:
-                    fellowToPlayer();
-                    break;
-                
-                default:
-                    patrol();
-                    break;
-            }
-            if (!skillTimerStop) {
 
-                //skillConditionPathList 判断
-                CheckFireConditionPathList();
-
-                //condition技能可以改变是否锁定 再检测一次
-                if (!isSkillControl)
-                {
-
-                    skillCoolDownTimer += Time.deltaTime;
-                    if (skillCoolDownTimer >= SkillFireInterval)
-                    {
-                        //随机选择技能列表技能释放 TODO这里可以做概率触发技能配置
-                        FireRandomSkill();
-                        skillTimerStop = true;
-
-                    }
-                }
-            }
+            fsm.StateMachineUpdate(this);
+            Debug.DrawLine(transform.position, patrolTargetPosition, Color.white);
+            
         }
         //检查运动方向与sprite朝向
         CheckVelocityDirection();
 
     }
 
+    IEnumerator BackToPatrol(Enemy t)
+    {
+        yield return new WaitForSeconds(patrolWaitTime);
+        CalculateNewTarget(t);
+
+    }
+
+    public void CalculateNewTarget(Enemy t)
+    {
+        t.patrolTargetPosition = new Vector3(Random.Range(t.patrolBottomLeft.position.x, t.patrolTopRight.position.x),
+        Random.Range(t.patrolBottomLeft.position.y, t.patrolTopRight.position.y), 0);
+        t.isPatrolRunning = true;
+    }
+
     private void CheckVelocityDirection()
     {
-        if(rigid2d.velocity.x >= 0)
+        if(rigid2d.velocity.x > 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else
+        else if (rigid2d.velocity.x < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
-    private void FireRandomSkill()
+    public void FireRandomSkill()
     {
 
         int randomIndex = Random.Range(0, skillRandomResPathList.Count - 1);
@@ -191,8 +169,7 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
         }
 
     }
-
-    private void CheckFireConditionPathList()
+    public void CheckFireConditionPathList()
     {
         List<SkillFireConditionController> removeList = new List<SkillFireConditionController>();
         foreach(SkillFireConditionController fc in skillFireConditionControllerList)
@@ -235,77 +212,6 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
         return true;
     }
 
-    public void checkIsFollowToPlayer()
-    {
-        playerPosition = player.transform.position;
-        if ((playerPosition - transform.position).sqrMagnitude < senseRaidus)
-        {
-            if(enemyStateType == EnemyStateType.enemyStatePatrol)
-            {
-                //状态切换时
-                skillTimerStop = false;
-                skillCoolDownTimer = 0;
-
-            }
-            enemyStateType = EnemyStateType.enemyStateFollowPlayer;
-                
-            //只有跟踪玩家时才开始计算技能释放
-        }
-        else
-        {
-            enemyStateType = EnemyStateType.enemyStatePatrol;
-            skillTimerStop = true;
-        }
-    }
-
-    public void fellowToPlayer()
-    {
-        //将方向拆分给速度
-        Vector3 targetVector = playerPosition - transform.position;
-        Vector3 normalizedVector = targetVector.normalized;
-        Vector3 velocityVector = normalizedVector * moveSpeed;
-        rigid2d.velocity = velocityVector;
-    }
-
-    private void patrol()
-    {
-        if (isRunning) {
-            patrolTimer += Time.deltaTime;
-            //超时或者到达都进入休息，并且寻找新目标(防止目标为不可抵达)
-            Vector3 targetVector = targetPosition - transform.position;
-            Vector3 normalizedVector = targetVector.normalized;
-            Vector3 velocityVector = normalizedVector * moveSpeed;
-            rigid2d.velocity = velocityVector;
-            if ((targetPosition - transform.position).sqrMagnitude < 0.2f)
-            {
-                //等待 然后新目标
-                isRunning = false;
-                Invoke("calculateNewTarget", waitTime);
-                patrolTimer = 0;
-                rigid2d.velocity = Vector3.zero;
-            }
-            if (patrolTimer >= patrolTime)
-            {
-                isRunning = false;
-                Invoke("calculateNewTarget", waitTime);
-                patrolTimer = 0;
-                rigid2d.velocity = Vector3.zero;
-            }
-        }
-        else
-        {
-            rigid2d.velocity = Vector3.zero;
-        }
-
-    }
-
-    private void calculateNewTarget()
-    {
-        targetPosition = new Vector3(Random.Range(BottomLeft.position.x, TopRight.position.x),
-            Random.Range(BottomLeft.position.y, TopRight.position.y), 0);
-        isRunning = true;
-    }
-
     private void OnCollisionEnter2D(Collision2D _collision)
     {
         Collider2D other = _collision.collider;
@@ -326,70 +232,13 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
 
 
     }
-    private float ExcuteHittingBuffEffect(float _damage)
+
+    public override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
-        float tmp = _damage;
-        if (this is BuffReceiverInterFace)
-        {
-            foreach (Buff buff in buffList)
-            {
-                if (buff is BuffReceiveHittingDamageInterFace)
-                {
-                    tmp = ((BuffReceiveHittingDamageInterFace)buff).BuffReceiveHittingDamageInterFaceBody(tmp);
-                }
-            }
-        }
-
-        return tmp;
-    }
-
-    //RestoreHealth
-
-    public void RestoreHealth(int _hp)
-    {
-        int tmp = health + _hp;
-        health = tmp > maxHealth ? maxHealth : tmp;
-    }
-
-
-    public void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
-    {
-        if (canReceiveRepel)
-        {
-            isOutControl = true;
-            rigid2d.velocity = _repelVector / outControlTime;
-            StartCoroutine("BackToUnderControl");
-        }
-
-        ReduceHealth(ExcuteHittedBuffEffect(_damage));
         RenderRed();
-
     }
 
-    private float ExcuteHittedBuffEffect(float _damage)
-    {
-        float tmp = _damage;
-        if (this is BuffReceiverInterFace)
-        {
-            foreach (Buff buff in buffList)
-            {
-                if (buff is BuffReceiveHittedDamageInterFace)
-                {
-                    tmp = ((BuffReceiveHittedDamageInterFace)buff).BuffReceiveHittedDamageInterFaceBody(tmp);
-                }
-            }
-        }
-
-        return tmp;
-    }
-
-    IEnumerator BackToUnderControl()
-    {
-        yield return new WaitForSeconds(outControlTime);
-        isOutControl = false;
-    }
-
-    private void ReduceHealth(float _reduceValue)
+    public override void ReduceHealthBody(float _reduceValue)
     {
         int floorValue = Mathf.FloorToInt(_reduceValue);
         health -= floorValue;
@@ -404,7 +253,6 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
 
         if (health <= 0)
         {
-
             //新建死亡效果
 
             Instantiate(Resources.Load("EnemyDeath"), transform.position, Quaternion.identity);
@@ -431,47 +279,6 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
         render.color = originalColor;
     }
 
-    //buffList
-    public void AddBuff(Buff _buff)
-    {
-        Buff existSameBuff = null;
-        //验重
-        if (CheckBuffIsExist(_buff.ToString(), out existSameBuff))
-        {
-            buffList.Remove(existSameBuff);
-            existSameBuff.BuffUnLoad();
-        }
-
-        buffList.Add(_buff);
-
-    }
-
-    private bool CheckBuffIsExist(string _buffName, out Buff _existSameBuff)
-    {
-        bool returnValue = false;
-        _existSameBuff = null;
-
-        foreach (Buff buff in buffList)
-        {
-            if (buff.ToString().Equals(_buffName))
-            {
-                returnValue = true;
-                _existSameBuff = buff;
-            }
-        }
-        return returnValue;
-    }
-
-    public void RemoveBuff(Buff _buff)
-    {
-        buffList.Remove(_buff);
-    }
-
-    public List<Buff> GetBuffList()
-    {
-        return buffList;
-    }
-
     public void SkillFire(){
         //animationEeventCall
         currSkill.turnState2SkillFire();
@@ -482,7 +289,7 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
         isSkillControl = _canSkillContro;
     }
 
-    public bool getCanSkillControl()
+    public bool GetCanSkillControl()
     {
         throw new System.NotImplementedException();
     }
@@ -491,8 +298,14 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
     {
         //dosomething;
         skillCoolDownTimer = 0;
-        skillTimerStop = false;
+        isSkillTimerStop = false;
     }
 
 
+    public override bool ReceiveMsg(Message msg)
+    {
+        return fsm.receiveMessage(msg);
+    }
+
+  
 }

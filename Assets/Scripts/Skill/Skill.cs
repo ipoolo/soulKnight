@@ -8,7 +8,7 @@ interface CanSkillControl
 {
     void SetCanSkillControl(bool _isSkillControl);
 
-    bool getCanSkillControl();
+    bool GetCanSkillControl();
 
 }
 
@@ -103,13 +103,11 @@ public class Skill : MonoBehaviour
 
         castTimer = 0.0f;
         skillStateType = SkillStateType.skillTypeRunning;
-        Debug.Log("CastSkill");
 
     }
 
     private void CastUpdate()
     {
-        Debug.Log("CastUpdate");
         if (castTimer == 0)
         {
             CastSkillOnceBody();
