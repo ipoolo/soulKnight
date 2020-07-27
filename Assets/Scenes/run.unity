@@ -1513,8 +1513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41243487fb054cd4e9d8ba2f6588e6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
-  baseEnemyNum: 4
+  level: 0
+  baseEnemyNum: 0
   spwanStepWaitTime: 1
   coinNum: 0
 --- !u!4 &734323970
@@ -1574,28 +1574,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65481864ef2bf04d8bdea852fbe71d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statePanel: {fileID: 0}
   moveSpeed: 5
-  spController: {fileID: 0}
+  damage: 0
   health: 10
   maxHealth: 20
   armor: 1
   maxArmor: 20
   mana: 100
   maxMana: 200
-  coinNum: 0
-  receiveRepelVectorScale: 0.5
-  player: {fileID: 0}
+  isRecoverArmor: 0
   recoverArmorStepTime: 2
   recoverArmorStepValue: 1
   recoverArmorInterruptTime: 5
+  buffPositionOffset: {x: 0, y: 0, z: 0}
+  isReceiveDamage: 1
+  isOutControl: 0
+  rigid2d: {fileID: 0}
+  canReceiveRepel: 1
+  statePanel: {fileID: 0}
+  spController: {fileID: 0}
+  coinNum: 0
+  receiveRepelVectorScale: 0.5
+  player: {fileID: 0}
   psEffect: {fileID: 0}
   canvasDamage: {fileID: 0}
   render: {fileID: 0}
   canvasDamageOffsetY: 0.5
   playerRigidbody2D: {fileID: 0}
   pc: {fileID: 0}
-  buffPositionOffset: {x: 0, y: 0, z: 0}
   restoreEffectPathStrInRes: Partcles/PS_RestoreHP
   restoreEffectColorTime: 0.5
   restoreEffectColor: {r: 0.31443822, g: 0.9716981, b: 0.04583481, a: 1}
@@ -2587,7 +2593,7 @@ PrefabInstance:
     - target: {fileID: 8415336382906914424, guid: 9e61702e91c1fe845825b769d135b5ec,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.951766
+      value: 3.34
       objectReference: {fileID: 0}
     - target: {fileID: 8415336382906914424, guid: 9e61702e91c1fe845825b769d135b5ec,
         type: 3}
@@ -2643,6 +2649,16 @@ PrefabInstance:
         type: 3}
       propertyPath: SkillFireConditionlist.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8415336382969722811, guid: 9e61702e91c1fe845825b769d135b5ec,
+        type: 3}
+      propertyPath: patrolTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8415336382969722811, guid: 9e61702e91c1fe845825b769d135b5ec,
+        type: 3}
+      propertyPath: patrolWaitTime
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e61702e91c1fe845825b769d135b5ec, type: 3}

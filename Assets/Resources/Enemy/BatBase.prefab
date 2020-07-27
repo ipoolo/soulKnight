@@ -229,29 +229,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c49baa3b49db140980f949f319178c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BottomLeft: {fileID: 8415336382774465365}
-  TopRight: {fileID: 8415336383316984982}
+  moveSpeed: 3
+  damage: 2
+  health: 2
+  maxHealth: 2
+  armor: 0
+  maxArmor: 0
+  mana: 0
+  maxMana: 0
+  isRecoverArmor: 0
+  recoverArmorStepTime: 0
+  recoverArmorStepValue: 0
+  recoverArmorInterruptTime: 0
+  buffPositionOffset: {x: 0, y: 0, z: 0}
+  isReceiveDamage: 1
+  isOutControl: 0
+  rigid2d: {fileID: 0}
+  canReceiveRepel: 1
   animator: {fileID: 0}
   waitTime: 2
-  moveSpeed: 3
   moveSpeedLevelUpScale: 0
-  damage: 2
   damageLevelUpScale: 0
   senseRaidus: 30
   canvasDamage: {fileID: 8517629138960482143, guid: a01643e1c4b65c64bb658698211aa550,
     type: 3}
   enemyDeathAnim: {fileID: 8632504267215540071, guid: 1c60b6bd16d81f94a927adcef1675a83,
     type: 3}
-  maxHealth: 2
-  health: 2
   turnRedTime: 0.1
-  patrolTime: 0
+  patrolTime: 3
   patrolTimer: 0
+  patrolBottomLeft: {fileID: 8415336382774465365}
+  patrolTopRight: {fileID: 8415336383316984982}
   psEffect: {fileID: 7372007832080357348, guid: 3ae6f25391c7dd04aa81c2ef35b863d8,
     type: 3}
-  canReceiveRepel: 1
-  buffPositionOffset: {x: 0, y: 0, z: 0}
   SkillFireInterval: 3
+  patrolTargetPosition: {x: 0, y: 0, z: 0}
+  isPatrolRunning: 0
   skillRandomResPathList:
   - Skill/SkillRushAttack
   skillFireConditionPathList:

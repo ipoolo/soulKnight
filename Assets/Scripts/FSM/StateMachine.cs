@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
 
-public class StateMachine<T> : Object
+public class StateMachine<T>
 {
     T stateOwner;
     FSMState<T> currState;
@@ -12,29 +12,34 @@ public class StateMachine<T> : Object
 
     public void ConfigState(T _stateOwner, FSMState<T> _currState, FSMState<T> _globalState)
     {
+        Debug.Log("_currState"+ _currState);
+        Debug.Log("_globalState" + _globalState);
         stateOwner = _stateOwner;
         currState = _currState;
         globalState = _globalState;
+        currState.enter(_stateOwner);
     }
     public void StateMachineUpdate(T t)
     {
-        if (globalState) { 
+       
+        if (globalState != null) {
+            Debug.Log("globalState");
             globalState.execute(t);
         }
-        if (currState)
+        if (currState != null)
         {
-            globalState.execute(t);
+            Debug.Log("currState");
+            currState.execute(t);
         }
     }
 
     public void ChangeState(FSMState<T> _newState)
     {
-        if (currState) { 
+        if (currState != null) { 
             currState.exit(stateOwner);
             preState = currState;
             currState = _newState;
             currState.enter(stateOwner);
-
 
         }
     }
