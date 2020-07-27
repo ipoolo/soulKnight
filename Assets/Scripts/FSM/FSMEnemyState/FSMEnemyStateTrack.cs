@@ -20,13 +20,13 @@ public class FSMEnemyStateTrack : FSMState<Enemy>
 
         }
     }
-    public override void enter(Enemy t)
+    public override void Enter(Enemy t)
     {
         t.skillCoolDownTimer = 0;
         t.isSkillTimerStop = false;
     }
 
-    public override void execute(Enemy t)
+    public override void Execute(Enemy t)
     {
         //follow
         //将方向拆分给速度
@@ -56,8 +56,22 @@ public class FSMEnemyStateTrack : FSMState<Enemy>
         }
     }
 
-    public override void exit(Enemy t)
+    public override void Exit(Enemy t)
     {
 
+    }
+
+    public override bool HandleMessage(Message msg)
+    {
+        switch(msg.msg)
+        {
+            case 1:
+                Enemy e = (Enemy)EntityManager.ManagerInstance().EntityById(msg.receiver);
+                e.test();
+                break;
+            default:
+                break;
+        }
+        return false;
     }
 }

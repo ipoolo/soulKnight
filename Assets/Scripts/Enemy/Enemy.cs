@@ -41,9 +41,6 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         enemyStateFollowPlayer
 
     }
-    private EnemyStateType enemyStateType = EnemyStateType.enemyStatePatrol; // 没写枚举，直接用数字代替了0 代表巡逻 1代表追击
-
-
 
     public GameObject player;
     public Vector3 playerPosition;
@@ -260,6 +257,13 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         Collider2D self = _collision.otherCollider;
         if (other.CompareTag("Player"))
         {
+            //tesst
+            Message mgs = new Message();
+            mgs.receiver = this.entityIdString;
+            mgs.msg = 1;
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<MessageDispatcher>().DispatchMassage(0, mgs);
+            
+            //test -end
             TouchPlayerBody(_collision, other);
         }
 
@@ -335,7 +339,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         isSkillControl = _canSkillContro;
     }
 
-    public bool getCanSkillControl()
+    public bool GetCanSkillControl()
     {
         throw new System.NotImplementedException();
     }
@@ -348,4 +352,18 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     }
 
 
+    public override bool ReceiveMsg(Message msg)
+    {
+        return fsm.receiveMessage(msg);
+    }
+
+    public void test() { 
+    GameObject skillPrefab = (GameObject)Resources.Load("Skill/SkillRage");
+    currSkill = ((GameObject) Instantiate(skillPrefab, transform.position, Quaternion.identity)).GetComponent<Skill>();
+    currSkill.transform.position = transform.position;
+    currSkill.transform.parent = transform;
+    currSkill.ConfigSkill(currSkillConfig);
+    currSkill.CastSkill();
+
+    }
 }

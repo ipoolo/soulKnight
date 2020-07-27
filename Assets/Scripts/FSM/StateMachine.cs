@@ -15,27 +15,27 @@ public class StateMachine<T>
         stateOwner = _stateOwner;
         currState = _currState;
         globalState = _globalState;
-        currState.enter(_stateOwner);
+        currState.Enter(_stateOwner);
     }
     public void StateMachineUpdate(T t)
     {
        
         if (globalState != null) {
-            globalState.execute(t);
+            globalState.Execute(t);
         }
         if (currState != null)
         {
-            currState.execute(t);
+            currState.Execute(t);
         }
     }
 
     public void ChangeState(FSMState<T> _newState)
     {
         if (currState != null && (_newState != currState)) { 
-            currState.exit(stateOwner);
+            currState.Exit(stateOwner);
             preState = currState;
             currState = _newState;
-            currState.enter(stateOwner);
+            currState.Enter(stateOwner);
 
         }
     }
@@ -43,5 +43,24 @@ public class StateMachine<T>
     public void RevertToPreviousState()
     {
         ChangeState(preState);
+    }
+
+    public bool receiveMessage(Message msg)
+    {
+        bool result = false;
+        if (currState != null)
+        {
+            result = currState.HandleMessage(msg);
+        }
+
+        if (result)
+        {//如果已处理则返回
+            return result;
+        }
+        else if(globalState != null)
+        {
+            result = globalState.HandleMessage(msg);
+        }
+        return result;
     }
 }

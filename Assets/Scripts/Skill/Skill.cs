@@ -8,7 +8,7 @@ interface CanSkillControl
 {
     void SetCanSkillControl(bool _isSkillControl);
 
-    bool getCanSkillControl();
+    bool GetCanSkillControl();
 
 }
 

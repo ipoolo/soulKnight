@@ -1494,6 +1494,7 @@ GameObject:
   m_Component:
   - component: {fileID: 734323970}
   - component: {fileID: 734323969}
+  - component: {fileID: 734323971}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1531,6 +1532,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &734323971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734323968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12a537e11783db4cb1aeaf2398cbdf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &810962550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,6 +1587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65481864ef2bf04d8bdea852fbe71d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityIdString: 
   moveSpeed: 5
   damage: 0
   health: 10

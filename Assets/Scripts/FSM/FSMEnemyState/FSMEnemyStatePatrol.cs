@@ -25,13 +25,13 @@ public class FSMEnemyStatePatrol : FSMState<Enemy>
     //TODO这样的单例可能有线程安全问题,后期关注下
 
 
-    public override void enter(Enemy t)
+    public override void Enter(Enemy t)
     {
         t.CalculateNewTarget(t);
         t.patrolTimer = 0;
     }
 
-    public override void execute(Enemy t)
+    public override void Execute(Enemy t)
     {
         if (t.isPatrolRunning)
         {
@@ -58,8 +58,13 @@ public class FSMEnemyStatePatrol : FSMState<Enemy>
     }
 
 
-    public override void exit(Enemy t)
+    public override void Exit(Enemy t)
     {
 
+    }
+
+    public override bool HandleMessage(Message msg)
+    {
+        return false;
     }
 }

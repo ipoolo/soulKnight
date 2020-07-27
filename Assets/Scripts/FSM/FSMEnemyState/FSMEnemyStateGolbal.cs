@@ -21,12 +21,12 @@ public class FSMEnemyStateGolbal : FSMState<Enemy>
         }
     }
 
-    public override void enter(Enemy t)
+    public override void Enter(Enemy t)
     {
 
     }
 
-    public override void execute(Enemy t)
+    public override void Execute(Enemy t)
     {
         t.playerPosition = t.player.transform.position;
         if ((t.playerPosition - t.transform.position).sqrMagnitude < t.senseRaidus)
@@ -55,9 +55,14 @@ public class FSMEnemyStateGolbal : FSMState<Enemy>
         }
     }
 
-    public override void exit(Enemy t)
+    public override void Exit(Enemy t)
     {
         throw new System.NotImplementedException();
+    }
+
+    public override bool HandleMessage(Message msg)
+    {
+        return false;
     }
 
 

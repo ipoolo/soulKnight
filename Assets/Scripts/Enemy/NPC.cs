@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class NPC : MonoBehaviour
+public class NPC : Entity
 {
     public float moveSpeed;
     public float damage;

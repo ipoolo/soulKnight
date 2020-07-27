@@ -79,6 +79,9 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyDeath.cs" />
     <Compile Include="Assets\Scripts\Enemy\NPC.cs" />
+    <Compile Include="Assets\Scripts\Entity\Entity.cs" />
+    <Compile Include="Assets\Scripts\Entity\EntityManager.cs" />
+    <Compile Include="Assets\Scripts\Entity\MessageDispatcher.cs" />
     <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStateGolbal.cs" />
     <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStatePatrol.cs" />
     <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStateTrack.cs" />
