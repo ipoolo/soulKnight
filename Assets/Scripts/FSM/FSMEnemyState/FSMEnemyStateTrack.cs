@@ -63,15 +63,6 @@ public class FSMEnemyStateTrack : FSMState<Enemy>
 
     public override bool HandleMessage(Message msg)
     {
-        switch(msg.msg)
-        {
-            case 1:
-                Enemy e = (Enemy)EntityManager.ManagerInstance().EntityById(msg.receiver);
-                e.test();
-                break;
-            default:
-                break;
-        }
         return false;
     }
 }

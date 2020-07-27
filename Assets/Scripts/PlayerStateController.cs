@@ -177,7 +177,6 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
         if (isReceiveDamage) { 
            isReceiveDamage = false;
             RenderWhiteAndTurnInvincibilityLayer();
-            ReduceHealth(ExcuteHittedBuffEffect(_damage));
 
         }
         if (isOutControl)

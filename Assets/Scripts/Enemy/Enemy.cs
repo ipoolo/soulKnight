@@ -102,10 +102,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         fsm = new StateMachine<Enemy>();
         fsm.ConfigState(this, FSMEnemyStatePatrol.singleInstance, FSMEnemyStateGolbal.singleInstance);
         //golbalState还没写
-        
-
     }
-
 
     // Update is called once per frame
     public new void Update()
@@ -116,7 +113,6 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         //不是技能控制,不是失去控制时执行
         if (!isOutControl && !isSkillControl) {
 
-            Debug.Log("Update");
             fsm.StateMachineUpdate(this);
             Debug.DrawLine(transform.position, patrolTargetPosition, Color.white);
             
@@ -139,8 +135,6 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         Random.Range(t.patrolBottomLeft.position.y, t.patrolTopRight.position.y), 0);
         t.isPatrolRunning = true;
     }
-
-
 
     private void CheckVelocityDirection()
     {
@@ -175,7 +169,6 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         }
 
     }
-
     public void CheckFireConditionPathList()
     {
         List<SkillFireConditionController> removeList = new List<SkillFireConditionController>();
@@ -219,51 +212,12 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         return true;
     }
 
-    public void checkIsFollowToPlayer()
-    {
-        //playerPosition = player.transform.position;
-        //if ((playerPosition - transform.position).sqrMagnitude < senseRaidus)
-        //{
-        //    if(enemyStateType == EnemyStateType.enemyStatePatrol)
-        //    {
-        //        //状态切换时
-        //        skillTimerStop = false;
-        //        skillCoolDownTimer = 0;
-
-        //    }
-        //    enemyStateType = EnemyStateType.enemyStateFollowPlayer;
-                
-        //    //只有跟踪玩家时才开始计算技能释放
-        //}
-        //else
-        //{
-        //    enemyStateType = EnemyStateType.enemyStatePatrol;
-        //    skillTimerStop = true;
-        //}
-    }
-
-
-    private void patrol()
-    {
-        
-
-    }
-
-
-
     private void OnCollisionEnter2D(Collision2D _collision)
     {
         Collider2D other = _collision.collider;
         Collider2D self = _collision.otherCollider;
         if (other.CompareTag("Player"))
         {
-            //tesst
-            Message mgs = new Message();
-            mgs.receiver = this.entityIdString;
-            mgs.msg = 1;
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<MessageDispatcher>().DispatchMassage(0, mgs);
-            
-            //test -end
             TouchPlayerBody(_collision, other);
         }
 
@@ -279,14 +233,10 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     }
 
-
     public override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
         RenderRed();
     }
-
-
-
 
     public override void ReduceHealthBody(float _reduceValue)
     {
@@ -357,13 +307,5 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         return fsm.receiveMessage(msg);
     }
 
-    public void test() { 
-    GameObject skillPrefab = (GameObject)Resources.Load("Skill/SkillRage");
-    currSkill = ((GameObject) Instantiate(skillPrefab, transform.position, Quaternion.identity)).GetComponent<Skill>();
-    currSkill.transform.position = transform.position;
-    currSkill.transform.parent = transform;
-    currSkill.ConfigSkill(currSkillConfig);
-    currSkill.CastSkill();
-
-    }
+  
 }
