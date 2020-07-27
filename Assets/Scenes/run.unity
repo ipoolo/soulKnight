@@ -1513,8 +1513,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41243487fb054cd4e9d8ba2f6588e6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
-  baseEnemyNum: 0
+  level: 1
+  baseEnemyNum: 4
   spwanStepWaitTime: 1
   coinNum: 0
 --- !u!4 &734323970

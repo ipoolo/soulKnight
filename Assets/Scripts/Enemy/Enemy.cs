@@ -33,7 +33,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     public GameObject psEffect;//这里可以写的基类，提高复用
 
-    private StateMachine<Enemy> fsm;
+    public StateMachine<Enemy> fsm;
 
     enum EnemyStateType
     {
@@ -45,14 +45,14 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
 
 
-    private GameObject player;
-    private Vector3 playerPosition;
+    public GameObject player;
+    public Vector3 playerPosition;
 
     private Color originalColor;
     private SpriteRenderer render;
     private bool isSkillControl = false;
 
-    private float skillCoolDownTimer = 0;
+    public float skillCoolDownTimer = 0;
     public float SkillFireInterval;
     private float survivalTime;
 
@@ -66,17 +66,14 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     public List<string> skillFireConditionPathList = new List<string>();
     private List<SkillFireConditionController> skillFireConditionControllerList = new List<SkillFireConditionController>();
 
+    public bool isSkillTimerStop;
+
     // Start is called before the first frame update
     public new void Start()
     {
         base.Start();
         ConfigDefalut();
         ConfigFSM();
-    }
-
-    public void test()
-    {
-        Debug.Log("TEST");
     }
 
     private void ConfigDefalut()
@@ -106,13 +103,13 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     private void ConfigFSM()
     {
         fsm = new StateMachine<Enemy>();
-        fsm.ConfigState(this, FSMEnemyStatePatrol.singleInstance, FSMEnemyStatePatrol.singleInstance);
+        fsm.ConfigState(this, FSMEnemyStatePatrol.singleInstance, FSMEnemyStateGolbal.singleInstance);
         //golbalState还没写
         
 
     }
 
-    private bool skillTimerStop = true;
+
     // Update is called once per frame
     public new void Update()
     {
@@ -122,41 +119,10 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         //不是技能控制,不是失去控制时执行
         if (!isOutControl && !isSkillControl) {
 
+            Debug.Log("Update");
             fsm.StateMachineUpdate(this);
             Debug.DrawLine(transform.position, patrolTargetPosition, Color.white);
-            //checkIsFollowToPlayer();
-            //switch (enemyStateType)
-            //{
-            //    case EnemyStateType.enemyStatePatrol:
-            //        patrol();
-            //        break;
-            //    case EnemyStateType.enemyStateFollowPlayer:
-            //        fellowToPlayer();
-            //        break;
-
-            //    default:
-            //        patrol();
-            //        break;
-            //}
-            //if (!skillTimerStop) {
-
-            //    //skillConditionPathList 判断
-            //    CheckFireConditionPathList();
-
-            //    //condition技能可以改变是否锁定 再检测一次
-            //    if (!isSkillControl)
-            //    {
-
-            //        skillCoolDownTimer += Time.deltaTime;
-            //        if (skillCoolDownTimer >= SkillFireInterval)
-            //        {
-            //            //随机选择技能列表技能释放 TODO这里可以做概率触发技能配置
-            //            FireRandomSkill();
-            //            skillTimerStop = true;
-
-            //        }
-            //    }
-            //}
+            
         }
         //检查运动方向与sprite朝向
         CheckVelocityDirection();
@@ -172,7 +138,6 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     public void CalculateNewTarget(Enemy t)
     {
-
         t.patrolTargetPosition = new Vector3(Random.Range(t.patrolBottomLeft.position.x, t.patrolTopRight.position.x),
         Random.Range(t.patrolBottomLeft.position.y, t.patrolTopRight.position.y), 0);
         t.isPatrolRunning = true;
@@ -182,17 +147,17 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     private void CheckVelocityDirection()
     {
-        if(rigid2d.velocity.x >= 0)
+        if(rigid2d.velocity.x > 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else
+        else if (rigid2d.velocity.x < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
-    private void FireRandomSkill()
+    public void FireRandomSkill()
     {
 
         int randomIndex = Random.Range(0, skillRandomResPathList.Count - 1);
@@ -214,7 +179,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     }
 
-    private void CheckFireConditionPathList()
+    public void CheckFireConditionPathList()
     {
         List<SkillFireConditionController> removeList = new List<SkillFireConditionController>();
         foreach(SkillFireConditionController fc in skillFireConditionControllerList)
@@ -259,35 +224,27 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     public void checkIsFollowToPlayer()
     {
-        playerPosition = player.transform.position;
-        if ((playerPosition - transform.position).sqrMagnitude < senseRaidus)
-        {
-            if(enemyStateType == EnemyStateType.enemyStatePatrol)
-            {
-                //状态切换时
-                skillTimerStop = false;
-                skillCoolDownTimer = 0;
+        //playerPosition = player.transform.position;
+        //if ((playerPosition - transform.position).sqrMagnitude < senseRaidus)
+        //{
+        //    if(enemyStateType == EnemyStateType.enemyStatePatrol)
+        //    {
+        //        //状态切换时
+        //        skillTimerStop = false;
+        //        skillCoolDownTimer = 0;
 
-            }
-            enemyStateType = EnemyStateType.enemyStateFollowPlayer;
+        //    }
+        //    enemyStateType = EnemyStateType.enemyStateFollowPlayer;
                 
-            //只有跟踪玩家时才开始计算技能释放
-        }
-        else
-        {
-            enemyStateType = EnemyStateType.enemyStatePatrol;
-            skillTimerStop = true;
-        }
+        //    //只有跟踪玩家时才开始计算技能释放
+        //}
+        //else
+        //{
+        //    enemyStateType = EnemyStateType.enemyStatePatrol;
+        //    skillTimerStop = true;
+        //}
     }
 
-    public void fellowToPlayer()
-    {
-        //将方向拆分给速度
-        Vector3 targetVector = playerPosition - transform.position;
-        Vector3 normalizedVector = targetVector.normalized;
-        Vector3 velocityVector = normalizedVector * moveSpeed;
-        rigid2d.velocity = velocityVector;
-    }
 
     private void patrol()
     {
@@ -387,7 +344,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     {
         //dosomething;
         skillCoolDownTimer = 0;
-        skillTimerStop = false;
+        isSkillTimerStop = false;
     }
 
 

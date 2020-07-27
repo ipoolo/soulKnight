@@ -12,8 +12,6 @@ public class StateMachine<T>
 
     public void ConfigState(T _stateOwner, FSMState<T> _currState, FSMState<T> _globalState)
     {
-        Debug.Log("_currState"+ _currState);
-        Debug.Log("_globalState" + _globalState);
         stateOwner = _stateOwner;
         currState = _currState;
         globalState = _globalState;
@@ -23,19 +21,17 @@ public class StateMachine<T>
     {
        
         if (globalState != null) {
-            Debug.Log("globalState");
             globalState.execute(t);
         }
         if (currState != null)
         {
-            Debug.Log("currState");
             currState.execute(t);
         }
     }
 
     public void ChangeState(FSMState<T> _newState)
     {
-        if (currState != null) { 
+        if (currState != null && (_newState != currState)) { 
             currState.exit(stateOwner);
             preState = currState;
             currState = _newState;
@@ -48,5 +44,4 @@ public class StateMachine<T>
     {
         ChangeState(preState);
     }
-    //
 }

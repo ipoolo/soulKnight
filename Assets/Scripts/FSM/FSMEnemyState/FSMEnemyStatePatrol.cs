@@ -28,11 +28,11 @@ public class FSMEnemyStatePatrol : FSMState<Enemy>
     public override void enter(Enemy t)
     {
         t.CalculateNewTarget(t);
+        t.patrolTimer = 0;
     }
 
     public override void execute(Enemy t)
     {
-        Debug.Log("execute");
         if (t.isPatrolRunning)
         {
             t.patrolTimer += Time.deltaTime;
@@ -60,6 +60,6 @@ public class FSMEnemyStatePatrol : FSMState<Enemy>
 
     public override void exit(Enemy t)
     {
-        throw new System.NotImplementedException();
+
     }
 }
