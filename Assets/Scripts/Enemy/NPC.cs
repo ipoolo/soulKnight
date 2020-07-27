@@ -136,6 +136,7 @@ public class NPC : MonoBehaviour
 
     public virtual void RestoreHealthBody(int _hp)
     {
+        //body都是预留给子类实现的,其实可以写个Interface 强制要求子类实现,代码阅读起来容易点
 
     }
 
@@ -276,10 +277,6 @@ public class NPC : MonoBehaviour
             }
         }
 
-
-        
-
-    
     }
 
 

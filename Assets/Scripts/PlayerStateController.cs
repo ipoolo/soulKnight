@@ -38,7 +38,7 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
     [SerializeField] public float invincibilityTime;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         base.Start();
         ConfigDefault();
@@ -84,7 +84,7 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         base.Update();
     }

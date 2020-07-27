@@ -79,6 +79,9 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyDeath.cs" />
     <Compile Include="Assets\Scripts\Enemy\NPC.cs" />
+    <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStatePatrol.cs" />
+    <Compile Include="Assets\Scripts\FSM\FSMState.cs" />
+    <Compile Include="Assets\Scripts\FSM\StateMachine.cs" />
     <Compile Include="Assets\Scripts\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\InterFace\InteractionInterface.cs" />

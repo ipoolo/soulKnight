@@ -97,7 +97,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     private bool skillTimerStop = true;
     // Update is called once per frame
-    public void Update()
+    public new void Update()
     {
         base.Update();
         survivalTime += Time.deltaTime;
