@@ -29,17 +29,18 @@ public class BuffHPHot : BuffDotOrHot
     {
         base.EffectBody();
         //业务逻辑
-        switch (targetType)
-        {
-            case PersistentStateTargetType.enemy:
-                enemy.RestoreHealth(stepHealthChange);
-                break;
-            case PersistentStateTargetType.player:
-                playerStateController.RestoreHealth(stepHealthChange);
-                //TestDot
-                //playerStateController.receiverDamage(1.0f);
-                break;
-        }
+        //switch (targetType)
+        //{
+        //    case PersistentStateTargetType.enemy:
+        //        enemy.RestoreHealth(stepHealthChange);
+        //        break;
+        //    case PersistentStateTargetType.player:
+        //        playerStateController.RestoreHealth(stepHealthChange);
+        //        //TestDot
+        //        //playerStateController.receiverDamage(1.0f);
+        //        break;
+        //}
+        targetNpc.RestoreHealth(stepHealthChange);
         //效果转移到recoverHP处统一处理
         //加一点粒子效果
         //if (effectPathStrInRes.Length != 0)

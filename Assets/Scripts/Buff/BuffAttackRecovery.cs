@@ -24,15 +24,16 @@ public class BuffAttackRecovery : Buff, BuffReceiveHittingDamageInterFace
         float damage = _hittingDamage;
         attackRecoveryScale = Mathf.Clamp(attackRecoveryScale, 0, float.MaxValue);
         int recoveryHp = Mathf.FloorToInt(damage * attackRecoveryScale);
-        switch (targetType)
-        {
-            case PersistentStateTargetType.enemy:
-                enemy.RestoreHealth(recoveryHp);
-                break;
-            case PersistentStateTargetType.player:
-                playerStateController.RestoreHealth(recoveryHp);
-                break;
-        }
+        //switch (targetType)
+        //{
+        //    case PersistentStateTargetType.enemy:
+        //        enemy.RestoreHealth(recoveryHp);
+        //        break;
+        //    case PersistentStateTargetType.player:
+        //        playerStateController.RestoreHealth(recoveryHp);
+        //        break;
+        //}
+        targetNpc.RestoreHealth(recoveryHp);
 
         return damage;
 

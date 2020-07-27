@@ -6,7 +6,7 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, SkillFinishCallBack
+public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCallBack
 {
 
     public Transform BottomLeft;
@@ -14,9 +14,9 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
 
     public Animator animator;
     public float waitTime;
-    public float moveSpeed;
+
     [SerializeField] public float moveSpeedLevelUpScale;
-    public float damage;
+
     [SerializeField] public float damageLevelUpScale;
 
     public float senseRaidus;
@@ -24,8 +24,7 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
     public GameObject canvasDamage;//绘制伤害
     public GameObject enemyDeathAnim;
 
-    public int maxHealth;
-    public int health;
+
     public float turnRedTime;
     public float patrolTime;
     public float patrolTimer;
@@ -42,7 +41,6 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
 
     private bool isRunning;
 
-    private Rigidbody2D rigid2d;
 
     private Vector3 targetPosition;
     private GameObject player;
@@ -50,24 +48,10 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
 
     private Color originalColor;
     private SpriteRenderer render;
-
-    private bool isOutControl;
-    private float outControlTime = 0.05f;
-
-    public bool canReceiveRepel = true;
-
-    public Vector3 buffPositionOffset = new Vector3(0, 0, 0);
-
-    //buff
-    private List<Buff> buffList = new List<Buff>();
-
-
     private bool isSkillControl = false;
 
     private float skillCoolDownTimer = 0;
-
     public float SkillFireInterval;
-
     private float survivalTime;
 
 
@@ -79,15 +63,15 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
     private List<SkillFireConditionController> skillFireConditionControllerList = new List<SkillFireConditionController>();
 
     // Start is called before the first frame update
-    public void Start()
+    public new void Start()
     {
+        base.Start();
         ConfigDefalut();
         calculateNewTarget();
     }
 
     private void ConfigDefalut()
     {
-        rigid2d = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         render = GetComponent<SpriteRenderer>();
         originalColor = render.color;
@@ -115,6 +99,7 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
     // Update is called once per frame
     public void Update()
     {
+        base.Update();
         survivalTime += Time.deltaTime;
 
         //不是技能控制,不是失去控制时执行
@@ -326,70 +311,17 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
 
 
     }
-    private float ExcuteHittingBuffEffect(float _damage)
+
+
+    public override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
-        float tmp = _damage;
-        if (this is BuffReceiverInterFace)
-        {
-            foreach (Buff buff in buffList)
-            {
-                if (buff is BuffReceiveHittingDamageInterFace)
-                {
-                    tmp = ((BuffReceiveHittingDamageInterFace)buff).BuffReceiveHittingDamageInterFaceBody(tmp);
-                }
-            }
-        }
-
-        return tmp;
-    }
-
-    //RestoreHealth
-
-    public void RestoreHealth(int _hp)
-    {
-        int tmp = health + _hp;
-        health = tmp > maxHealth ? maxHealth : tmp;
-    }
-
-
-    public void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
-    {
-        if (canReceiveRepel)
-        {
-            isOutControl = true;
-            rigid2d.velocity = _repelVector / outControlTime;
-            StartCoroutine("BackToUnderControl");
-        }
-
-        ReduceHealth(ExcuteHittedBuffEffect(_damage));
         RenderRed();
-
     }
 
-    private float ExcuteHittedBuffEffect(float _damage)
-    {
-        float tmp = _damage;
-        if (this is BuffReceiverInterFace)
-        {
-            foreach (Buff buff in buffList)
-            {
-                if (buff is BuffReceiveHittedDamageInterFace)
-                {
-                    tmp = ((BuffReceiveHittedDamageInterFace)buff).BuffReceiveHittedDamageInterFaceBody(tmp);
-                }
-            }
-        }
 
-        return tmp;
-    }
 
-    IEnumerator BackToUnderControl()
-    {
-        yield return new WaitForSeconds(outControlTime);
-        isOutControl = false;
-    }
 
-    private void ReduceHealth(float _reduceValue)
+    public override void ReduceHealthBody(float _reduceValue)
     {
         int floorValue = Mathf.FloorToInt(_reduceValue);
         health -= floorValue;
@@ -404,7 +336,6 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
 
         if (health <= 0)
         {
-
             //新建死亡效果
 
             Instantiate(Resources.Load("EnemyDeath"), transform.position, Quaternion.identity);
@@ -429,47 +360,6 @@ public class Enemy : MonoBehaviour, BuffReceiverInterFace, CanSkillControl, Skil
     {
         yield return new WaitForSeconds(turnRedTime);
         render.color = originalColor;
-    }
-
-    //buffList
-    public void AddBuff(Buff _buff)
-    {
-        Buff existSameBuff = null;
-        //验重
-        if (CheckBuffIsExist(_buff.ToString(), out existSameBuff))
-        {
-            buffList.Remove(existSameBuff);
-            existSameBuff.BuffUnLoad();
-        }
-
-        buffList.Add(_buff);
-
-    }
-
-    private bool CheckBuffIsExist(string _buffName, out Buff _existSameBuff)
-    {
-        bool returnValue = false;
-        _existSameBuff = null;
-
-        foreach (Buff buff in buffList)
-        {
-            if (buff.ToString().Equals(_buffName))
-            {
-                returnValue = true;
-                _existSameBuff = buff;
-            }
-        }
-        return returnValue;
-    }
-
-    public void RemoveBuff(Buff _buff)
-    {
-        buffList.Remove(_buff);
-    }
-
-    public List<Buff> GetBuffList()
-    {
-        return buffList;
     }
 
     public void SkillFire(){
