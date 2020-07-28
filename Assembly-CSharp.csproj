@@ -119,6 +119,7 @@
     <Compile Include="Assets\Scripts\Skill\SkillRushAttack.cs" />
     <Compile Include="Assets\Scripts\StatePanel\StatePanelController.cs" />
     <Compile Include="Assets\Scripts\Tools\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Tools\SpwanMap.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bow.cs" />
     <Compile Include="Assets\Scripts\Weapon\Slash.cs" />
     <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />
