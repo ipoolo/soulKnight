@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\Enemy\EnemyBase.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyDeath.cs" />
     <Compile Include="Assets\Scripts\Enemy\NPC.cs" />
+    <Compile Include="Assets\Scripts\Enemy\TouchSense.cs" />
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
     <Compile Include="Assets\Scripts\Entity\EntityManager.cs" />
     <Compile Include="Assets\Scripts\Entity\MessageDispatcher.cs" />

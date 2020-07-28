@@ -8,9 +8,12 @@ using UnityEngine.SocialPlatforms;
 
 public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCallBack
 {
+    enum EnemyStateType
+    {
+        enemyStatePatrol,
+        enemyStateFollowPlayer
 
-
-
+    }
     public Animator animator;
 
 
@@ -18,7 +21,9 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     [SerializeField] public float damageLevelUpScale;
 
-    public float senseRaidus;
+    public float touchSenseDistance;
+    public float perspectiveSenseDistance;
+    public float perspectiveSenseFiledOfView;
 
     public GameObject canvasDamage;//绘制伤害
     public GameObject enemyDeathAnim;
@@ -35,12 +40,9 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     public StateMachine<Enemy> fsm;
 
-    enum EnemyStateType
-    {
-        enemyStatePatrol,
-        enemyStateFollowPlayer
-
-    }
+    [HideInInspector]public bool isPerspectiveSense;
+    [HideInInspector]public bool isTouchSensePalyer;
+    public TouchSense touchSense;
 
     public GameObject player;
     public Vector3 playerPosition;
@@ -95,6 +97,12 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
             skillFireConditionControllerList.Add(tmp);
         }
         survivalTime = 0;
+
+        touchSense = GetComponentInChildren<TouchSense>();
+        if (touchSense)
+        {
+            touchSense.setSenceDinstance(touchSenseDistance);
+        }
 
     }
     private void ConfigFSM()

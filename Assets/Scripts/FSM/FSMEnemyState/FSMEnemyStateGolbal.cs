@@ -28,30 +28,37 @@ public class FSMEnemyStateGolbal : FSMState<Enemy>
 
     public override void Execute(Enemy t)
     {
+        
         t.playerPosition = t.player.transform.position;
-        if ((t.playerPosition - t.transform.position).sqrMagnitude < t.senseRaidus)
+        if ((t.playerPosition - t.transform.position).magnitude < t.perspectiveSenseDistance)
+        {
+            t.isPerspectiveSense = false;
+
+            //小于视觉距离
+            Vector3 postion2Target = t.playerPosition - t.transform.position;
+            float angle = Vector3.Angle(t.transform.right,postion2Target);
+            if(Mathf.Abs(angle) < t.perspectiveSenseFiledOfView)
+            {
+                t.isPerspectiveSense = true;
+            }
+        }
+
+        Debug.DrawLine(t.transform.position, t.transform.position + t.transform.right.normalized * t.perspectiveSenseDistance, Color.red);
+        Vector3 postion2Target2 = t.transform.right;
+        postion2Target2 =  Quaternion.Euler(0, 0, t.perspectiveSenseFiledOfView) * postion2Target2;
+        Debug.DrawLine(t.transform.position, new Vector3(t.transform.position.x+ postion2Target2.normalized.x *t.perspectiveSenseDistance, t.transform.position.y + postion2Target2.normalized.y * t.perspectiveSenseDistance,0), Color.green); ;
+        Debug.DrawLine(t.transform.position, new Vector3(t.transform.position.x + postion2Target2.normalized.x * t.perspectiveSenseDistance, t.transform.position.y - postion2Target2.normalized.y * t.perspectiveSenseDistance, 0), Color.yellow); ;
+
+
+        if (t.isTouchSensePalyer || t.isPerspectiveSense)
         {
             //状态跳转到跟踪
             t.fsm.ChangeState(FSMEnemyStateTrack.singleInstance);
-
-
-            //if (enemyStateType == EnemyStateType.enemyStatePatrol)
-            //{
-            //    //状态切换时
-            //    skillTimerStop = false;
-            //    skillCoolDownTimer = 0;
-
-            //}
-            //enemyStateType = EnemyStateType.enemyStateFollowPlayer;
-
-            //只有跟踪玩家时才开始计算技能释放
         }
         else
         {
+            t.isTouchSensePalyer = false;
             t.fsm.ChangeState(FSMEnemyStatePatrol.singleInstance);
-            //状态跳转到巡逻
-            //enemyStateType = EnemyStateType.enemyStatePatrol;
-            //skillTimerStop = true;
         }
     }
 

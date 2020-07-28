@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         float moveY = Input.GetAxis("Vertical");
         rid2d.velocity = new Vector2( moveX * playerStateController.moveSpeed, moveY * playerStateController.moveSpeed);
 
-        if(rid2d.velocity.sqrMagnitude > 0.2f)
+        if(rid2d.velocity.magnitude > 0.2f)
         {
             animator.SetBool("Run", true);
         }

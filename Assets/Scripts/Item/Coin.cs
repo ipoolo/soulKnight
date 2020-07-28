@@ -52,7 +52,7 @@ public class Coin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.SqrMagnitude(dropPosition - transform.position) < 0.1f)
+        if (Vector3.Distance(dropPosition ,transform.position) < 0.1f)
         {
             canReceiver = true;
         }
@@ -77,7 +77,7 @@ public class Coin : MonoBehaviour
     public void checkIsFollowToPlayer()
     {
         Vector3 playerPosition = player.transform.position;
-        if ((playerPosition - transform.position).sqrMagnitude < senseRaidus)
+        if ((playerPosition - transform.position).magnitude < senseRaidus)
         {
             //在感知范围（只要在范围内一次）
             isMovePlayer = true;

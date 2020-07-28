@@ -41,7 +41,8 @@ public class FSMEnemyStatePatrol : FSMState<Enemy>
             Vector3 normalizedVector = targetVector.normalized;
             Vector3 velocityVector = normalizedVector * t.moveSpeed;
             t.rigid2d.velocity = velocityVector;
-            if (((t.patrolTargetPosition - t.transform.position).sqrMagnitude < 0.2f )||( t.patrolTimer >= t.patrolTime))
+
+            if (((t.patrolTargetPosition - t.transform.position).magnitude < 0.2f )||( t.patrolTimer >= t.patrolTime))
             {
                 //等待 然后新目标
                 t.isPatrolRunning = false;
