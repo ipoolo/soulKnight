@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6020240690790756423}
   - component: {fileID: 6020240690790756440}
   m_Layer: 0
-  m_Name: SkillRushAttackEffectAnim
+  m_Name: SkillAnim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
