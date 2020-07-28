@@ -309,8 +309,8 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!95 &162741828
 Animator:
@@ -1515,7 +1515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  baseEnemyNum: 3
+  baseEnemyNum: 0
   spwanStepWaitTime: 1
   coinNum: 0
 --- !u!4 &734323970
@@ -2592,6 +2592,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1528484834}
   m_CullTransparentMesh: 0
+--- !u!1001 &1559428475
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.2246857
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.910291
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.9140625
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756422, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756423, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756423, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020240690790756441, guid: ab93632e9f70c4e40a62f3a2837e4540,
+        type: 3}
+      propertyPath: m_Name
+      value: SkillRushAttackEffectAnim
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ab93632e9f70c4e40a62f3a2837e4540, type: 3}
 --- !u!1 &1814152241
 GameObject:
   m_ObjectHideFlags: 0

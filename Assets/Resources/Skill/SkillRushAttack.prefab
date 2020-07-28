@@ -52,3 +52,4 @@ MonoBehaviour:
   skillEffectPrefabsPath: Skill/AnimPre/SkillRushAttackEffectAnim
   skillStateType: 0
   rushSpeed: 15
+  rushMaxTime: 1

@@ -10,6 +10,11 @@ public class SkillRushAttack : Skill
 
     private Vector3 targetPosition;
     private Rigidbody2D castorRigidbody2d;
+
+
+    public float rushMaxTime;
+    private float timer;
+
     // Start is called before the first frame update
     public override void CastSkillOnceBody()
     {
@@ -19,9 +24,11 @@ public class SkillRushAttack : Skill
     {
         targetPosition = skillConfig.targetPosition;
         castorRigidbody2d = skillConfig.castorRigidbody2d;
+        timer = 0.0f;
     }
     public override void RunningSkillUpdateBody(float castTimer)
     {
+        timer += Time.deltaTime;
         Vector3 targetVector = targetPosition - transform.position;
         Vector3 normalizedVector = targetVector.normalized;
         Vector3 velocityVector = normalizedVector * rushSpeed;
@@ -31,6 +38,10 @@ public class SkillRushAttack : Skill
         //旋转动画效果
         transform.rotation *= Quaternion.FromToRotation(transform.right, velocityVector);
         if (Vector3.Distance(transform.position, targetPosition) < 0.3f)
+        {
+            skillStateType = SkillStateType.skillTypeFinish;
+        }
+        if (timer >= rushMaxTime)
         {
             skillStateType = SkillStateType.skillTypeFinish;
         }
