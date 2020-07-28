@@ -37,9 +37,15 @@ public class FSMEnemyStateGolbal : FSMState<Enemy>
             //小于视觉距离
             Vector3 postion2Target = t.playerPosition - t.transform.position;
             float angle = Vector3.Angle(t.transform.right,postion2Target);
-            if(Mathf.Abs(angle) < t.perspectiveSenseFiledOfView)
+            RaycastHit2D hit = Physics2D.Raycast(t.transform.position, postion2Target.normalized, t.perspectiveSenseDistance,LayerMask.GetMask("Player", "Wall", "InvincibilityLayer"));
+
+            if (hit.collider != null && hit.collider.CompareTag("Player"))
             {
-                t.isPerspectiveSense = true;
+                Debug.DrawRay(t.transform.position, postion2Target.normalized, Color.blue, 10);
+                if(Mathf.Abs(angle) < t.perspectiveSenseFiledOfView)
+                {
+                    t.isPerspectiveSense = true;
+                }
             }
         }
 

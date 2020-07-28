@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7321234784980408006}
   - component: {fileID: 6945767702559125297}
   - component: {fileID: 6547840725257923157}
-  m_Layer: 9
+  m_Layer: 17
   m_Name: touchSence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
