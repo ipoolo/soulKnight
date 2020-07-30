@@ -1514,9 +1514,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41243487fb054cd4e9d8ba2f6588e6b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
-  baseEnemyNum: 0
-  spwanStepWaitTime: 1
   coinNum: 0
 --- !u!4 &734323970
 Transform:
@@ -2973,6 +2970,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BattleMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 8459525779983896958, guid: a9443441a59dcea48b7df51c805ac41c,
+        type: 3}
+      propertyPath: level
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8459525779983896958, guid: a9443441a59dcea48b7df51c805ac41c,
+        type: 3}
+      propertyPath: baseEnemyNum
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9443441a59dcea48b7df51c805ac41c, type: 3}

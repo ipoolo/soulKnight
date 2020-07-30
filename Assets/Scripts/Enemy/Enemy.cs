@@ -8,6 +8,7 @@ using UnityEngine.SocialPlatforms;
 
 public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCallBack
 {
+    
     enum EnemyStateType
     {
         enemyStatePatrol,
@@ -16,7 +17,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     }
     public Animator animator;
 
-
+    public bool isSuspend;
     [SerializeField] public float moveSpeedLevelUpScale;
 
     [SerializeField] public float damageLevelUpScale;
@@ -115,18 +116,20 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     // Update is called once per frame
     public new void Update()
     {
-        base.Update();
-        survivalTime += Time.deltaTime;
+         if (!isSuspend) { 
+            base.Update();
+            survivalTime += Time.deltaTime;
 
-        //不是技能控制,不是失去控制时执行
-        if (!isOutControl && !isSkillControl) {
+            //不是技能控制,不是失去控制时执行
+            if (!isOutControl && !isSkillControl) {
 
-            fsm.StateMachineUpdate(this);
-            Debug.DrawLine(transform.position, patrolTargetPosition, Color.white);
+                fsm.StateMachineUpdate(this);
+                Debug.DrawLine(transform.position, patrolTargetPosition, Color.white);
             
+            }
+            //检查运动方向与sprite朝向
+            CheckVelocityDirection();
         }
-        //检查运动方向与sprite朝向
-        CheckVelocityDirection();
 
     }
 

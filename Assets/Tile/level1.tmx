@@ -61,35 +61,35 @@
     <property name="unity:layer" value="Item"/>
    </properties>
   </object>
-  <object id="11" name="WaveUpLeft" x="89.5" y="89.5">
+  <object id="11" name="WaveUpLeft" x="182" y="77">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="12" name="WaveUpRight" x="136" y="82">
+  <object id="12" name="WaveUpRight" x="165" y="159">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="13" name="WaveBottomLeft" x="42" y="165">
+  <object id="13" name="WaveBottomLeft" x="113" y="123">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="14" name="WaveBottomRight" x="112" y="164">
+  <object id="14" name="WaveBottomRight" x="132" y="156">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="15" name="WaveBoss" x="55" y="49">
+  <object id="15" name="WaveBoss" x="115" y="65">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>

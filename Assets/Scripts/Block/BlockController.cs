@@ -36,18 +36,30 @@ public class BlockController : MonoBehaviour
     public BlockType blockType = BlockType.battleType;
     public int blockWidth = 15;
     private int blockDirectionOffset;
-    void Start()
+    public void Start()
     {
-
         Invoke("test", 2);
         blockDirectionOffset = Mathf.FloorToInt(blockWidth / 2.0f - 0.5f);
+        ConfigChannel();
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         
     }
+
+    //TEST findAllChannel
+    private void ConfigChannel()
+    {
+        GameObject[] gameOBs = GameObject.FindGameObjectsWithTag("Channel");
+        foreach (GameObject gb in gameOBs)
+        {
+            gb.AddComponent<ChannelWallController>().configChannel();
+
+        }
+    }
+
 
     void test()
     {
@@ -88,12 +100,7 @@ public class BlockController : MonoBehaviour
         };
     }
 
-    public void receivePlayerEnter()
+    public virtual void receivePlayerEnter()
     {
-        if(blockType == BlockType.battleType) {
-            //这里还要判断block的类型
-            Debug.Log(Time.time);
-            gameObject.BroadcastMessage("BattleStart");
-        }
     }
 }
