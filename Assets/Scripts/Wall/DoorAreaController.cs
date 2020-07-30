@@ -17,7 +17,6 @@ public class DoorAreaController : MonoBehaviour
 
     void Start()
     {
-        daDircetion = BlockDireciton.Right;
         owner = GetComponentInParent<BlockController>();
     }
 
@@ -31,18 +30,22 @@ public class DoorAreaController : MonoBehaviour
                 bottomDoor.transform.position = new Vector2(centerPosition.x + 1, centerPosition.y);
                 hitbox.transform.rotation = Quaternion.Euler(0, 0, 90);
                 obstrucetBullet.transform.rotation = Quaternion.Euler(0, 0, 90);
+                daDircetion = BlockDireciton.Top;
                 break;
             case BlockDireciton.Right:
+                daDircetion = BlockDireciton.Right;
                 break;
             case BlockDireciton.Bottom:
                 topDoor.transform.position = new Vector2(centerPosition.x - 1, centerPosition.y);
                 bottomDoor.transform.position = new Vector2(centerPosition.x + 1, centerPosition.y);
                 hitbox.transform.rotation = Quaternion.Euler(0, 0, 90);
                 obstrucetBullet.transform.rotation = Quaternion.Euler(0, 0, 270);
+                daDircetion = BlockDireciton.Bottom;
                 break;
             case BlockDireciton.Left:
                 obstrucetBullet.transform.rotation = Quaternion.Euler(0, 0, 180);
                 hitbox.transform.rotation = Quaternion.Euler(0, 0, 270);
+                daDircetion = BlockDireciton.Left;
                 break;
         }
         

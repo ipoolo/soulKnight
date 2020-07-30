@@ -92,6 +92,7 @@ public class BlockController : MonoBehaviour
     {
         if(blockType == BlockType.battleType) {
             //这里还要判断block的类型
+            Debug.Log(Time.time);
             gameObject.BroadcastMessage("BattleStart");
         }
     }
