@@ -32,6 +32,8 @@ public class NPC : Entity
     //buff
     private List<Buff> buffList = new List<Buff>();
 
+    public bool isSuspend = false;
+
     public void Start()
     {
         ConfigDefalut();
@@ -152,19 +154,21 @@ public class NPC : Entity
 
     public virtual void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
-        if (isReceiveDamage)
-        {
-            if (canReceiveRepel)
+        if (!isSuspend) { 
+            if (isReceiveDamage)
             {
-                isOutControl = true;
-                rigid2d.velocity = _repelVector / outControlTime;
-                StartCoroutine("BackToUnderControl");
+                if (canReceiveRepel)
+                {
+                    isOutControl = true;
+                    rigid2d.velocity = _repelVector / outControlTime;
+                    StartCoroutine("BackToUnderControl");
+                }
+
+                ReduceHealth(ExcuteHittedBuffEffect(_damage));
+
             }
-
-            ReduceHealth(ExcuteHittedBuffEffect(_damage));
-
+            ReceiveDamageWithRepelVectorBody(_damage, _repelVector);
         }
-        ReceiveDamageWithRepelVectorBody(_damage, _repelVector);
 
     }
     public virtual void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)

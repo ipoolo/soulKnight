@@ -10,11 +10,16 @@ public class BattleBlockController : BlockController
     private object[] enemyPrefabs;
     private Transform[] enemyStartPoints;
     public float spwanStepWaitTime;
+    public bool isBattleState = false;
+    public bool isFinishBattle = false;
+    public int maxStepSpwanNum = 1;
+    public int alreadySpwanNum;
+    private int maxEnemyNum;
 
-
-    private List<Enemy> enemyList;
+    private List<Enemy> enemySurvivalList;
     private int lastStartIndex = -1;
     private int lastEnemyPrefabIndex = -1;
+    private System.Action<Enemy> removeEnmeyAction;
 
 
     // Start is called before the first frame update
@@ -23,30 +28,67 @@ public class BattleBlockController : BlockController
         base.Start();
         configEnemyPrefabs();
         collectEnemyStartPoints();
-        configEnemyList();
+        configSurvivaEnemyList();
+        maxEnemyNum = level + baseEnemyNum;
+        removeEnmeyAction = new System.Action<Enemy>(removeFromSurvivalList);
         WaveSpawn();
+
+
+
     }
 
     // Update is called once per frame
     new void Update()
     {
         base.Update();
+        checkEnemySurvivalListCount();
+    }
+
+    public void checkEnemySurvivalListCount()
+    {
+        if (enemySurvivalList.Count == 0)
+        {
+            if(alreadySpwanNum < maxEnemyNum)
+            {
+                Debug.Log("A");
+                WaveSpawn();
+            }else
+            {
+                BattleFinish();
+                //battleEnd
+            }
+        }
     }
     public override void receivePlayerEnter()
     {
         base.receivePlayerEnter();
-        if (blockType == BlockType.battleType)
+        if (blockType == BlockType.battleType && isFinishBattle == false)
         {
             //这里还要判断block的类型
             gameObject.BroadcastMessage("BattleStart");
+            isBattleState = true;
             EnemyGoBattleState();
+        }
+    }
+
+    public void BattleFinish()
+    {
+        //放置宝箱
+        //开门
+        base.receivePlayerEnter();
+        if (blockType == BlockType.battleType)
+        {
+            //这里还要判断block的类型
+            gameObject.BroadcastMessage("BattleEnd");
+            isBattleState = false;
+            isFinishBattle = true;
         }
     }
     public void EnemyGoBattleState()
     {
-        enemyList.ForEach(e =>
+        enemySurvivalList.ForEach(e =>
         {
-            e.isSuspend = false;
+            e.isSuspend = !isBattleState;
         });
     }
 
@@ -65,9 +107,9 @@ public class BattleBlockController : BlockController
     {
         enemyPrefabs = Resources.LoadAll("Enemy");
     }
-    public void configEnemyList()
+    public void configSurvivaEnemyList()
     {
-        enemyList = new List<Enemy>();
+        enemySurvivalList = new List<Enemy>();
     }
 
     public void WaveSpawn()
@@ -78,7 +120,10 @@ public class BattleBlockController : BlockController
 
     IEnumerator WaveSpawn(int _level)
     {
-        int num = _level + baseEnemyNum;
+
+        //_level + baseEnemyNum为生成总量
+        int num = maxEnemyNum - alreadySpwanNum;
+        num = Mathf.Clamp(num,0, maxStepSpwanNum);
         for (int i = 0; i < num; i++)
         {
             SpawnEneny(_level);
@@ -94,9 +139,18 @@ public class BattleBlockController : BlockController
         //获得随机初始怪物预制体(不能与上一个相同)
         GameObject prefabs = (GameObject)enemyPrefabs[getRamdomEnemyTypeIndex()];
         Enemy enemy = Instantiate(prefabs, startTransform.position, startTransform.rotation).GetComponentInChildren<Enemy>();
-        enemy.isSuspend = true;
+        enemy.destoryDelegate = removeEnmeyAction;
+        enemy.isSuspend = !isBattleState;
         configEnemy(enemy, _level);
-        enemyList.Add(enemy);
+        enemySurvivalList.Add(enemy);
+        alreadySpwanNum++;
+
+    }
+
+    public void removeFromSurvivalList(Enemy e)
+    {
+        Debug.Log("a");
+        enemySurvivalList.Remove(e);
     }
 
     public void configEnemy(Enemy _enmey, int _level)

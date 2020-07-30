@@ -46,6 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockType: 0
   blockWidth: 15
+  level: 2
+  baseEnemyNum: 5
+  spwanStepWaitTime: 0
+  isBattleState: 0
+  maxStepSpwanNum: 5
+  alreadySpwanNum: 0
 --- !u!1001 &6772100197047883127
 PrefabInstance:
   m_ObjectHideFlags: 0

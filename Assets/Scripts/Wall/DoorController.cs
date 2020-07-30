@@ -26,7 +26,6 @@ public class DoorController : MonoBehaviour, battleState
     {
         if (isColse)
         {
-            Debug.Log(Time.time);
             animator.SetTrigger("Close");
         }else
         {
@@ -38,7 +37,6 @@ public class DoorController : MonoBehaviour, battleState
 
     public void BattleStart()
     {
-        Debug.Log(Time.time);
         ReceiveDoorControll(true);
     }
 

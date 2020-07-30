@@ -17,7 +17,6 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     }
     public Animator animator;
 
-    public bool isSuspend;
     [SerializeField] public float moveSpeedLevelUpScale;
 
     [SerializeField] public float damageLevelUpScale;
@@ -68,12 +67,15 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     public bool isSkillTimerStop;
 
+    public System.Action<Enemy> destoryDelegate;
+
     // Start is called before the first frame update
     public new void Start()
     {
         base.Start();
         ConfigDefalut();
         ConfigFSM();
+
     }
 
     private void ConfigDefalut()
@@ -129,6 +131,11 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
             }
             //检查运动方向与sprite朝向
             CheckVelocityDirection();
+        }
+        else
+        {
+            rigid2d.velocity = Vector2.zero;
+            //暂停状态 被攻击到不能移动.
         }
 
     }
@@ -243,6 +250,15 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
 
     }
+    public override void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
+    {
+        //暂停状态 不吃攻击
+        if (!isSuspend)
+        {
+            base.ReceiveDamageWithRepelVector(_damage, _repelVector);
+
+        }
+    }
 
     public override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
@@ -318,5 +334,9 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         return fsm.receiveMessage(msg);
     }
 
-  
+    private void OnDestroy()
+    {
+        destoryDelegate(this);
+    }
+
 }
