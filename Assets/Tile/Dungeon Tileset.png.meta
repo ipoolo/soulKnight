@@ -259,7 +259,7 @@ TextureImporter:
     second: Dungeon Tileset_84
   - first:
       213: -5770286572461579363
-    second: Dungeon Tileset_85
+    second: door1
   - first:
       213: 1024699310728297958
     second: Dungeon Tileset_86
@@ -2421,11 +2421,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dungeon Tileset_85
+      name: door1
       rect:
         serializedVersion: 2
         x: 352
-        y: 96
+        y: 95
         width: 16
         height: 16
       alignment: 0

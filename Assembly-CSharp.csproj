@@ -75,6 +75,7 @@
     <Compile Include="Assets\ParadoxNotion\PolyNav2D\Scripts\Runtime\PolyNav2D.cs" />
     <Compile Include="Assets\ParadoxNotion\PolyNav2D\Scripts\Runtime\PolyNavAgent.cs" />
     <Compile Include="Assets\ParadoxNotion\PolyNav2D\Scripts\Runtime\PolyNavObstacle.cs" />
+    <Compile Include="Assets\Scripts\BlockController.cs" />
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffAttackIncrementPresent.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffAttackRecovery.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Assets\Scripts\Buff\BuffReceiverInterFace.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\BulletArrow.cs" />
+    <Compile Include="Assets\Scripts\ChannelController.cs" />
     <Compile Include="Assets\Scripts\CoinAreaController.cs" />
     <Compile Include="Assets\Scripts\DamageText.cs" />
     <Compile Include="Assets\Scripts\Enemy\Bat.cs" />
@@ -119,6 +121,9 @@
     <Compile Include="Assets\Scripts\Skill\SkillRushAttack.cs" />
     <Compile Include="Assets\Scripts\StatePanel\StatePanelController.cs" />
     <Compile Include="Assets\Scripts\Tools\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Wall\DoorAreaController.cs" />
+    <Compile Include="Assets\Scripts\Wall\DoorAreaHitboxController.cs" />
+    <Compile Include="Assets\Scripts\Wall\DoorController.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bow.cs" />
     <Compile Include="Assets\Scripts\Weapon\Slash.cs" />
     <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />

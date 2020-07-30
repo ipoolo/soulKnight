@@ -101,7 +101,7 @@ public class Item : MonoBehaviour,InteractionInterface
         hint.hideHint();
     }
 
-    public void InteractionBody()
+    public virtual void InteractionBody()
     {
         Debug.Log("InteractionBody:"+gameObject);
     }

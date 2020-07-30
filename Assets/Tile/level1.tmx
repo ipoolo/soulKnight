@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="left-up" compressionlevel="1" width="15" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="62">
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="left-up" compressionlevel="1" width="15" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="113">
  <editorsettings>
   <export target="../DemoTile..tmx" format="tmx"/>
  </editorsettings>
+ <properties>
+  <property name="unity:tag" value="Block"/>
+ </properties>
  <tileset firstgid="1" source="Dungeon Tileset.tsx"/>
  <layer id="1" name="floor" width="15" height="15">
   <properties>
@@ -31,21 +34,21 @@
    <property name="unity:layer" value="Wall"/>
   </properties>
   <data encoding="csv">
-114,115,115,115,115,115,115,115,115,115,115,115,115,115,116,
+114,115,115,115,115,115,142,142,142,115,115,115,115,115,116,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+142,0,0,0,0,0,0,0,0,0,0,0,0,0,142,
+142,0,0,0,0,0,0,0,0,0,0,0,0,0,142,
+142,0,0,0,0,0,0,0,0,0,0,0,0,0,142,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
 141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
-141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
-141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
-141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
-168,169,169,169,169,169,169,169,169,169,169,169,169,169,170
+168,169,169,169,169,169,142,142,142,169,169,169,169,169,170
 </data>
  </layer>
  <objectgroup id="2" name="ItemBackGroud">
@@ -93,49 +96,91 @@
    </properties>
    <point/>
   </object>
-  <object id="23" name="墓碑" gid="1073741868" x="68" y="90" width="16" height="16" rotation="180">
-   <properties>
-    <property name="unity:layer" value="Item"/>
-   </properties>
-  </object>
   <object id="29" name="PlayerStartPoint" x="170" y="124">
    <properties>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="36" name="墓碑组件" gid="1073741867" x="84" y="90" width="16" height="16" rotation="180">
+  <object id="36" name="墓碑组件" gid="43" x="22" y="92" width="16" height="16">
    <properties>
     <property name="unity:layer" value="Item"/>
    </properties>
   </object>
-  <object id="37" name="墓碑组件" gid="1073741869" x="52" y="90" width="16" height="16" rotation="180">
+  <object id="37" name="墓碑组件" gid="45" x="54" y="92" width="16" height="16">
    <properties>
     <property name="unity:layer" value="Item"/>
    </properties>
   </object>
-  <object id="38" name="墓碑组件" gid="1073741896" x="52" y="106" width="16" height="16" rotation="180">
+  <object id="38" name="墓碑组件" gid="72" x="54" y="108" width="16" height="16">
    <properties>
     <property name="unity:layer" value="Item"/>
    </properties>
   </object>
-  <object id="39" name="墓碑组件" gid="1073741895" x="68" y="106" width="16" height="16" rotation="180">
+  <object id="39" name="墓碑组件" gid="1073741895" x="54" y="92" width="16" height="16" rotation="180">
    <properties>
     <property name="unity:layer" value="Item"/>
    </properties>
   </object>
-  <object id="41" name="墓碑组件" gid="1073741894" x="84" y="106" width="16" height="16" rotation="180">
+  <object id="41" name="墓碑组件" gid="70" x="22" y="108" width="16" height="16">
    <properties>
     <property name="unity:layer" value="Item"/>
    </properties>
   </object>
-  <object id="60" gid="111" x="170" y="195" width="16" height="16"/>
+  <object id="60" name="财宝" gid="111" x="170" y="195" width="16" height="16"/>
+  <object id="66" name="墓碑中心" gid="44" x="38" y="92" width="16" height="16">
+   <properties>
+    <property name="unity:Tag" value="Item"/>
+   </properties>
+  </object>
  </objectgroup>
+ <group id="9" name="出入口" visible="0">
+  <objectgroup id="7" name="LeftWall">
+   <properties>
+    <property name="channel" value="Left"/>
+    <property name="unity:Tag" value="Channel"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="86" gid="141" x="0" y="112" width="16" height="16"/>
+   <object id="87" gid="141" x="0" y="128" width="16" height="16"/>
+   <object id="88" gid="141" x="0" y="144" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup id="10" name="BottomWall">
+   <properties>
+    <property name="channel" value="Down"/>
+    <property name="unity:Tag" value="Channel"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="80" gid="169" x="96" y="240" width="16" height="16"/>
+   <object id="81" gid="169" x="112" y="240" width="16" height="16"/>
+   <object id="82" gid="169" x="128" y="240" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup id="13" name="RightWall">
+   <properties>
+    <property name="channel" value="Right"/>
+    <property name="unity:Tag" value="Channel"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="77" gid="143" x="224" y="112" width="16" height="16"/>
+   <object id="78" gid="143" x="224" y="128" width="16" height="16"/>
+   <object id="79" gid="143" x="224" y="144" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup id="12" name="TopWall">
+   <properties>
+    <property name="channel" value="Top"/>
+    <property name="unity:Tag" value="Channel"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="72" gid="115" x="97" y="16" width="16" height="16"/>
+   <object id="73" gid="115" x="113" y="16" width="16" height="16"/>
+   <object id="74" gid="115" x="129" y="16" width="16" height="16"/>
+  </objectgroup>
+ </group>
  <objectgroup id="5" name="ItemForeGroud">
   <properties>
    <property name="unity:SortingLayer" value="ForeGround"/>
   </properties>
-  <object id="58" gid="1073741841" x="68" y="74" width="16" height="16" rotation="180"/>
+  <object id="58" gid="17" x="38" y="76" width="16" height="16"/>
  </objectgroup>
  <layer id="4" name="ForeGroud" width="15" height="15">
   <properties>

@@ -25,16 +25,41 @@ public class GameController : MonoBehaviour
         configEnemyList();
         configDefault();
         WaveSpawn();
-        
+        ConfigChannel();
+
+
     }
 
     private void configDefault()
     {
-
+        //TEST
+        GameObject[] gameOBs = GameObject.FindGameObjectsWithTag("Item");
+        foreach(GameObject gb in gameOBs)
+        {
+            BoxCollider2D[] boxC2ds =  gb.GetComponentsInChildren<BoxCollider2D>();
+            foreach (BoxCollider2D b2d in boxC2ds)
+            {
+                if(b2d.name == "hitbox")
+                {
+                    b2d.gameObject.AddComponent<Item>();
+                }
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    //TEST findAllChannel
+    private void ConfigChannel()
+    {
+        GameObject[] gameOBs = GameObject.FindGameObjectsWithTag("Channel");
+        foreach (GameObject gb in gameOBs)
+        {
+            gb.AddComponent<ChannelController>().configChannel();
+
+        }
+    }
+
+        // Update is called once per frame
+        void Update()
     {
         
     }

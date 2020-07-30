@@ -19,14 +19,19 @@
    <object id="3" name="hitbox" x="-16" y="-16" width="48" height="48">
     <properties>
      <property name="unity:IsTrigger" type="bool" value="true"/>
+     <property name="unity:Tag" value="Item"/>
     </properties>
    </object>
   </objectgroup>
  </tile>
  <tile id="110">
+  <properties>
+   <property name="unity:Tag" value="Item"/>
+   <property name="unity:layer" value="Item"/>
+  </properties>
   <objectgroup draworder="index" id="2">
    <object id="1" name="block" x="0" y="0" width="16" height="16"/>
-   <object id="2" name="hitBox" x="-16" y="-16" width="48" height="48">
+   <object id="2" name="hitbox" x="-16" y="-16" width="48" height="48">
     <properties>
      <property name="unity:IsTrigger" type="bool" value="true"/>
     </properties>

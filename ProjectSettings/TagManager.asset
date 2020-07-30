@@ -13,6 +13,9 @@ TagManager:
   - WavePoint
   - CoinAreaController
   - PlayerStateController
+  - Item
+  - Channel
+  - Block
   layers:
   - Default
   - TransparentFX
@@ -52,6 +55,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Door
+    uniqueID: 2739573513
     locked: 0
   - name: Enemy
     uniqueID: 3553028773
