@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public enum ChannelDirectionType{
-    Top,
-    right,
-    left,
-    Bottom
-}
 
 
-public class ChannelController : MonoBehaviour
+public class ChannelWallController : MonoBehaviour
 {
-    public ChannelDirectionType channelDirection;
+    public BlockDireciton channelDirection;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,28 +24,33 @@ public class ChannelController : MonoBehaviour
     {
 
         if(gameObject.name.Contains("Top")){
-            channelDirection = ChannelDirectionType.Top;
+            channelDirection = BlockDireciton.Top;
         }
         if (gameObject.name.Contains("Right"))
         {
-            channelDirection = ChannelDirectionType.right;
+            channelDirection = BlockDireciton.Right;
         }
         if (gameObject.name.Contains("Bottom"))
         {
-            channelDirection = ChannelDirectionType.Bottom;
+            channelDirection = BlockDireciton.Bottom;
         }
         if (gameObject.name.Contains("Left"))
         {
-            channelDirection = ChannelDirectionType.left;
+            channelDirection = BlockDireciton.Left;
         }
     }
 
-    public void receiveChannelControl(ChannelDirectionType direction ,bool isOpen)
+    public bool receiveChannelControl(BlockDireciton
+ direction ,bool isOpen)
     {
+        bool result = false;
         if (direction == channelDirection)
         {
             gameObject.SetActive(isOpen);
+            result = true;
         }
+        
+        return result;
 
     }
 }

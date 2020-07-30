@@ -1,6 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
+
+public enum BlockDireciton
+{
+    Top,
+    Right,
+    Bottom,
+    Left
+}
 
 public interface battleState
 {
@@ -24,10 +34,13 @@ public class BlockController : MonoBehaviour
     // Start is called before the first frame update
 
     public BlockType blockType = BlockType.battleType;
+    public int blockWidth = 15;
+    private int blockDirectionOffset;
     void Start()
     {
 
         Invoke("test", 2);
+        blockDirectionOffset = Mathf.FloorToInt(blockWidth / 2.0f - 0.5f);
     }
 
     // Update is called once per frame
@@ -38,20 +51,48 @@ public class BlockController : MonoBehaviour
 
     void test()
     {
+        List<BlockDireciton> directions = new BlockDireciton[2]{ BlockDireciton.Bottom, BlockDireciton.Right }.ToList<BlockDireciton>(); ;
 
-        ChannelController[] ccs=GetComponentsInChildren<ChannelController>();
-        foreach (ChannelController cc in ccs)
+        //通知方向墙壁 根据链接设置判定开关哪些通道的墙壁
+        ChannelWallController[] ccs=GetComponentsInChildren<ChannelWallController>();
+        foreach (ChannelWallController cc in ccs)
         {
-            cc.receiveChannelControl(ChannelDirectionType.right,false);
-        }
-
+            foreach (BlockDireciton direction in directions) 
+            {
+                if(cc.receiveChannelControl(direction, false))
+                {
+                    Vector2 posation = Vector2.zero;
+                    Vector2 blockPosation = transform.position;
+                    //生成门
+                    switch (direction)
+                    {
+                        case BlockDireciton.Top:
+                            posation = new Vector2(blockPosation.x,blockPosation.y + blockDirectionOffset);
+                            break;
+                        case BlockDireciton.Right:
+                            posation = new Vector2(blockPosation.x + blockDirectionOffset, blockPosation.y);
+                            break;
+                        case BlockDireciton.Bottom:
+                            posation = new Vector2(blockPosation.x, blockPosation.y - blockDirectionOffset);
+                            break;
+                        case BlockDireciton.Left:
+                            posation = new Vector2(blockPosation.x - blockDirectionOffset , blockPosation.y);
+                            break;
+                    }
+                    DoorAreaController dac = ((GameObject)Instantiate(Resources.Load("Wall/DoorArea/DoorArea"), posation, Quaternion.identity)).GetComponent<DoorAreaController>() ;
+                    dac.configDoorArea(direction);
+                    dac.transform.parent = transform;
+                    break;
+                }
+            }
+        };
     }
 
     public void receivePlayerEnter()
     {
-        if(blockType == BlockType.battleType) { 
-        //这里还要判断block的类型
-        gameObject.BroadcastMessage("BattleStart");
+        if(blockType == BlockType.battleType) {
+            //这里还要判断block的类型
+            gameObject.BroadcastMessage("BattleStart");
         }
     }
 }

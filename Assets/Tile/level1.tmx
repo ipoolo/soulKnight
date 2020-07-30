@@ -134,7 +134,7 @@
    </properties>
   </object>
  </objectgroup>
- <group id="9" name="出入口" visible="0">
+ <group id="9" name="出入口">
   <objectgroup id="7" name="LeftWall">
    <properties>
     <property name="channel" value="Left"/>

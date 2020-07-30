@@ -105,7 +105,7 @@ public class Bullet : MonoBehaviour
             //emeny.receiverDamage(damage, player.transform.position, 1.0f);
         }
 
-        string[] layerNames = { "Wall" ,"Item"};
+        string[] layerNames = { "Wall" ,"Item", "ObstructBullet" };
         if (selfCollider.IsTouchingLayers(LayerMask.GetMask(layerNames)))
         {
            
@@ -117,6 +117,15 @@ public class Bullet : MonoBehaviour
             {
                 knockWallBody(_collision);
             }
+            //emeny.receiverDamage(damage, player.transform.position, 1.0f);
+        }
+
+        string[] obstructBulletlayerNames = { "ObstructBullet" };
+        //碰到虚拟墙
+        if (selfCollider.IsTouchingLayers(LayerMask.GetMask(obstructBulletlayerNames)))
+        {
+
+            knockWallBody(_collision);
             //emeny.receiverDamage(damage, player.transform.position, 1.0f);
         }
 

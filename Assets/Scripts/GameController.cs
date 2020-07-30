@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour
         GameObject[] gameOBs = GameObject.FindGameObjectsWithTag("Channel");
         foreach (GameObject gb in gameOBs)
         {
-            gb.AddComponent<ChannelController>().configChannel();
+            gb.AddComponent<ChannelWallController>().configChannel();
 
         }
     }

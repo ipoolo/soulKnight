@@ -85,7 +85,7 @@
     <Compile Include="Assets\Scripts\Buff\BuffReceiverInterFace.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\BulletArrow.cs" />
-    <Compile Include="Assets\Scripts\ChannelController.cs" />
+    <Compile Include="Assets\Scripts\ChannelWallController.cs" />
     <Compile Include="Assets\Scripts\CoinAreaController.cs" />
     <Compile Include="Assets\Scripts\DamageText.cs" />
     <Compile Include="Assets\Scripts\Enemy\Bat.cs" />

@@ -25,10 +25,8 @@ public class DoorAreaHitboxController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("B");
         if (other.CompareTag("Player"))
         {
-            Debug.Log("A");
             Rigidbody2D palyerRigid2d = other.GetComponent<Rigidbody2D>();
             dac.ReceivePlayerExit(palyerRigid2d.velocity);
         }
