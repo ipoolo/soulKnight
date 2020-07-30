@@ -108,17 +108,17 @@ public class GameController : MonoBehaviour
 
     public int getRamdomStartIndex()
     {
-        return getRamdomxIndexWithLengAndLastIndexAndOut(enemyStartPoints.Length, lastStartIndex, out lastStartIndex);
+        return getRamdomxIndexWithLengthAndLastIndexAndOut(enemyStartPoints.Length, lastStartIndex, out lastStartIndex);
 
     }
 
     public int getRamdomEnemyTypeIndex()
     {
-        return getRamdomxIndexWithLengAndLastIndexAndOut(enemyPrefabs.Length, lastEnemyPrefabIndex, out lastEnemyPrefabIndex);
+        return getRamdomxIndexWithLengthAndLastIndexAndOut(enemyPrefabs.Length, lastEnemyPrefabIndex, out lastEnemyPrefabIndex);
 
     }
 
-    public int getRamdomxIndexWithLengAndLastIndexAndOut(int length,int lastIndex, out int outPut)
+    public int getRamdomxIndexWithLengthAndLastIndexAndOut(int length,int lastIndex, out int outPut)
     {
         int _index = Random.Range(0, length - 1);
         while (_index == lastIndex && length != 1)
