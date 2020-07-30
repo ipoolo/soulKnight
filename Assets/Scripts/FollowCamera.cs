@@ -7,8 +7,6 @@ public class FollowCamera : MonoBehaviour
 {
     private GameObject playerGb;
     [SerializeField] public float followStepScale;
-    [SerializeField] private Transform rightTop;
-    [SerializeField] private Transform leftBottom;
 
     // Start is called before the first frame update
     void Start()
@@ -29,14 +27,7 @@ public class FollowCamera : MonoBehaviour
             
             Vector3 temp = Vector3.Lerp(transform.position, new Vector3(playerGb.transform.position.x, playerGb.transform.position.y, transform.position.z),
                 followStepScale);
-            transform.position = new Vector3(Mathf.Clamp(temp.x, leftBottom.position.x, rightTop.position.x),
-                Mathf.Clamp(temp.y, leftBottom.position.y, rightTop.position.y),transform.position.z);
+            transform.position = temp;
         }
-    }
-
-    public void setCameraLimitSize(Transform _topRight, Transform _bottomLeft)
-    {
-        rightTop = _topRight;
-        leftBottom = _bottomLeft;
     }
 }

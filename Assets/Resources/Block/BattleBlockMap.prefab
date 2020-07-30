@@ -28,7 +28,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 31883956340832637}
+  - {fileID: 5504045386948336855}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,11 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockType: 0
   blockWidth: 15
-  level: 2
-  baseEnemyNum: 5
+  level: 1
+  baseEnemyNum: 3
   spwanStepWaitTime: 0
   isBattleState: 0
-  maxStepSpwanNum: 5
+  isFinishBattle: 0
+  maxStepSpwanNum: 3
   alreadySpwanNum: 0
 --- !u!1001 &6772100197047883127
 PrefabInstance:
@@ -122,9 +123,9 @@ PrefabInstance:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: -2695619058785784247, guid: 438827d4e4ba3b048b76396258ba255e,
     type: 3}
---- !u!4 &31883956340832637 stripped
+--- !u!4 &5504045386948336855 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -2483150847687594998, guid: 438827d4e4ba3b048b76396258ba255e,
+  m_CorrespondingSourceObject: {fileID: -7955299633477285472, guid: 438827d4e4ba3b048b76396258ba255e,
     type: 3}
   m_PrefabInstance: {fileID: 6772100197047883127}
   m_PrefabAsset: {fileID: 0}

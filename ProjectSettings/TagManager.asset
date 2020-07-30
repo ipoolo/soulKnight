@@ -16,6 +16,8 @@ TagManager:
   - Item
   - Channel
   - Block
+  - ChannelWall
+  - BornPoint
   layers:
   - Default
   - TransparentFX

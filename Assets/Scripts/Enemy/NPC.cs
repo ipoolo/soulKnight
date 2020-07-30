@@ -154,21 +154,19 @@ public class NPC : Entity
 
     public virtual void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
-        if (!isSuspend) { 
-            if (isReceiveDamage)
+        if (isReceiveDamage)
+        {
+            if (canReceiveRepel)
             {
-                if (canReceiveRepel)
-                {
-                    isOutControl = true;
-                    rigid2d.velocity = _repelVector / outControlTime;
-                    StartCoroutine("BackToUnderControl");
-                }
-
-                ReduceHealth(ExcuteHittedBuffEffect(_damage));
-
+                isOutControl = true;
+                rigid2d.velocity = _repelVector / outControlTime;
+                StartCoroutine("BackToUnderControl");
             }
-            ReceiveDamageWithRepelVectorBody(_damage, _repelVector);
+
+            ReduceHealth(ExcuteHittedBuffEffect(_damage));
+
         }
+        ReceiveDamageWithRepelVectorBody(_damage, _repelVector);
 
     }
     public virtual void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
