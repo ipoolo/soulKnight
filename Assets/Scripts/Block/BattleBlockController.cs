@@ -50,10 +50,9 @@ public class BattleBlockController : BlockController
         {
             if(alreadySpwanNum < maxEnemyNum)
             {
-                Debug.Log("A");
                 WaveSpawn();
-            }else
-            {
+            }else if (!isFinishBattle) { 
+            
                 BattleFinish();
                 //battleEnd
             }
@@ -73,6 +72,7 @@ public class BattleBlockController : BlockController
 
     public void BattleFinish()
     {
+        Debug.Log("BattleFinish");
         //放置宝箱
         //开门
         base.receivePlayerEnter();
