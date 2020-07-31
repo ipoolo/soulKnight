@@ -43,7 +43,6 @@ public class BlockController : MonoBehaviour
     private void Awake()
     {
         blockWidth = GetComponentInChildren<SuperMap>().m_Width;
-        Debug.Log("blockWidth" + blockWidth);
     }
     private void OnEnable()
     {
@@ -51,8 +50,6 @@ public class BlockController : MonoBehaviour
 
     public void Start()
     {
-       
-
         blockDirectionOffset = Mathf.FloorToInt(blockWidth / 2.0f - 0.5f);
         blockCenterPosation = new Vector2(transform.position.x + blockWidth / 2.0f, transform.position.y - blockWidth / 2.0f);
         ConfigChannleWallAndDoor();
