@@ -40,8 +40,7 @@ public class ChannelWallController : MonoBehaviour
         }
     }
 
-    public bool receiveChannelControl(BlockDireciton
- direction ,bool isOpen)
+    public bool receiveChannelControl(BlockDireciton direction ,bool isOpen)
     {
         bool result = false;
         if (direction == channelDirection)

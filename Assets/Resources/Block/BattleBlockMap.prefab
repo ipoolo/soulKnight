@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2689051481654449943}
-  - component: {fileID: 4766292822187430311}
+  - component: {fileID: 8459525779983896958}
   m_Layer: 0
-  m_Name: BattleMap
+  m_Name: BattleBlockMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,11 +28,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 31883956340832637}
+  - {fileID: 5504045386948336855}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4766292822187430311
+--- !u!114 &8459525779983896958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4766292822187430310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df296d85dedc2374c86d7083c5478b13, type: 3}
+  m_Script: {fileID: 11500000, guid: 006712ab0bafbcd40bf01e33ac18ffcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   blockType: 0
   blockWidth: 15
+  level: 1
+  baseEnemyNum: 3
+  spwanStepWaitTime: 0
+  isBattleState: 0
+  isFinishBattle: 0
+  maxStepSpwanNum: 3
+  alreadySpwanNum: 0
 --- !u!1001 &6772100197047883127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116,9 +123,9 @@ PrefabInstance:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: -2695619058785784247, guid: 438827d4e4ba3b048b76396258ba255e,
     type: 3}
---- !u!4 &31883956340832637 stripped
+--- !u!4 &5504045386948336855 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -2483150847687594998, guid: 438827d4e4ba3b048b76396258ba255e,
+  m_CorrespondingSourceObject: {fileID: -7955299633477285472, guid: 438827d4e4ba3b048b76396258ba255e,
     type: 3}
   m_PrefabInstance: {fileID: 6772100197047883127}
   m_PrefabAsset: {fileID: 0}

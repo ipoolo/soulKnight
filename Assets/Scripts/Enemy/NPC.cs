@@ -32,6 +32,8 @@ public class NPC : Entity
     //buff
     private List<Buff> buffList = new List<Buff>();
 
+    public bool isSuspend = false;
+
     public void Start()
     {
         ConfigDefalut();

@@ -75,7 +75,11 @@
     <Compile Include="Assets\ParadoxNotion\PolyNav2D\Scripts\Runtime\PolyNav2D.cs" />
     <Compile Include="Assets\ParadoxNotion\PolyNav2D\Scripts\Runtime\PolyNavAgent.cs" />
     <Compile Include="Assets\ParadoxNotion\PolyNav2D\Scripts\Runtime\PolyNavObstacle.cs" />
-    <Compile Include="Assets\Scripts\BlockController.cs" />
+    <Compile Include="Assets\Scripts\Block\BattleBlockController.cs" />
+    <Compile Include="Assets\Scripts\Block\BlockController.cs" />
+    <Compile Include="Assets\Scripts\Block\BlockManager.cs" />
+    <Compile Include="Assets\Scripts\Block\ChannelLine.cs" />
+    <Compile Include="Assets\Scripts\Block\MapBlockInfo.cs" />
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffAttackIncrementPresent.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffAttackRecovery.cs" />
@@ -108,6 +112,7 @@
     <Compile Include="Assets\Scripts\Item\Coin.cs" />
     <Compile Include="Assets\Scripts\Item\Hint.cs" />
     <Compile Include="Assets\Scripts\Item\Item.cs" />
+    <Compile Include="Assets\Scripts\ItemAction.cs" />
     <Compile Include="Assets\Scripts\Partcles\BloodEffect.cs" />
     <Compile Include="Assets\Scripts\Partcles\HotEffect.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />

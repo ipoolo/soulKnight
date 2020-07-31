@@ -1,0 +1,44 @@
+fileFormatVersion: 2
+guid: 3508379e0a593324390567c646bb97d7
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 1fa25d03934ea624a82bf2fcee6f0873, type: 3}
+  missingFiles: []
+  errors:
+  - Could not find tile 221230376. Make sure the tilesets were successfully imported.
+  - Could not find tile 218162272. Make sure the tilesets were successfully imported.
+  - Could not find tile 236978176. Make sure the tilesets were successfully imported.
+  - Could not find tile 16777216. Make sure the tilesets were successfully imported.
+  - Could not find tile 246144256. Make sure the tilesets were successfully imported.
+  - Could not find tile 221230376. Make sure the tilesets were successfully imported.
+  - Could not find tile 218162272. Make sure the tilesets were successfully imported.
+  - Could not find tile 44564481. Make sure the tilesets were successfully imported.
+  - Could not find tile 50331648. Make sure the tilesets were successfully imported.
+  - Could not find tile 143589517. Make sure the tilesets were successfully imported.
+  - Could not find tile 150994944. Make sure the tilesets were successfully imported.
+  - Could not find tile 154861578. Make sure the tilesets were successfully imported.
+  - Could not find tile 116136960. Make sure the tilesets were successfully imported.
+  - Could not find tile 85333510. Make sure the tilesets were successfully imported.
+  - Could not find tile 234962945. Make sure the tilesets were successfully imported.
+  - Could not find tile 129555765. Make sure the tilesets were successfully imported.
+  - Could not find tile 134247030. Make sure the tilesets were successfully imported.
+  warnings:
+  - Pixels Per Unit mismatch between map (100) and tileset 'Dungeon Tileset.tsx'
+    (16)
+  missingSortingLayers: []
+  missingLayers: []
+  missingTags: []
+  importerVersion: 21
+  pixelsPerUnit: 16
+  edgesPerEllipse: 32
+  numberOfObjectsImported: 2
+  tilesAsObjects: 0
+  sortingMode: 0
+  isIsometric: 0
+  customImporterClassName: 
+  internalTilesets: []

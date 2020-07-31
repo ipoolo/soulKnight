@@ -38,7 +38,6 @@ public class TouchSense : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("OnTriggerEnter2D true");
             ownerEnemy.isTouchSensePalyer = true;
         }
     }
@@ -47,7 +46,6 @@ public class TouchSense : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("OnTriggerExit2D false");
             ownerEnemy.isTouchSensePalyer = false;
         }
     }
