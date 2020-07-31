@@ -112,6 +112,7 @@
     <Compile Include="Assets\Scripts\Item\Coin.cs" />
     <Compile Include="Assets\Scripts\Item\Hint.cs" />
     <Compile Include="Assets\Scripts\Item\Item.cs" />
+    <Compile Include="Assets\Scripts\Item\Treasure.cs" />
     <Compile Include="Assets\Scripts\ItemAction.cs" />
     <Compile Include="Assets\Scripts\Partcles\BloodEffect.cs" />
     <Compile Include="Assets\Scripts\Partcles\HotEffect.cs" />

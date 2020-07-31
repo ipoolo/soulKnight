@@ -28,9 +28,6 @@ public class GameController : MonoBehaviour
             {
                 if(b2d.name == "Hitbox")
                 {
-
-                    Item item = b2d.gameObject.AddComponent<Item>();
-
                     //查看自定义数值
                     SuperCustomProperties scp = gb.GetComponent<SuperCustomProperties>();
                     if(scp != null)
@@ -40,11 +37,24 @@ public class GameController : MonoBehaviour
                         {
                             if (cp.m_Value.Equals("ExitPort"))
                             {
+                                Item item = b2d.gameObject.AddComponent<Item>();
+                                item.InteractionBodyAction = ItemAction.ItemExitAction();
+
+                                break;
+                            }
+
+                            if (cp.m_Value.Equals("Treasure"))
+                            {
+                                Item item = b2d.gameObject.AddComponent<Item>();
                                 item.InteractionBodyAction = ItemAction.ItemExitAction();
 
                                 break;
                             }
                         }
+                    }
+                    else
+                    {
+                        Item item = b2d.gameObject.AddComponent<Item>();
                     }
 
 

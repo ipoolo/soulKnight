@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="left-up" compressionlevel="1" width="15" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="125">
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="left-up" compressionlevel="1" width="15" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="21" nextobjectid="127">
  <editorsettings>
   <export target="../DemoTile..tmx" format="tmx"/>
  </editorsettings>
@@ -55,77 +55,54 @@
   <properties>
    <property name="unity:SortingLayer" value="BackGround"/>
   </properties>
-  <object id="11" name="WaveUpLeft" x="182" y="77">
+  <object id="11" name="WaveUpLeft" x="71" y="73">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="12" name="WaveUpRight" x="165" y="159">
+  <object id="12" name="WaveUpRight" x="181" y="73">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="13" name="WaveBottomLeft" x="113" y="123">
+  <object id="13" name="WaveBottomLeft" x="75" y="193">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="14" name="WaveBottomRight" x="132" y="156">
+  <object id="14" name="WaveBottomRight" x="168" y="190">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="15" name="WaveBoss" x="115" y="65">
+  <object id="15" name="WaveBoss" x="120" y="133">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="29" name="PlayerStartPoint" x="170" y="124">
+  <object id="125" name="MidLeft" x="67" y="132">
    <properties>
+    <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
    <point/>
   </object>
-  <object id="36" name="墓碑组件" gid="43" x="22" y="92" width="16" height="16">
+  <object id="126" name="MidRight" x="179" y="135">
    <properties>
+    <property name="unity:Tag" value="WavePoint"/>
     <property name="unity:layer" value="Item"/>
    </properties>
-  </object>
-  <object id="37" name="墓碑组件" gid="45" x="54" y="92" width="16" height="16">
-   <properties>
-    <property name="unity:layer" value="Item"/>
-   </properties>
-  </object>
-  <object id="38" name="墓碑组件" gid="72" x="54" y="108" width="16" height="16">
-   <properties>
-    <property name="unity:layer" value="Item"/>
-   </properties>
-  </object>
-  <object id="39" name="墓碑组件" gid="1073741895" x="54" y="92" width="16" height="16" rotation="180">
-   <properties>
-    <property name="unity:layer" value="Item"/>
-   </properties>
-  </object>
-  <object id="41" name="墓碑组件" gid="70" x="22" y="108" width="16" height="16">
-   <properties>
-    <property name="unity:layer" value="Item"/>
-   </properties>
-  </object>
-  <object id="60" name="财宝" gid="111" x="170" y="195" width="16" height="16"/>
-  <object id="66" name="墓碑中心" gid="44" x="38" y="92" width="16" height="16">
-   <properties>
-    <property name="unity:Tag" value="Item"/>
-   </properties>
+   <point/>
   </object>
  </objectgroup>
  <group id="9" name="出入口">
@@ -174,7 +151,6 @@
   <properties>
    <property name="unity:SortingLayer" value="ForeGround"/>
   </properties>
-  <object id="58" gid="17" x="38" y="76" width="16" height="16"/>
  </objectgroup>
  <layer id="4" name="ForeGroud" width="15" height="15">
   <properties>

@@ -284,8 +284,9 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
             Instantiate(Resources.Load("EnemyDeath"), transform.position, Quaternion.identity);
             //新建宝物掉落
-            GameObject hp_bar = Instantiate((GameObject)Resources.Load("Coin"));
-            hp_bar.transform.position = transform.position;
+            Coin coin = Instantiate((GameObject)Resources.Load("Coin")).GetComponent<Coin>();
+            coin.transform.position = transform.position;
+            coin.radius = 2.0f;
 
             //销毁自己
             GetComponentInParent<EnemyBase>().baseDestory();

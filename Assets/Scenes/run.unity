@@ -1556,7 +1556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeList: []
   keyList: []
-  blockInterval: 30
+  blockInterval: 20
 --- !u!1 &786939972
 GameObject:
   m_ObjectHideFlags: 0

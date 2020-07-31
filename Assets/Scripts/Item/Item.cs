@@ -7,13 +7,14 @@ public class Item : MonoBehaviour,InteractionInterface
 {
     public PlayerController playerController;
     public Vector3 offset;
+    public bool hintCanShow;
 
 
     private Hint hint;
     public Action InteractionBodyAction;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         configHint();
         
@@ -21,16 +22,17 @@ public class Item : MonoBehaviour,InteractionInterface
 
     private void configHint()
     {
+        hintCanShow = true;
         Vector3 hintPosition = new Vector3(transform.parent.position.x, transform.parent.position.y);
         hint = ((GameObject)Instantiate(Resources.Load("Hint"), hintPosition,Quaternion.identity)).GetComponent<Hint>();
         hint.transform.parent = transform.parent;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
-   
+
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         
     }
@@ -92,14 +94,19 @@ public class Item : MonoBehaviour,InteractionInterface
             temp += _offset;
         }
         hint.transform.position = temp;
-        hint.showHint();
-        
+        if (hintCanShow) { 
+            hint.showHint();
+        }
+
     }
 
     public void HideFoucsArror()
     {
+        if (hintCanShow)
+        {
+            hint.hideHint();
+        }
 
-        hint.hideHint();
     }
 
     public virtual void InteractionBody()

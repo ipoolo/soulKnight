@@ -4,11 +4,11 @@ using UnityEngine;
 
 
 
-public class DoorAreaController : MonoBehaviour
+public class DoorAreaController : MonoBehaviour, battleState
 {
     // Start is called before the first frame update
     public BlockDireciton daDircetion;
-    public BlockController owner;
+    public BlockController onwer;
     public GameObject hitbox;
     public DoorController topDoor;
     public DoorController midDoor;
@@ -17,7 +17,7 @@ public class DoorAreaController : MonoBehaviour
 
     void Start()
     {
-        owner = GetComponentInParent<BlockController>();
+        onwer = GetComponentInParent<BlockController>();
     }
 
 
@@ -85,9 +85,17 @@ public class DoorAreaController : MonoBehaviour
         {
             //进入
             //传给block判断
-            owner.receivePlayerEnter();
+            onwer.receivePlayerEnter();
         }
     }
 
+    public void BattleStart()
+    {
+        changeDoorState(true);
+    }
 
+    public void BattleEnd()
+    {
+        changeDoorState(false);
+    }
 }

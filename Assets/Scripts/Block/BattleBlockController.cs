@@ -60,8 +60,9 @@ public class BattleBlockController : BlockController
     }
     public override void receivePlayerEnter()
     {
+        //同一帧情况下,isFinishBattle还没有被BattleFinish 赋值 doorArea触发了 ontrigger 导致判断失效. 固加判断条件(非战斗状态))
         base.receivePlayerEnter();
-        if (blockType == BlockType.battleType && isFinishBattle == false)
+        if (blockType == BlockType.battleType && isFinishBattle == false && isBattleState != true)
         {
             //这里还要判断block的类型
             gameObject.BroadcastMessage("BattleStart");
@@ -72,7 +73,6 @@ public class BattleBlockController : BlockController
 
     public void BattleFinish()
     {
-        Debug.Log("BattleFinish");
         //放置宝箱
         //开门
         base.receivePlayerEnter();
@@ -82,8 +82,20 @@ public class BattleBlockController : BlockController
             gameObject.BroadcastMessage("BattleEnd");
             isBattleState = false;
             isFinishBattle = true;
+
+            //创造宝箱
+            SwpanTreasure();
         }
     }
+
+    public void SwpanTreasure()
+    {
+        float treasureX = Random.Range(transform.position.x + 1, transform.position.x + blockWidth - 1);
+        float treasureY = Random.Range(transform.position.y - 1, transform.position.y - blockWidth + 1);
+        Vector2 treasurePoistion = new Vector2(treasureX, treasureY);
+        Treasure treasure = ((GameObject)Instantiate(Resources.Load("Item/Treasure"), treasurePoistion, Quaternion.identity)).GetComponent<Treasure>();
+    }
+
     public void EnemyGoBattleState()
     {
         enemySurvivalList.ForEach(e =>

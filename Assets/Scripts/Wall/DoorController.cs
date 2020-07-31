@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorController : MonoBehaviour, battleState
+public class DoorController : MonoBehaviour
 {
     public Animator animator;
     // Start is called before the first frame update
@@ -33,15 +33,4 @@ public class DoorController : MonoBehaviour, battleState
         }
     }
 
-
-
-    public void BattleStart()
-    {
-        ReceiveDoorControll(true);
-    }
-
-    public void BattleEnd()
-    {
-        ReceiveDoorControll(false);
-    }
 }

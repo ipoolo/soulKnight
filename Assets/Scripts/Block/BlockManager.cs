@@ -41,7 +41,7 @@ public class BlockManager : MonoBehaviour
 
     public List<Location> canAddNodeLocationList = new List<Location>();
 
-    public float blockInterval= 30;
+    public float blockInterval;
 
     private void Awake()
     {
@@ -128,8 +128,8 @@ public class BlockManager : MonoBehaviour
                 if(bc is BattleBlockController)
                 {
                     BattleBlockController bbc = (BattleBlockController)bc;
-                    bbc.baseEnemyNum = Random.Range(10, 15);
-                    bbc.maxStepSpwanNum = Random.Range(3, 5);
+                    //bbc.baseEnemyNum = Random.Range(10, 15);
+                    //bbc.maxStepSpwanNum = Random.Range(3, 5);
                 }
                 bc.transform.position = position;
             }
