@@ -95,11 +95,28 @@ public class BattleBlockController : BlockController
 
     public void collectEnemyStartPoints()
     {
+
         GameObject[] gbArray = GameObject.FindGameObjectsWithTag("WavePoint");
-        enemyStartPoints = new Transform[gbArray.Length];
-        for (int i = 0; i < gbArray.Length; i++)
+        List<GameObject> tmpList = new List<GameObject>(gbArray);
+        List<GameObject> validList = tmpList.FindAll((ob) => {
+            if(ob.transform.position.x > (transform.position.x ) 
+            && ob.transform.position.x < (transform.position.x + blockWidth)
+            && ob.transform.position.y > (transform.position.y - blockWidth)
+            && ob.transform.position.y < (transform.position.y )) 
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            ; 
+        });
+
+        enemyStartPoints = new Transform[validList.Count];
+        for (int i = 0; i < validList.Count; i++)
         {
-            enemyStartPoints[i] = gbArray[i].transform;
+            enemyStartPoints[i] = validList[i].transform;
         }
     }
 
@@ -142,6 +159,7 @@ public class BattleBlockController : BlockController
         enemy.destoryDelegate = removeEnmeyAction;
         enemy.isSuspend = !isBattleState;
         configEnemy(enemy, _level);
+        enemy.transform.parent.parent = transform;
         enemySurvivalList.Add(enemy);
         alreadySpwanNum++;
 
@@ -149,7 +167,6 @@ public class BattleBlockController : BlockController
 
     public void removeFromSurvivalList(Enemy e)
     {
-        Debug.Log("a");
         enemySurvivalList.Remove(e);
     }
 

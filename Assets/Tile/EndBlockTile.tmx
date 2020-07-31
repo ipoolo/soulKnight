@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="left-up" compressionlevel="1" width="11" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="35">
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="left-up" compressionlevel="1" width="11" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="11" nextobjectid="30">
  <tileset firstgid="1" source="Dungeon Tileset.tsx"/>
  <layer id="1" name="Floor" width="11" height="11">
   <properties>
@@ -10,9 +10,9 @@
 142,142,142,142,142,142,142,142,142,142,142,
 142,142,142,142,142,142,142,142,142,142,142,
 142,142,142,142,142,142,142,142,142,142,142,
-142,142,142,142,145,146,147,142,142,142,142,
-142,142,142,142,172,173,174,142,142,142,142,
-142,142,142,142,199,200,201,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,
 142,142,142,142,142,142,142,142,142,142,142,
 142,142,142,142,142,142,142,142,142,142,142,
 142,142,142,142,142,142,142,142,142,142,142,
@@ -37,35 +37,35 @@
 168,169,169,169,0,0,0,169,169,169,170
 </data>
  </layer>
- <group id="4" name="出入口">
-  <objectgroup id="3" name="LeftChannelWall">
+ <group id="3" name="出入口">
+  <objectgroup id="6" name="LeftChannelWall">
    <properties>
     <property name="unity:Tag" value="ChannelWall"/>
     <property name="unity:layer" value="Wall"/>
    </properties>
-   <object id="23" gid="141" x="0" y="80" width="16" height="16"/>
-   <object id="24" gid="141" x="0" y="96" width="16" height="16"/>
-   <object id="25" gid="141" x="0" y="112" width="16" height="16"/>
+   <object id="16" gid="141" x="0" y="80" width="16" height="16"/>
+   <object id="17" gid="141" x="0" y="96" width="16" height="16"/>
+   <object id="19" gid="141" x="0" y="112" width="16" height="16"/>
   </objectgroup>
-  <objectgroup id="8" name="BottomChannelWall">
+  <objectgroup id="7" name="BottomChannelWall">
    <properties>
     <property name="unity:Tag" value="ChannelWall"/>
     <property name="unity:layer" value="Wall"/>
    </properties>
-   <object id="32" gid="169" x="64" y="176" width="16" height="16"/>
-   <object id="33" gid="169" x="80" y="176" width="16" height="16"/>
-   <object id="34" gid="169" x="96" y="176" width="16" height="16"/>
+   <object id="13" gid="169" x="64" y="176" width="16" height="16"/>
+   <object id="14" gid="169" x="80" y="176" width="16" height="16"/>
+   <object id="15" gid="169" x="96" y="176" width="16" height="16"/>
   </objectgroup>
-  <objectgroup id="9" name="RightChannelWall">
+  <objectgroup id="5" name="RightChannelWall">
    <properties>
     <property name="unity:Tag" value="ChannelWall"/>
     <property name="unity:layer" value="Wall"/>
    </properties>
-   <object id="26" gid="143" x="160" y="80" width="16" height="16"/>
-   <object id="27" gid="143" x="160" y="96" width="16" height="16"/>
-   <object id="28" gid="143" x="160" y="112" width="16" height="16"/>
+   <object id="4" gid="143" x="160" y="80" width="16" height="16"/>
+   <object id="5" gid="143" x="160" y="96" width="16" height="16"/>
+   <object id="6" gid="143" x="160" y="112" width="16" height="16"/>
   </objectgroup>
-  <objectgroup id="10" name="TopChannelWall">
+  <objectgroup id="4" name="TopChannelWall">
    <properties>
     <property name="unity:Tag" value="ChannelWall"/>
     <property name="unity:layer" value="Wall"/>
@@ -75,13 +75,15 @@
    <object id="3" gid="115" x="96" y="16" width="16" height="16"/>
   </objectgroup>
  </group>
- <objectgroup id="11" name="初始位置">
-  <object id="22" name="StartPoint" x="89" y="87">
+ <objectgroup id="8" name="地图出口">
+  <properties>
+   <property name="unity:Tag" value=""/>
+   <property name="unity:layer" value="Item"/>
+  </properties>
+  <object id="22" name="Exit" gid="247" x="80" y="96" width="16" height="16">
    <properties>
-    <property name="unity:Tag" value="BornPoint"/>
-    <property name="unity:layer" value="Wall"/>
+    <property name="ItemType" value="ExitPort"/>
    </properties>
-   <point/>
   </object>
  </objectgroup>
 </map>

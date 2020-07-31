@@ -18,6 +18,9 @@ TagManager:
   - Block
   - ChannelWall
   - BornPoint
+  - BrakGroud
+  - ExitPoint
+  - MapLocation
   layers:
   - Default
   - TransparentFX
@@ -57,6 +60,9 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 573580299
     locked: 0
   - name: Door
     uniqueID: 2739573513

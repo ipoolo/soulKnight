@@ -35,18 +35,27 @@ public class BlockController : MonoBehaviour
     // Start is called before the first frame update
 
     public BlockType blockType = BlockType.battleType;
-    private int blockWidth;
+    public int blockWidth;
     private int blockDirectionOffset;
     private Vector2 blockCenterPosation;
+    public List<BlockDireciton> directions = new List<BlockDireciton>();
+
+    private void Awake()
+    {
+        blockWidth = GetComponentInChildren<SuperMap>().m_Width;
+        Debug.Log("blockWidth" + blockWidth);
+    }
+    private void OnEnable()
+    {
+    }
 
     public void Start()
     {
-        Invoke("test", 2);
-        blockWidth = GetComponentInChildren<SuperMap>().m_Width;
+       
+
         blockDirectionOffset = Mathf.FloorToInt(blockWidth / 2.0f - 0.5f);
         blockCenterPosation = new Vector2(transform.position.x + blockWidth / 2.0f, transform.position.y - blockWidth / 2.0f);
-        Debug.Log("blockWidth"+ blockWidth);
-        ConfigChannel();
+        ConfigChannleWallAndDoor();
     }
 
     // Update is called once per frame
@@ -55,22 +64,10 @@ public class BlockController : MonoBehaviour
         
     }
 
-    //TEST findAllChannel
-    private void ConfigChannel()
+
+    void ConfigChannleWallAndDoor()
     {
-        GameObject[] gameOBs = GameObject.FindGameObjectsWithTag("ChannelWall");
-        foreach (GameObject gb in gameOBs)
-        {
-            gb.AddComponent<ChannelWallController>().configChannel();
-
-        }
-    }
-
-
-    void test()
-    {
-        List<BlockDireciton> directions = new BlockDireciton[2]{ BlockDireciton.Bottom, BlockDireciton.Right }.ToList<BlockDireciton>(); ;
-
+        Debug.Log("directions"+ directions.Count);
         //通知方向墙壁 根据链接设置判定开关哪些通道的墙壁
         ChannelWallController[] ccs=GetComponentsInChildren<ChannelWallController>();
         foreach (ChannelWallController cc in ccs)

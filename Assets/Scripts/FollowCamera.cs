@@ -24,9 +24,17 @@ public class FollowCamera : MonoBehaviour
     {
         if(playerGb != null) {
             //position.y 为了保持Z方向不变
-            
-            Vector3 temp = Vector3.Lerp(transform.position, new Vector3(playerGb.transform.position.x, playerGb.transform.position.y, transform.position.z),
+            //今晚太困了,这里偷懒写了TODO
+            float offsetX = 0;
+            float offsetY = 0;
+            if (gameObject.name.Equals("MapLocation"))
+            {
+                offsetX = 6.0f;
+                offsetY = 5.5f;
+            }            
+            Vector3 temp = Vector3.Lerp(transform.position, new Vector3(playerGb.transform.position.x+ offsetX, playerGb.transform.position.y+ offsetY, transform.position.z),
                 followStepScale);
+            
             transform.position = temp;
         }
     }

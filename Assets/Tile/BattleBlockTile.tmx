@@ -53,14 +53,8 @@
  </layer>
  <objectgroup id="2" name="ItemBackGroud">
   <properties>
-   <property name="unity:SortingLayer" value="BackGroud"/>
+   <property name="unity:SortingLayer" value="BackGround"/>
   </properties>
-  <object id="6" name="Exit" gid="247" x="69" y="160" width="16" height="16">
-   <properties>
-    <property name="unity:SortingLayer" value="BackGround"/>
-    <property name="unity:layer" value="Item"/>
-   </properties>
-  </object>
   <object id="11" name="WaveUpLeft" x="182" y="77">
    <properties>
     <property name="unity:Tag" value="WavePoint"/>

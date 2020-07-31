@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SuperTiled2Unity;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,21 +15,40 @@ public class GameController : MonoBehaviour
         configDefault();
 
 
-
     }
 
     private void configDefault()
     {
-        //TEST
+        //ITEM
         GameObject[] gameOBs = GameObject.FindGameObjectsWithTag("Item");
         foreach(GameObject gb in gameOBs)
         {
             BoxCollider2D[] boxC2ds =  gb.GetComponentsInChildren<BoxCollider2D>();
             foreach (BoxCollider2D b2d in boxC2ds)
             {
-                if(b2d.name == "hitbox")
+                if(b2d.name == "Hitbox")
                 {
-                    b2d.gameObject.AddComponent<Item>();
+
+                    Item item = b2d.gameObject.AddComponent<Item>();
+
+                    //查看自定义数值
+                    SuperCustomProperties scp = gb.GetComponent<SuperCustomProperties>();
+                    if(scp != null)
+                    {
+                        CustomProperty cp;
+                        if(scp.TryGetCustomProperty("ItemType",out cp))
+                        {
+                            if (cp.m_Value.Equals("ExitPort"))
+                            {
+                                item.InteractionBodyAction = ItemAction.ItemExitAction();
+
+                                break;
+                            }
+                        }
+                    }
+
+
+                       
                 }
             }
         }

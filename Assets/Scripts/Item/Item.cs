@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class Item : MonoBehaviour,InteractionInterface
 
 
     private Hint hint;
-
+    public Action InteractionBodyAction;
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +104,10 @@ public class Item : MonoBehaviour,InteractionInterface
 
     public virtual void InteractionBody()
     {
+
+        if(InteractionBodyAction != null) { 
+          InteractionBodyAction();
+        }
         Debug.Log("InteractionBody:"+gameObject);
     }
 
