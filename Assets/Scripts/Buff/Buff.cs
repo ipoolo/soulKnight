@@ -25,7 +25,7 @@ public class Buff : MonoBehaviour
 {
     [SerializeField] public float duration;
     [HideInInspector]public NPC targetNpc;
-    [SerializeField]public string buffPrefabsResPath = "BuffIndicator";
+    [SerializeField]public string buffPrefabsName = "BuffIndicator";
     [SerializeField]public GameObject buffSpritePrefab;
     [SerializeField]public GameObject buffSprite;
     public GameObject targetGb;
@@ -35,34 +35,19 @@ public class Buff : MonoBehaviour
     //[SerializeField] public BuffType buffType;
 
     // Start is called before the first frame update
-     void Start()
+    public void Start()
     {
 
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         
     }
 
-    public Buff BuffLoad(GameObject _target, PersistentStateTargetType _targetType)
+    public Buff BuffLoad(GameObject _target)
     {
-        //switch (_targetType)
-        //{
-        //    case PersistentStateTargetType.enemy:
-        //        enemy = _target.GetComponentInChildren<Enemy>();
-        //        enemy.AddBuff(this);
-        //        targetGb = enemy.gameObject;
-        //        break;
-        //    case PersistentStateTargetType.player:
-        //        playerStateController = _target.GetComponentInChildren<PlayerStateController>();
-        //        targetGb = playerStateController.gameObject;
-        //        playerStateController.AddBuff(this);
-        //        break;
-        //    case PersistentStateTargetType.noTarget:
-        //        break;
-        //}
 
         targetNpc = _target.GetComponentInChildren<NPC>();
         targetNpc.AddBuff(this);
@@ -72,25 +57,14 @@ public class Buff : MonoBehaviour
         transform.parent = targetGb.transform;
 
         //加载BUFF状态 显示效果
-        if (buffPrefabsResPath != null && buffSpritePrefab == null)
+        if (buffPrefabsName != null && buffSpritePrefab == null)
         {
-            buffSpritePrefab = (GameObject)Resources.Load(buffPrefabsResPath);
+            buffSpritePrefab = (GameObject)Resources.Load("Buff/"+buffPrefabsName);
         }
 
         if (buffSpritePrefab != null)
         {
             Vector3 buffPositionOffset = Vector3.zero;
-            //switch (targetType)
-            //{
-            //    case PersistentStateTargetType.enemy:
-            //        buffPositionOffset = enemy.buffPositionOffset;
-            //        break;
-            //    case PersistentStateTargetType.player:
-            //        buffPositionOffset = playerStateController.buffPositionOffset;
-            //        break;
-            //    case PersistentStateTargetType.noTarget:
-            //        break;
-            //}
             buffPositionOffset = targetNpc.buffPositionOffset;
             Vector3 position = targetGb.transform.position + buffPositionOffset;
             buffSprite = Instantiate(buffSpritePrefab, position, Quaternion.identity);

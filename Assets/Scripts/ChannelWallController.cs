@@ -40,12 +40,12 @@ public class ChannelWallController : MonoBehaviour
         }
     }
 
-    public bool receiveChannelControl(BlockDireciton direction ,bool isOpen)
+    public bool receiveChannelControl(BlockDireciton direction ,bool isClose)
     {
         bool result = false;
         if (direction == channelDirection)
         {
-            gameObject.SetActive(isOpen);
+            gameObject.SetActive(isClose);
             result = true;
         }
         

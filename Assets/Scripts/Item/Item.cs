@@ -11,20 +11,27 @@ public class Item : MonoBehaviour,InteractionInterface
 
 
     private Hint hint;
-    public Action InteractionBodyAction;
+    public string hintPrefabName = "Hint";
+
+    //delegate
+    public Action interactionBodyAction;
+    public Action playerEnterAction;
+    public Action playerLeavection;
+
 
     // Start is called before the first frame update
     public void Start()
     {
         configHint();
-        
+
+
     }
 
     private void configHint()
     {
         hintCanShow = true;
         Vector3 hintPosition = new Vector3(transform.parent.position.x, transform.parent.position.y);
-        hint = ((GameObject)Instantiate(Resources.Load("Hint"), hintPosition,Quaternion.identity)).GetComponent<Hint>();
+        hint = ((GameObject)Instantiate(Resources.Load(string.Format("Hint/{0}", hintPrefabName)), hintPosition, Quaternion.identity)).GetComponent<Hint>();
         hint.transform.parent = transform.parent;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
@@ -44,6 +51,10 @@ public class Item : MonoBehaviour,InteractionInterface
             //将自己塞入player的InteractionList;
             playerController.Add2InteractionList(this);
             OnTriggerEnter2DBody();
+            if(playerEnterAction != null)
+            {
+                playerEnterAction();
+            }
         }
 
     }
@@ -54,6 +65,10 @@ public class Item : MonoBehaviour,InteractionInterface
             //将自己移出player的InteractionList;
             playerController.remove2InteractionList(this);
             OnTriggerExit2DBody();
+            if(playerLeavection != null)
+            {
+                playerLeavection();
+            }
 
         }
     }
@@ -112,8 +127,8 @@ public class Item : MonoBehaviour,InteractionInterface
     public virtual void InteractionBody()
     {
 
-        if(InteractionBodyAction != null) { 
-          InteractionBodyAction();
+        if(interactionBodyAction != null) { 
+          interactionBodyAction();
         }
         Debug.Log("InteractionBody:"+gameObject);
     }

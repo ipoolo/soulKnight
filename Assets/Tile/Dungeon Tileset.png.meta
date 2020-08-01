@@ -49,7 +49,7 @@ TextureImporter:
     second: Dungeon Tileset_14
   - first:
       213: 7048901979985802438
-    second: Dungeon Tileset_15
+    second: RestoreHealthTopMid
   - first:
       213: 6750605301695920570
     second: Dungeon Tileset_16
@@ -115,13 +115,13 @@ TextureImporter:
     second: Dungeon Tileset_36
   - first:
       213: 8947719042139149148
-    second: Dungeon Tileset_37
+    second: RestoreHealthMidLeft
   - first:
       213: -799921218343249160
-    second: Dungeon Tileset_38
+    second: RestoreHealthMidMid
   - first:
       213: 4407790568124909162
-    second: Dungeon Tileset_39
+    second: RestoreHealthMidRight
   - first:
       213: 6799008166528570016
     second: Dungeon Tileset_40
@@ -196,13 +196,13 @@ TextureImporter:
     second: Dungeon Tileset_63
   - first:
       213: 959033317605254943
-    second: Dungeon Tileset_64
+    second: RestoreHealthBottomLeft
   - first:
       213: 2170970914032453814
-    second: Dungeon Tileset_65
+    second: RestoreHealthBottmMid
   - first:
       213: 7557202596126322932
-    second: Dungeon Tileset_66
+    second: RestoreHealthBottmRight
   - first:
       213: -6324061341437447880
     second: Dungeon Tileset_67
@@ -259,7 +259,7 @@ TextureImporter:
     second: Dungeon Tileset_84
   - first:
       213: -5770286572461579363
-    second: door1
+    second: RestoreHealthTopMid_D
   - first:
       213: 1024699310728297958
     second: Dungeon Tileset_86
@@ -331,7 +331,7 @@ TextureImporter:
     second: Dungeon Tileset_108
   - first:
       213: -4258869554843887033
-    second: Dungeon Tileset_109
+    second: RestoreHealthMidMid_D
   - first:
       213: -1052640055648464075
     second: Dungeon Tileset_110
@@ -574,7 +574,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -586,7 +586,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -598,7 +598,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Windows Store Apps
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -610,7 +610,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: iPhone
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -622,7 +622,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -951,7 +951,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dungeon Tileset_15
+      name: RestoreHealthTopMid
       rect:
         serializedVersion: 2
         x: 352
@@ -1413,7 +1413,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dungeon Tileset_37
+      name: RestoreHealthMidLeft
       rect:
         serializedVersion: 2
         x: 336
@@ -1434,7 +1434,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dungeon Tileset_38
+      name: RestoreHealthMidMid
       rect:
         serializedVersion: 2
         x: 352
@@ -1455,7 +1455,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dungeon Tileset_39
+      name: RestoreHealthMidRight
       rect:
         serializedVersion: 2
         x: 368
@@ -1980,7 +1980,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dungeon Tileset_64
+      name: RestoreHealthBottomLeft
       rect:
         serializedVersion: 2
         x: 336
@@ -2001,7 +2001,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dungeon Tileset_65
+      name: RestoreHealthBottmMid
       rect:
         serializedVersion: 2
         x: 352
@@ -2022,7 +2022,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dungeon Tileset_66
+      name: RestoreHealthBottmRight
       rect:
         serializedVersion: 2
         x: 368
@@ -2421,7 +2421,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: door1
+      name: RestoreHealthTopMid_D
       rect:
         serializedVersion: 2
         x: 352
@@ -2925,7 +2925,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dungeon Tileset_109
+      name: RestoreHealthMidMid_D
       rect:
         serializedVersion: 2
         x: 352

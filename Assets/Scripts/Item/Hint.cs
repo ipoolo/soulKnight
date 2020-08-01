@@ -6,7 +6,6 @@ public class Hint : MonoBehaviour
 {
     [SerializeField]public Animator animator;
     
-
     // Start is called before the first frame update
     void Start()
     {

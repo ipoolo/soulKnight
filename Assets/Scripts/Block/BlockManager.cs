@@ -42,11 +42,17 @@ public class BlockManager : MonoBehaviour
     public List<Location> canAddNodeLocationList = new List<Location>();
 
     public float blockInterval;
+    public GameObject channelLayer;
 
     private void Awake()
     {
 
         ConfigDefault();
+        ConfigMap();
+        
+    }
+    private void ConfigMap()
+    {
         MapBlockInfo mapInfo = SpwanMapBlockInfo(0, 0, MapBlockType.startType);
         nodeList.Add(mapInfo);
 
@@ -57,7 +63,7 @@ public class BlockManager : MonoBehaviour
 
         if (nodeList.Count == endStep)
         {
-            configKeyNodeLink();
+            ConfigKeyNodeLink();
 
             if (isBossMap)
             {
@@ -106,7 +112,7 @@ public class BlockManager : MonoBehaviour
                     prefeb = (GameObject)Resources.Load(Path+"BattleBlockMap");
                     break;
                 case MapBlockType.eventType:
-
+                    prefeb = (GameObject)Resources.Load(Path + "EventBlockMap");
                     break;
                 case MapBlockType.endType:
                     prefeb = (GameObject)Resources.Load(Path + "EndBlockMap");
@@ -122,6 +128,7 @@ public class BlockManager : MonoBehaviour
             }
             if(prefeb != null) { 
                 BlockController bc = Instantiate(prefeb, Vector2.zero, Quaternion.identity).GetComponent<BlockController>();
+                bc.transform.parent = transform;
                 Vector2 position = new Vector2(blockInterval * mbi.indexInfo.x- bc.blockWidth/2.0f, blockInterval * mbi.indexInfo.y + bc.blockWidth / 2.0f);
                 CalBlockDirection(mbi, bc);
                 mbi.bc = bc;
@@ -211,7 +218,7 @@ public class BlockManager : MonoBehaviour
                     for (int i = 0; i < channelCount; i++)
                     {
                         Vector2 position = new Vector2(channelStart.x - i, channelStart.y);
-                        Instantiate(leftRightreFabChannel, position, Quaternion.identity);
+                        Instantiate(leftRightreFabChannel, position, Quaternion.identity).transform.parent = channelLayer.transform;
                     }
 
 
@@ -225,7 +232,7 @@ public class BlockManager : MonoBehaviour
                     for (int i = 0; i < channelCount; i++)
                     {
                         Vector2 position = new Vector2(channelStart.x + i, channelStart.y);
-                        Instantiate(leftRightreFabChannel, position, Quaternion.identity);
+                        Instantiate(leftRightreFabChannel, position, Quaternion.identity).transform.parent = channelLayer.transform;
                     }
                 }
                 if (line.start.indexInfo.y > line.end.indexInfo.y)
@@ -237,7 +244,7 @@ public class BlockManager : MonoBehaviour
                     for (int i = 0; i < channelCount; i++)
                     {
                         Vector2 position = new Vector2(channelStart.x, channelStart.y - i);
-                        Instantiate(upDownPreFabChannel, position, Quaternion.identity);
+                        Instantiate(upDownPreFabChannel, position, Quaternion.identity).transform.parent = channelLayer.transform;
                     }
                 }
                 if (line.start.indexInfo.y < line.end.indexInfo.y)
@@ -249,7 +256,7 @@ public class BlockManager : MonoBehaviour
                     for (int i = 0; i < channelCount; i++)
                     {
                         Vector2 position = new Vector2(channelStart.x, channelStart.y + i);
-                        Instantiate(upDownPreFabChannel, position, Quaternion.identity);
+                        Instantiate(upDownPreFabChannel, position, Quaternion.identity).transform.parent = channelLayer.transform;
                     }
                 }
             }
@@ -267,7 +274,7 @@ public class BlockManager : MonoBehaviour
         }
     }
 
-    public void configKeyNodeLink()
+    public void ConfigKeyNodeLink()
     {
         keyList = new List<MapBlockInfo>();
             nodeList.ForEach(i => keyList.Add(i));
@@ -361,6 +368,13 @@ public class BlockManager : MonoBehaviour
     }
     public void ConfigDefault()
     {
+        if(channelLayer == null)
+        {
+            channelLayer = new GameObject();
+            channelLayer.transform.position = transform.position;
+            channelLayer.transform.parent = transform;
+
+        } 
 
         mapLocation = GameObject.FindGameObjectWithTag("MapLocation");
 

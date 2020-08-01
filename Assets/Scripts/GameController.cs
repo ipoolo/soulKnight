@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
                             if (cp.m_Value.Equals("ExitPort"))
                             {
                                 Item item = b2d.gameObject.AddComponent<Item>();
-                                item.InteractionBodyAction = ItemAction.ItemExitAction();
+                                item.interactionBodyAction = ItemAction.ItemExitAction();
 
                                 break;
                             }
@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour
                             if (cp.m_Value.Equals("Treasure"))
                             {
                                 Item item = b2d.gameObject.AddComponent<Item>();
-                                item.InteractionBodyAction = ItemAction.ItemExitAction();
+                                item.interactionBodyAction = ItemAction.ItemExitAction();
 
                                 break;
                             }

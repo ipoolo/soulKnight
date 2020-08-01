@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerStateController playerStateController;
+    public PlayerStateController playerStateController;
 
     private Rigidbody2D rid2d;
   
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>().coinReduce(1);
 
-            Instantiate(Resources.Load("Buff/BuffAttackIncrementPresent") as GameObject, Vector3.zero, Quaternion.identity).GetComponent<Buff>().BuffLoad(gameObject, PersistentStateTargetType.player) ;
+            Instantiate(Resources.Load("Buff/BuffSpeedIncrementPresent") as GameObject, Vector3.zero, Quaternion.identity).GetComponent<Buff>().BuffLoad(gameObject) ;
 
         }
     }

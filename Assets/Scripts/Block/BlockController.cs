@@ -35,7 +35,7 @@ public class BlockController : MonoBehaviour
     // Start is called before the first frame update
 
     public BlockType blockType = BlockType.battleType;
-    public int blockWidth;
+    [HideInInspector]public int blockWidth;
     private int blockDirectionOffset;
     private Vector2 blockCenterPosation;
     public List<BlockDireciton> directions = new List<BlockDireciton>();
@@ -64,7 +64,6 @@ public class BlockController : MonoBehaviour
 
     void ConfigChannleWallAndDoor()
     {
-        Debug.Log("directions"+ directions.Count);
         //通知方向墙壁 根据链接设置判定开关哪些通道的墙壁
         ChannelWallController[] ccs=GetComponentsInChildren<ChannelWallController>();
         foreach (ChannelWallController cc in ccs)

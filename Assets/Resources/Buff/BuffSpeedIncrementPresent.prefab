@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4700948025826329396
+--- !u!1 &6637045466675714918
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4700948025826329394}
-  - component: {fileID: 4700948025826329397}
+  - component: {fileID: 6637045466675714912}
+  - component: {fileID: 6637045466675714913}
   m_Layer: 0
-  m_Name: SkillRage
+  m_Name: BuffAttackIncrementPresent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4700948025826329394
+--- !u!4 &6637045466675714912
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4700948025826329396}
+  m_GameObject: {fileID: 6637045466675714918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.2246857, y: 12.910291, z: -5.9140625}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,24 +31,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4700948025826329397
+--- !u!114 &6637045466675714913
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4700948025826329396}
+  m_GameObject: {fileID: 6637045466675714918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc5c2fb82fbd9364da2575177e8f1696, type: 3}
+  m_Script: {fileID: 11500000, guid: 30594abb972e7df4287083b3f380aec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castingDefaultAnimationPath: 
-  castingDefaultAnimationLayer: 
-  animPlayTimeOffest: 0
-  skillCastingTime: 0
-  isLockCastorControllerAtSkillCasting: 0
-  isLockCastorControllerAtSkillRunnig: 0
-  skillEffectPrefabsPath: 
-  skillStateType: 0
-  SkillRageBuffName: BuffSpeedIncrementPresent
+  duration: 2
+  targetNpc: {fileID: 0}
+  buffPrefabsName: BuffIndicator
+  buffSpritePrefab: {fileID: 0}
+  buffSprite: {fileID: 0}
+  targetGb: {fileID: 0}
+  buffType: 0
+  incrementPresent: 0.67
