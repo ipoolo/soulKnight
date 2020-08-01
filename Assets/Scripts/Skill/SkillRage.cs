@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillRage : Skill
 {
-    public string SkillRageBuffResPath;
+    public string SkillRageBuffName;
     public override void RunningSkillOnceBody()
     {
         base.RunningSkillOnceBody();
@@ -17,7 +17,7 @@ public class SkillRage : Skill
         {
             targetType = PersistentStateTargetType.player;
         }
-        Buff buff= Instantiate(Resources.Load(SkillRageBuffResPath) as GameObject, Vector3.zero, Quaternion.identity).GetComponent<Buff>().BuffLoad(skillConfig.castor, targetType);
+        Buff buff= Instantiate(Resources.Load("Buff/"+SkillRageBuffName) as GameObject, Vector3.zero, Quaternion.identity).GetComponent<Buff>().BuffLoad(skillConfig.castor);
 
     }
 

@@ -77,7 +77,6 @@
  </group>
  <objectgroup id="8" name="地图出口">
   <properties>
-   <property name="unity:Tag" value=""/>
    <property name="unity:layer" value="Item"/>
   </properties>
   <object id="22" name="Exit" gid="247" x="80" y="96" width="16" height="16">

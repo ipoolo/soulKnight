@@ -79,14 +79,15 @@
     <Compile Include="Assets\Scripts\Block\BlockController.cs" />
     <Compile Include="Assets\Scripts\Block\BlockManager.cs" />
     <Compile Include="Assets\Scripts\Block\ChannelLine.cs" />
+    <Compile Include="Assets\Scripts\Block\EventBlockController.cs" />
     <Compile Include="Assets\Scripts\Block\MapBlockInfo.cs" />
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
-    <Compile Include="Assets\Scripts\Buff\BuffAttackIncrementPresent.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffAttackRecovery.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffDefenseReduce.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffDotOrHot.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffHPHot.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffReceiverInterFace.cs" />
+    <Compile Include="Assets\Scripts\Buff\BuffSpeedIncrementPresent.cs" />
     <Compile Include="Assets\Scripts\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Bullet\BulletArrow.cs" />
     <Compile Include="Assets\Scripts\ChannelWallController.cs" />
@@ -110,8 +111,10 @@
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\InterFace\InteractionInterface.cs" />
     <Compile Include="Assets\Scripts\Item\Coin.cs" />
+    <Compile Include="Assets\Scripts\Item\HeadStone.cs" />
     <Compile Include="Assets\Scripts\Item\Hint.cs" />
     <Compile Include="Assets\Scripts\Item\Item.cs" />
+    <Compile Include="Assets\Scripts\Item\RestoreHealthHeadStone.cs" />
     <Compile Include="Assets\Scripts\Item\Treasure.cs" />
     <Compile Include="Assets\Scripts\ItemAction.cs" />
     <Compile Include="Assets\Scripts\Partcles\BloodEffect.cs" />

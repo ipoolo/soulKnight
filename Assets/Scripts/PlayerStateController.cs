@@ -117,7 +117,7 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
             effectPSOb.transform.parent = player.transform;
             render.color = restoreEffectColor;
         }
-        StartCoroutine("renderBackOriginColor");
+        StartCoroutine("RenderBackOriginColor");
     }
 
     IEnumerator RenderBackOriginColor()

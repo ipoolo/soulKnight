@@ -69,6 +69,25 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="130">
+  <properties>
+   <property name="unity:SortingLayer" value="ForeGround"/>
+   <property name="unity:layer" value="Item"/>
+  </properties>
+  <objectgroup draworder="index" id="4">
+   <object id="3" name="Hitbox" x="-16" y="-16" width="48" height="48">
+    <properties>
+     <property name="unity:IsTrigger" type="bool" value="true"/>
+     <property name="unity:layer" value="Item"/>
+    </properties>
+   </object>
+   <object id="4" name="Block" x="0" y="0" width="16" height="16">
+    <properties>
+     <property name="unity:layer" value="Item"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="140" terrain=",0,,0">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="7" height="16"/>

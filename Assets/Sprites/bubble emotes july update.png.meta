@@ -220,13 +220,13 @@ TextureImporter:
     second: bubble emotes july update_71
   - first:
       213: -3561708802142620751
-    second: bubble emotes july update_72
+    second: itemHp6
   - first:
       213: -1227105621827643105
-    second: bubble emotes july update_73
+    second: itemHp7
   - first:
       213: -2250596588475691281
-    second: bubble emotes july update_74
+    second: itemHp8
   - first:
       213: 9219258774970136754
     second: bubble emotes july update_75
@@ -670,13 +670,13 @@ TextureImporter:
     second: bubble emotes july update_71
   - first:
       213: -7392054982809995070
-    second: bubble emotes july update_72
+    second: itemHp6
   - first:
       213: 4993745673616392672
-    second: bubble emotes july update_73
+    second: itemHp7
   - first:
       213: 8328366558852274148
-    second: bubble emotes july update_74
+    second: itemHp8
   - first:
       213: -9136054506880000198
     second: bubble emotes july update_75
@@ -2556,15 +2556,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bubble emotes july update_72
+      name: itemHp6
       rect:
         serializedVersion: 2
         x: 0
         y: 96
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2577,15 +2577,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bubble emotes july update_73
+      name: itemHp7
       rect:
         serializedVersion: 2
         x: 16
         y: 96
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2598,15 +2598,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bubble emotes july update_74
+      name: itemHp8
       rect:
         serializedVersion: 2
         x: 32
         y: 96
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 1
+      pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

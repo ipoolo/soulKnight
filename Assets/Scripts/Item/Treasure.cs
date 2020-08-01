@@ -16,7 +16,8 @@ public class Treasure : Item
     private void DefaultConfig()
     {
         treasureAnimator = GetComponentInParent<Animator>();
-        this.InteractionBodyAction = new System.Action(OpenTreasure);
+        //this.interactionBodyAction = new System.Action(OpenTreasure);
+        this.playerEnterAction = new System.Action(OpenTreasure);
         offset = new Vector2(-0.5f,1.5f);
         isOpened = false;
     }
