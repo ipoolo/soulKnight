@@ -19,24 +19,27 @@ public class Item : MonoBehaviour,InteractionInterface
     public Action playerLeavection;
     public int price;
 
+    private void Awake()
+    {
+        hintCanShow = true;
+        canReceiveTrigger = true;
+    }
 
     // Start is called before the first frame update
     public void Start()
     {
         configHint();
-        canReceiveTrigger = true;
-
     }
 
     private void configHint()
     {
-        hintCanShow = true;
+
+
         Vector3 hintPosition = new Vector3(transform.parent.position.x, transform.parent.position.y);
         hint = ((GameObject)Instantiate(Resources.Load(string.Format("Hint/{0}", hintPrefabName)), hintPosition, Quaternion.identity)).GetComponent<Hint>();
         hint.transform.parent = transform.parent;
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
-
 
 
     // Update is called once per frame
@@ -132,7 +135,6 @@ public class Item : MonoBehaviour,InteractionInterface
 
     public virtual void InteractionBody()
     {
-
         if(interactionBodyAction != null) { 
           interactionBodyAction();
         }

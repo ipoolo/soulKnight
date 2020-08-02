@@ -12,14 +12,14 @@ public class GameController : MonoBehaviour
     void Start()
     {
 
-        configDefault();
+        //configDefault();
 
 
     }
 
     private void configDefault()
     {
-        //ITEM
+        //ITEM 全局的加,代码生成的 action由自己设置
         GameObject[] gameOBs = GameObject.FindGameObjectsWithTag("Item");
         foreach(GameObject gb in gameOBs)
         {
@@ -36,14 +36,6 @@ public class GameController : MonoBehaviour
                         if(scp.TryGetCustomProperty("ItemType",out cp))
                         {
                             if (cp.m_Value.Equals("ExitPort"))
-                            {
-                                Item item = b2d.gameObject.AddComponent<Item>();
-                                item.interactionBodyAction = ItemAction.ItemExitAction();
-
-                                break;
-                            }
-
-                            if (cp.m_Value.Equals("Treasure"))
                             {
                                 Item item = b2d.gameObject.AddComponent<Item>();
                                 item.interactionBodyAction = ItemAction.ItemExitAction();

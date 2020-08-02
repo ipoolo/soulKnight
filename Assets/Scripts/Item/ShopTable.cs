@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class ShopTable : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class ShopTable : MonoBehaviour
     public Item table;
     public TextMeshProUGUI textMesh;
     private bool isGoodsSold = false;
+    public PlayerController player;
+    public GameObject coinImage;
+    public GameObject goodsLocation;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -19,16 +23,24 @@ public class ShopTable : MonoBehaviour
 
     void Start()
     {
-        
+        ConfigGoods("ItemHealthVial");
+        ConfigTable();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
     }
 
     public void ConfigGoods(string goodsName)
     {
-        goods = Instantiate((Item)Resources.Load("Item/Goods/" + goodsName), transform.position, Quaternion.identity).GetComponentInChildren<Item>();
-        goods.transform.parent = transform;
+        ConfigGoods((GameObject)Resources.Load("Item/" + goodsName));
+    }
+
+    public void ConfigGoods(GameObject goodsPrefab)
+    {
+        goods = Instantiate(goodsPrefab, goodsLocation.transform.position, Quaternion.identity).GetComponentInChildren<Item>();
+        goods.transform.parent.parent = transform;
         goods.hintCanShow = false;
         goods.canReceiveTrigger = false;
-        textMesh.text = string.Format("{0}", goods.price);
+
     }
 
     public void ConfigTable()
@@ -45,14 +57,29 @@ public class ShopTable : MonoBehaviour
         {
             //show canva
             sellInfoCanvas.SetActive(true);
+            textMesh.text = string.Format("{0}", goods.price);
+            coinImage.SetActive(true);
         }
     }
     private void playerInteractionTable()
     {
         if (!isGoodsSold)
         {
-            goods.interactionBodyAction();
-            sellInfoCanvas.SetActive(false);
+            if (player.playerStateController.coinReduce(10))
+            {
+                isGoodsSold = true;
+                if (goods.interactionBodyAction != null)
+                {
+                    goods.interactionBodyAction();
+                }
+
+                sellInfoCanvas.SetActive(false);
+            }
+            else
+            {
+                coinImage.SetActive(false);
+                textMesh.text = string.Format("穷鬼,走走走");
+            }
         }
 
     }
