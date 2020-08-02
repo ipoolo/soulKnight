@@ -6,6 +6,7 @@ public class Treasure : Item
 {
     private Animator treasureAnimator;
     private bool isOpened;
+    private float openTimeOffset = 0.667f;
     // Start is called before the first frame update
     new void Start()
     {
@@ -33,7 +34,7 @@ public class Treasure : Item
         if (!isOpened) {
             isOpened = true;
             treasureAnimator.SetTrigger("Open");
-            Invoke("SpwanCoin",0.1f);
+            Invoke("SpwanCoin", openTimeOffset);
             HideFoucsArror();
             hintCanShow = false;
         }
@@ -44,7 +45,7 @@ public class Treasure : Item
         int coinCount = Random.Range(3, 7);
         for (int i = 0; i < coinCount; i++) {
             Coin coin = Instantiate((GameObject)Resources.Load("Coin")).GetComponent<Coin>();
-            coin.transform.position = transform.position;
+            coin.transform.position = transform.parent.position;
             coin.radius = 4.0f;
         }
     }

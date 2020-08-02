@@ -33,8 +33,6 @@ public class Item : MonoBehaviour,InteractionInterface
 
     private void configHint()
     {
-
-
         Vector3 hintPosition = new Vector3(transform.parent.position.x, transform.parent.position.y);
         hint = ((GameObject)Instantiate(Resources.Load(string.Format("Hint/{0}", hintPrefabName)), hintPosition, Quaternion.identity)).GetComponent<Hint>();
         hint.transform.parent = transform.parent;

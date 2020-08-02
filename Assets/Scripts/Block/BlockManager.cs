@@ -119,6 +119,7 @@ public class BlockManager : MonoBehaviour
                     prefeb = (GameObject)Resources.Load(Path + "EndBlockMap");
                     break;
                 case MapBlockType.shopType:
+                    prefeb = (GameObject)Resources.Load(Path + "ShopBlockMap");
                     break;
                 case MapBlockType.startType:
                     prefeb = (GameObject)Resources.Load(Path + "StartBlockMap");

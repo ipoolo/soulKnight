@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\Block\ChannelLine.cs" />
     <Compile Include="Assets\Scripts\Block\EventBlockController.cs" />
     <Compile Include="Assets\Scripts\Block\MapBlockInfo.cs" />
+    <Compile Include="Assets\Scripts\Block\ShopBlockController.cs" />
     <Compile Include="Assets\Scripts\Buff\Buff.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffAttackRecovery.cs" />
     <Compile Include="Assets\Scripts\Buff\BuffDefenseReduce.cs" />

@@ -23,7 +23,6 @@ public class ShopTable : MonoBehaviour
 
     void Start()
     {
-        ConfigGoods("ItemHealthVial");
         ConfigTable();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
