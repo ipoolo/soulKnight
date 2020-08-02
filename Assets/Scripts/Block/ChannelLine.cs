@@ -6,6 +6,8 @@ public class ChannelLine : MonoBehaviour
 {
     private Vector2 start;
     private Vector2 end;
+    public Line line;
+    private SpriteRenderer sRender;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +26,7 @@ public class ChannelLine : MonoBehaviour
         //lr.SetPosition(1, end);
         transform.position = _start;
         float lineStepDistance = 1;
-        SpriteRenderer sRender= GetComponent<SpriteRenderer>();
+        sRender = GetComponent<SpriteRenderer>();
         if(_start.x == _end.x)
         {
             sRender.size = new Vector2(sRender.size.y,lineStepDistance);
@@ -49,9 +51,20 @@ public class ChannelLine : MonoBehaviour
                 transform.position = new Vector3(transform.position.x + lineStepDistance / 2.0f, transform.position.y, 0);
             }
         }
+        sRender.color = new Color(sRender.color.r, sRender.color.g, sRender.color.b, 0);
     }
 
- 
+    public void ChangeColor(Color _color)
+    {
+        sRender.color = _color;
+    }
+
+    public Color CurrColor()
+    {
+        return sRender.color;
+    }
+
+
     // Update is called once per frame
     void Update()
     {

@@ -23,10 +23,15 @@ public class MapBlockInfo : MonoBehaviour
     public MapBlockType blockType;
     public MapBlockInfo parent = null;
     public BlockController bc;
+    public SpriteRenderer sRender;
+
+    private void Awake()
+    {
+        sRender = GetComponent<SpriteRenderer>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
         string fileName = "";
         switch (blockType)
@@ -50,7 +55,17 @@ public class MapBlockInfo : MonoBehaviour
                 fileName = "BossRoom";
                 break;
         }
-        sr.sprite = Sprite.Create((Texture2D)Resources.Load(string.Format("MiniMap/{0}", fileName), typeof(Texture2D)), sr.sprite.rect, new Vector2(0.5f,0.5f),16);
+        sRender.sprite = Sprite.Create((Texture2D)Resources.Load(string.Format("MiniMap/{0}", fileName), typeof(Texture2D)), sRender.sprite.rect, new Vector2(0.5f,0.5f),16);
+    }
+
+    public void ChangeColor(Color _color)
+    {
+        sRender.color = _color;
+    }
+
+    public Color CurrColor()
+    {
+        return sRender.color;
     }
 
     // Update is called once per frame

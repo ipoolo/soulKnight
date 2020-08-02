@@ -10,7 +10,7 @@ enum DirectionType{
     left
 }
 
-public struct line
+public struct Line
 {
     public MapBlockInfo start;
     public MapBlockInfo end;
@@ -37,9 +37,10 @@ public class BlockManager : MonoBehaviour
     public List<MapBlockInfo> nodeList = new List<MapBlockInfo>();
     public List<MapBlockInfo> keyList = new List<MapBlockInfo>();
 
-    public List<line> lineList = new List<line>();
+    public List<Line> lineList = new List<Line>();
 
     public List<Location> canAddNodeLocationList = new List<Location>();
+    public List<ChannelLine> channelLines = new List<ChannelLine>();
 
     public float blockInterval;
     public GameObject channelLayer;
@@ -109,7 +110,7 @@ public class BlockManager : MonoBehaviour
             switch (mbi.blockType)
             {
                 case MapBlockType.battleType:
-                    prefeb = (GameObject)Resources.Load(Path+"BattleBlockMap");
+                    prefeb = (GameObject)Resources.Load(Path + "BattleBlockMap");
                     break;
                 case MapBlockType.eventType:
                     prefeb = (GameObject)Resources.Load(Path + "EventBlockMap");
@@ -124,15 +125,16 @@ public class BlockManager : MonoBehaviour
                     break;
                 case MapBlockType.BossType:
                     break;
-
             }
             if(prefeb != null) { 
                 BlockController bc = Instantiate(prefeb, Vector2.zero, Quaternion.identity).GetComponent<BlockController>();
+                bc.blockManager = this;
                 bc.transform.parent = transform;
                 Vector2 position = new Vector2(blockInterval * mbi.indexInfo.x- bc.blockWidth/2.0f, blockInterval * mbi.indexInfo.y + bc.blockWidth / 2.0f);
                 CalBlockDirection(mbi, bc);
                 mbi.bc = bc;
-                if(bc is BattleBlockController)
+                bc.mbi = mbi;
+                if (bc is BattleBlockController)
                 {
                     BattleBlockController bbc = (BattleBlockController)bc;
                     //bbc.baseEnemyNum = Random.Range(10, 15);
@@ -147,7 +149,7 @@ public class BlockManager : MonoBehaviour
     public void CalBlockDirection(MapBlockInfo mbi, BlockController bc)
     {
 
-        foreach(line line in lineList){ 
+        foreach(Line line in lineList){ 
             if (line.start == mbi)
             {
                 if (line.start.indexInfo.x > line.end.indexInfo.x)
@@ -280,7 +282,7 @@ public class BlockManager : MonoBehaviour
             nodeList.ForEach(i => keyList.Add(i));
             keyList.ForEach(mbi => {
                 if (mbi.parent) { 
-                    line line = new line();
+                    Line line = new Line();
                     line.start = mbi.parent;
                     line.end = mbi;
                     lineAddWithMapBlockInfo(mbi, mbi.parent);
@@ -325,12 +327,15 @@ public class BlockManager : MonoBehaviour
         });
         if (!isExist)
         {
-            line newLine = new line();
+            Line newLine = new Line();
             newLine.start = start;
             newLine.end = end;
             lineList.Add(newLine);
         }
     }
+
+    private Color battleColor  = new Color(248 / 255.0f, 159.0f/255.0f, 51.0f / 255.0f, 1.0f);
+    private Color evntColor = new Color(255 / 255.0f, 0.0f, 237.0f / 255.0f, 1.0f);
 
     public void ConfigMiniMapColor()
     {
@@ -340,22 +345,22 @@ public class BlockManager : MonoBehaviour
             switch (mbi.blockType)
             {
                 case MapBlockType.startType:
-                    mbi.GetComponent<SpriteRenderer>().color = Color.green;
+                    mbi.sRender.color = ColorAngleChange(Color.green,1);
                     break;
                 case MapBlockType.endType:
-                    mbi.GetComponent<SpriteRenderer>().color = Color.blue;
+                    mbi.sRender.color = ColorAngleChange(Color.blue,0);
                     break;
                 case MapBlockType.battleType:
-                    mbi.GetComponent<SpriteRenderer>().color = new Color(248 / 255.0f, 159.0f/255.0f, 51.0f / 255.0f, 1.0f);
+                    mbi.sRender.color = ColorAngleChange(battleColor, 0);
                     break;
                 case MapBlockType.shopType:
-                    mbi.GetComponent<SpriteRenderer>().color = Color.yellow;
+                    mbi.sRender.color = ColorAngleChange(Color.yellow, 0);
                     break;
                 case MapBlockType.BossType:
-                    mbi.GetComponent<SpriteRenderer>().color = Color.red;
+                    mbi.sRender.color = ColorAngleChange(Color.red, 0);
                     break;
                 case MapBlockType.eventType:
-                    mbi.GetComponent<SpriteRenderer>().color = new Color(255 / 255.0f, 0.0f, 237.0f / 255.0f, 1.0f);
+                    mbi.sRender.color = ColorAngleChange(evntColor, 0);
                     break;
             }
         }
@@ -364,7 +369,14 @@ public class BlockManager : MonoBehaviour
             ChannelLine cline = ((GameObject)Instantiate(Resources.Load("Block/Line"), transform.position, Quaternion.identity)).GetComponent<ChannelLine>();
             cline.config(new Vector2(line.start.indexInfo.x, line.start.indexInfo.y), new Vector2(line.end.indexInfo.x, line.end.indexInfo.y));
             cline.transform.parent = mapLocation.transform;
+            cline.line = line;
+            channelLines.Add(cline);
         });
+    }
+
+    private Color ColorAngleChange(Color color ,float angle)
+    {
+        return new Color(color.r, color.g, color.b, angle);
     }
     public void ConfigDefault()
     {
@@ -527,10 +539,45 @@ public class BlockManager : MonoBehaviour
         }
            
     }
+    public void PlayerEnterBlock(BlockController bc)
+    {
+        MapBlockInfo mbi = bc.mbi;
+        List<Line> showLines = new List<Line>();
+
+        lineList.ForEach(line =>
+        {
+            if (line.start == mbi || line.end == mbi)
+            {
+                showLines.Add(line);
+            }
+        });
+
+        channelLines.ForEach(cline =>
+        {
+            foreach (Line line in showLines)
+            {
+                if (cline.line.start == line.start && cline.line.end == line.end)
+                {
+                    //线段显示
+                    cline.ChangeColor(ColorAngleChange(cline.CurrColor(), 1.0f));
+                }
+            }
+
+        });
+        //block显示
+        foreach (Line line in showLines)
+        {
+            //中心位置会重复设置
+            line.start.ChangeColor(ColorAngleChange(line.start.CurrColor(), 1.0f));
+            line.end.ChangeColor(ColorAngleChange(line.end.CurrColor(), 1.0f));
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
         
     }
+
+
 }

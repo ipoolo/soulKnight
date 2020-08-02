@@ -39,6 +39,9 @@ public class BlockController : MonoBehaviour
     private int blockDirectionOffset;
     private Vector2 blockCenterPosation;
     public List<BlockDireciton> directions = new List<BlockDireciton>();
+    public BlockManager blockManager;
+    private bool isPlayerFirstEnter;
+    public MapBlockInfo mbi;
 
     private void Awake()
     {
@@ -46,6 +49,7 @@ public class BlockController : MonoBehaviour
     }
     private void OnEnable()
     {
+        isPlayerFirstEnter = true;
     }
 
     public void Start()
@@ -101,5 +105,10 @@ public class BlockController : MonoBehaviour
 
     public virtual void receivePlayerEnter()
     {
+        if (isPlayerFirstEnter) {
+            isPlayerFirstEnter = false;
+            blockManager.PlayerEnterBlock(this);
+        }
+    
     }
 }
