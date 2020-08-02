@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class ChannelLine : MonoBehaviour
 {
-    private Vector2 start;
-    private Vector2 end;
     public Line line;
     private SpriteRenderer sRender;
     // Start is called before the first frame update
@@ -13,7 +11,7 @@ public class ChannelLine : MonoBehaviour
     {
         
     }
-    public void config(Vector2 _start,Vector2 _end)
+    public void Config(Vector2 _start,Vector2 _end)
     {
         //LineRenderer lr = GetComponent<LineRenderer>();
         //lr.startColor = Color.grey;

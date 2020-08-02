@@ -13,7 +13,7 @@ public enum BlockDireciton
     Left
 }
 
-public interface battleState
+public interface IBattleState
 {
     void BattleStart();
     void BattleEnd();
@@ -103,7 +103,7 @@ public class BlockController : MonoBehaviour
         };
     }
 
-    public virtual void receivePlayerEnter()
+    public virtual void ReceivePlayerEnter()
     {
         if (isPlayerFirstEnter) {
             isPlayerFirstEnter = false;

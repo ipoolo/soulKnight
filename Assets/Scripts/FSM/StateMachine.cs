@@ -6,7 +6,7 @@ using UnityEngine;
 public class StateMachine<T>
 {
     T stateOwner;
-    FSMState<T> currState;
+    public FSMState<T> currState;
     FSMState<T> preState;
     FSMState<T> globalState;
 

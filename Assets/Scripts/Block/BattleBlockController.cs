@@ -58,10 +58,10 @@ public class BattleBlockController : BlockController
             }
         }
     }
-    public override void receivePlayerEnter()
+    public override void ReceivePlayerEnter()
     {
         //同一帧情况下,isFinishBattle还没有被BattleFinish 赋值 doorArea触发了 ontrigger 导致判断失效. 固加判断条件(非战斗状态))
-        base.receivePlayerEnter();
+        base.ReceivePlayerEnter();
         if (blockType == BlockType.battleType && isFinishBattle == false && isBattleState != true)
         {
             //这里还要判断block的类型
@@ -75,7 +75,7 @@ public class BattleBlockController : BlockController
     {
         //放置宝箱
         //开门
-        base.receivePlayerEnter();
+        base.ReceivePlayerEnter();
         if (blockType == BlockType.battleType)
         {
             //这里还要判断block的类型

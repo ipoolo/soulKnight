@@ -8,7 +8,7 @@ public class Item : MonoBehaviour,InteractionInterface
     public PlayerController playerController;
     public Vector3 offset;
     public bool hintCanShow;
-
+    public bool canReceiveTrigger;
 
     private Hint hint;
     public string hintPrefabName = "Hint";
@@ -17,13 +17,14 @@ public class Item : MonoBehaviour,InteractionInterface
     public Action interactionBodyAction;
     public Action playerEnterAction;
     public Action playerLeavection;
+    public int price;
 
 
     // Start is called before the first frame update
     public void Start()
     {
         configHint();
-
+        canReceiveTrigger = true;
 
     }
 
@@ -46,30 +47,34 @@ public class Item : MonoBehaviour,InteractionInterface
 
     private void OnTriggerEnter2D(Collider2D ohter)
     {
-        if (ohter.CompareTag("Player"))
-        {
-            //将自己塞入player的InteractionList;
-            playerController.Add2InteractionList(this);
-            OnTriggerEnter2DBody();
-            if(playerEnterAction != null)
+        if (canReceiveTrigger) { 
+            if (ohter.CompareTag("Player"))
             {
-                playerEnterAction();
+                //将自己塞入player的InteractionList;
+                playerController.Add2InteractionList(this);
+                OnTriggerEnter2DBody();
+                if(playerEnterAction != null)
+                {
+                    playerEnterAction();
+                }
             }
         }
 
     }
     private void OnTriggerExit2D(Collider2D ohter)
     {
-        if (ohter.CompareTag("Player"))
+        if (canReceiveTrigger)
         {
-            //将自己移出player的InteractionList;
-            playerController.remove2InteractionList(this);
-            OnTriggerExit2DBody();
-            if(playerLeavection != null)
+            if (ohter.CompareTag("Player"))
             {
-                playerLeavection();
+                //将自己移出player的InteractionList;
+                playerController.remove2InteractionList(this);
+                OnTriggerExit2DBody();
+                if (playerLeavection != null)
+                {
+                    playerLeavection();
+                }
             }
-
         }
     }
 
@@ -80,6 +85,7 @@ public class Item : MonoBehaviour,InteractionInterface
 
     private void OnTriggerExit2DBody()
     {
+
     }
 
     //显示和隐藏由playerController控制

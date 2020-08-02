@@ -5,8 +5,8 @@ using UnityEngine;
 public class BuffDotOrHot : Buff
 {
 
-    [SerializeField] public float stepTime;
-    [SerializeField] public int effectTotalTimes = 0;
+    public float stepTime;
+    public int effectTotalTimes = 0;
     [HideInInspector]public int effectHappenTimes = 0;
 
     private float buffTimer;

@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
     <Compile Include="Assets\Scripts\Entity\EntityManager.cs" />
     <Compile Include="Assets\Scripts\Entity\MessageDispatcher.cs" />
+    <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStateAvoid.cs" />
     <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStateGolbal.cs" />
     <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStatePatrol.cs" />
     <Compile Include="Assets\Scripts\FSM\FSMEnemyState\FSMEnemyStateTrack.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Assets\Scripts\Item\Hint.cs" />
     <Compile Include="Assets\Scripts\Item\Item.cs" />
     <Compile Include="Assets\Scripts\Item\RestoreHealthHeadStone.cs" />
+    <Compile Include="Assets\Scripts\Item\ShopTable.cs" />
     <Compile Include="Assets\Scripts\Item\Treasure.cs" />
     <Compile Include="Assets\Scripts\ItemAction.cs" />
     <Compile Include="Assets\Scripts\Partcles\BloodEffect.cs" />

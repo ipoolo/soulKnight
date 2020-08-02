@@ -25,6 +25,10 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     public float perspectiveSenseDistance;
     public float perspectiveSenseFiledOfView;
 
+    public float minAvoidDistance;
+    public float maxAvoidDistance;
+    [HideInInspector] public float distance2Player;
+
     public GameObject canvasDamage;//绘制伤害
     public GameObject enemyDeathAnim;
 
@@ -57,6 +61,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     public Vector3 patrolTargetPosition;
     public bool isPatrolRunning;
+
 
 
     private Skill currSkill;

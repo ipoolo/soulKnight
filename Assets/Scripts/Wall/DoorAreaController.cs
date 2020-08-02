@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class DoorAreaController : MonoBehaviour, battleState
+public class DoorAreaController : MonoBehaviour, IBattleState
 {
     // Start is called before the first frame update
     public BlockDireciton daDircetion;
@@ -85,7 +85,7 @@ public class DoorAreaController : MonoBehaviour, battleState
         {
             //进入
             //传给block判断
-            onwer.receivePlayerEnter();
+            onwer.ReceivePlayerEnter();
         }
     }
 

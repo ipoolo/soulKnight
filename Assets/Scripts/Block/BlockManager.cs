@@ -24,15 +24,15 @@ public class BlockManager : MonoBehaviour
 
     private int maxCount;
     private int endStep;
-    private int bossDefaultEndStep = 5;
-    private int generalDefaultEndStep = 4;
-    private bool isBossMap = false;
-    private int mapMaxBlock = 8;
-    private int minMaxBlock = 6;
+    private readonly int bossDefaultEndStep = 5;
+    private readonly int generalDefaultEndStep = 4;
+    private readonly bool isBossMap = false;
+    private readonly int mapMaxBlock = 8;
+    private readonly int minMaxBlock = 6;
 
     private GameObject mapLocation;
 
-    private float blockStepDistance = 1.0f;
+    private readonly float blockStepDistance = 1.0f;
 
     public List<MapBlockInfo> nodeList = new List<MapBlockInfo>();
     public List<MapBlockInfo> keyList = new List<MapBlockInfo>();
@@ -134,9 +134,8 @@ public class BlockManager : MonoBehaviour
                 CalBlockDirection(mbi, bc);
                 mbi.bc = bc;
                 bc.mbi = mbi;
-                if (bc is BattleBlockController)
+                if (bc is BattleBlockController bbc)
                 {
-                    BattleBlockController bbc = (BattleBlockController)bc;
                     //bbc.baseEnemyNum = Random.Range(10, 15);
                     //bbc.maxStepSpwanNum = Random.Range(3, 5);
                 }
@@ -281,11 +280,14 @@ public class BlockManager : MonoBehaviour
         keyList = new List<MapBlockInfo>();
             nodeList.ForEach(i => keyList.Add(i));
             keyList.ForEach(mbi => {
-                if (mbi.parent) { 
-                    Line line = new Line();
-                    line.start = mbi.parent;
-                    line.end = mbi;
-                    lineAddWithMapBlockInfo(mbi, mbi.parent);
+                if (mbi.parent) {
+                    Line line = new Line 
+                    {
+                        start = mbi.parent,
+                        end = mbi,
+                     };
+
+                    LineAddWithMapBlockInfo(mbi, mbi.parent);
                 }
             });
     }
@@ -303,14 +305,14 @@ public class BlockManager : MonoBehaviour
                    float distance =Mathf.Abs(Vector2.Distance(new Vector2(elseMbi.indexInfo.x, elseMbi.indexInfo.y), new Vector2(nodeMbi.indexInfo.x, nodeMbi.indexInfo.y)));
                     if (distance == blockStepDistance)
                     {
-                        lineAddWithMapBlockInfo(elseMbi, nodeMbi);
+                        LineAddWithMapBlockInfo(elseMbi, nodeMbi);
                     }
                 }
             });
         });
     }
 
-    public void lineAddWithMapBlockInfo(MapBlockInfo start,MapBlockInfo end)
+    public void LineAddWithMapBlockInfo(MapBlockInfo start,MapBlockInfo end)
     {
         bool isExist = false;
         //验重
@@ -327,9 +329,12 @@ public class BlockManager : MonoBehaviour
         });
         if (!isExist)
         {
-            Line newLine = new Line();
-            newLine.start = start;
-            newLine.end = end;
+            Line newLine = new Line
+            {
+                start = start,
+                end = end
+        };
+
             lineList.Add(newLine);
         }
     }
@@ -367,7 +372,7 @@ public class BlockManager : MonoBehaviour
 
         lineList.ForEach(line => {
             ChannelLine cline = ((GameObject)Instantiate(Resources.Load("Block/Line"), transform.position, Quaternion.identity)).GetComponent<ChannelLine>();
-            cline.config(new Vector2(line.start.indexInfo.x, line.start.indexInfo.y), new Vector2(line.end.indexInfo.x, line.end.indexInfo.y));
+            cline.Config(new Vector2(line.start.indexInfo.x, line.start.indexInfo.y), new Vector2(line.end.indexInfo.x, line.end.indexInfo.y));
             cline.transform.parent = mapLocation.transform;
             cline.line = line;
             channelLines.Add(cline);
@@ -417,27 +422,25 @@ public class BlockManager : MonoBehaviour
     public void AddNext(MapBlockInfo _mapBlockInfo)
     {
 
-        int tempX = 0;
-        int tempY = 0;
         bool IsCalculate = true;
 
         while (IsCalculate) {
-            tempX = (int)_mapBlockInfo.indexInfo.x;
-            tempY = (int)_mapBlockInfo.indexInfo.y;
+            int tempX = (int)_mapBlockInfo.indexInfo.x;
+            int tempY = (int)_mapBlockInfo.indexInfo.y;
             int DirectionIndex = Random.Range(0, 4);
             switch (DirectionIndex)
             {
                 case (int)DirectionType.up:
-                    tempY = tempY + 1;
+                    tempY += 1;
                     break;
                 case (int)DirectionType.right:
-                    tempX = tempX + 1;
+                    tempX += 1;
                     break;
                 case (int)DirectionType.down:
-                    tempY = tempY - 1;
+                    tempY -= 1;
                     break;
                 case (int)DirectionType.left:
-                    tempX = tempX - 1;
+                    tempX -= 1;
                     break;
             }
             if(CheckNewNodeValid(tempX, tempY)&&!CheckNewNodeExist(tempX, tempY))
@@ -528,13 +531,15 @@ public class BlockManager : MonoBehaviour
 
     }
 
-    public void AddLocation(int x, int y)
+    public void AddLocation(int _x, int _y)
     {
-        if (CheckNewNodeValid(x, y) && !CheckNewNodeExist(x, y) && !CheckLocationExistInCanAddNodeLocationList(x,y))
+        if (CheckNewNodeValid(_x, _y) && !CheckNewNodeExist(_x, _y) && !CheckLocationExistInCanAddNodeLocationList(_x,_y))
         {
-            Location loc = new Location();
-            loc.x = x;
-            loc.y = y;
+            Location loc = new Location
+            {
+                x = _x,
+                y = _y
+            };
             canAddNodeLocationList.Add(loc);
         }
            

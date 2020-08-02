@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FSMEnemyStateTrack : FSMState<Enemy>
+public class FSMEnemyStateAvoid : FSMState<Enemy>
 {
-    private static FSMEnemyStateTrack _singleInstance;
-    public static FSMEnemyStateTrack singleInstance
+    private static FSMEnemyStateAvoid _singleInstance;
+    public static FSMEnemyStateAvoid singleInstance
     {
         get
         {
             if (_singleInstance == null)
             {
-                _singleInstance = new FSMEnemyStateTrack();
+                _singleInstance = new FSMEnemyStateAvoid();
             }
             return _singleInstance;
         }
@@ -22,13 +22,20 @@ public class FSMEnemyStateTrack : FSMState<Enemy>
     }
     public override void Enter(Enemy t)
     {
+        CalAvoidTargetPosition(t);
+    }
 
+    private void CalAvoidTargetPosition(Enemy t)
+    {
+        float randomRadius = Random.Range(-45.0f, 45.0f);
+        Vector3 tmp = t.transform.position - t.playerPosition;
+        tmp =  Quaternion.Euler(0.0f,0.0f,randomRadius) * tmp;
+        t.rigid2d.velocity = tmp.normalized * t.moveSpeed ;
     }
 
     public override void Execute(Enemy t)
     {
 
-        t.rigid2d.velocity = (t.playerPosition - t.transform.position).normalized * t.moveSpeed;
 
         if (!t.isSkillTimerStop)
         {
@@ -50,13 +57,13 @@ public class FSMEnemyStateTrack : FSMState<Enemy>
 
         }
 
-        if(t.minAvoidDistance != 0.0f)
+        if (t.maxAvoidDistance != 0.0f)
         {
             t.distance2Player = Vector3.Distance(t.playerPosition, t.transform.position);
-            if (t.distance2Player < t.minAvoidDistance)
+            if (t.distance2Player > t.maxAvoidDistance)
             {
-                //TODO切换到Avoid状态
-                t.fsm.ChangeState(FSMEnemyStateAvoid.singleInstance);
+                //TODO切换到Track状态
+                t.fsm.ChangeState(FSMEnemyStateTrack.singleInstance);
             }
         }
     }

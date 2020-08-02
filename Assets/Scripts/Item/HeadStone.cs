@@ -7,7 +7,7 @@ public class HeadStone : Item
     private Animator headStoneAnimator;
     private bool isUsed;
 
-    public void Start()
+    public new void Start()
     {
 
         base.Start();

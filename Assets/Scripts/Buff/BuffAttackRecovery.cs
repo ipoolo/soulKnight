@@ -9,15 +9,15 @@ public class BuffAttackRecovery : Buff, BuffReceiveHittingDamageInterFace
     public float attackRecoveryScale;
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        
+        base.Update();
     }
     public float BuffReceiveHittingDamageInterFaceBody(float _hittingDamage)
     {

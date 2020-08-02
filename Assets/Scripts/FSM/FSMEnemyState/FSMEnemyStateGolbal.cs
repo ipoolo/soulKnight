@@ -55,10 +55,28 @@ public class FSMEnemyStateGolbal : FSMState<Enemy>
         Debug.DrawLine(t.transform.position, new Vector3(t.transform.position.x+ postion2Target2.normalized.x *t.perspectiveSenseDistance, t.transform.position.y + postion2Target2.normalized.y * t.perspectiveSenseDistance,0), Color.green); ;
         Debug.DrawLine(t.transform.position, new Vector3(t.transform.position.x + postion2Target2.normalized.x * t.perspectiveSenseDistance, t.transform.position.y - postion2Target2.normalized.y * t.perspectiveSenseDistance, 0), Color.yellow); ;
 
+        t.distance2Player = Vector3.Distance(t.playerPosition, t.transform.position);
+
         if (t.isTouchSensePalyer || t.isPerspectiveSense)
         {
-            //状态跳转到跟踪
-            t.fsm.ChangeState(FSMEnemyStateTrack.singleInstance);
+            if(t.fsm.currState == FSMEnemyStatePatrol.singleInstance)
+            {//从巡逻跳转到 追击/逃避 则重置技能
+                t.skillCoolDownTimer = 0;
+                t.isSkillTimerStop = false;
+                if (t.distance2Player < t.minAvoidDistance)
+                {
+                    //跳转到回避状态
+                    t.fsm.ChangeState(FSMEnemyStateAvoid.singleInstance);
+                }
+                else
+                {
+                    //跳转到追击状态
+                    //状态跳转到跟踪
+                    t.fsm.ChangeState(FSMEnemyStateTrack.singleInstance);
+                }
+
+            }
+
         }
         else
         {

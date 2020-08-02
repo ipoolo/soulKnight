@@ -233,7 +233,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -741938523
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 154a17201f0b5d340a96424a033c977a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -331,13 +331,17 @@ MonoBehaviour:
   isReceiveDamage: 1
   isOutControl: 0
   rigid2d: {fileID: 0}
+  isSuspend: 0
   canReceiveRepel: 1
   animator: {fileID: 0}
   moveSpeedLevelUpScale: 0
   damageLevelUpScale: 0
-  touchSenseDistance: 3
-  perspectiveSenseDistance: 5
+  touchSenseDistance: 4
+  perspectiveSenseDistance: 6
   perspectiveSenseFiledOfView: 60
+  minAvoidDistance: 0
+  maxAvoidDistance: 0
+  distance2Player: 0
   canvasDamage: {fileID: 8517629138960482143, guid: a01643e1c4b65c64bb658698211aa550,
     type: 3}
   enemyDeathAnim: {fileID: 8632504267215540071, guid: 1c60b6bd16d81f94a927adcef1675a83,
