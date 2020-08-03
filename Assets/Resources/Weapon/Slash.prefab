@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1235735566952876721}
   - component: {fileID: 1235735566952876725}
   - component: {fileID: 1235735566952876722}
-  - component: {fileID: 1235735566952876720}
   m_Layer: 8
   m_Name: Slash
   m_TagString: Untagged
@@ -162,24 +161,3 @@ PolygonCollider2D:
       - {x: 0.29267216, y: -0.03060329}
       - {x: 0.3086202, y: 0.086422324}
       - {x: 0.06530142, y: 0.28448308}
---- !u!114 &1235735566952876720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235735566952876735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83fbe4031d4cc924baf4a57931c54042, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 1235735566952876734}
-  damage: 1
-  attackInterval: 0.5
-  isCloseInWeapon: 1
-  powerMaxSecond: 1
-  canAttack: 0
-  isStoragePowerWeapon: 0
-  isStoragePower: 0
-  powerBarValue: 0

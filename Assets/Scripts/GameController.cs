@@ -68,9 +68,9 @@ public class GameController : MonoBehaviour
                 if (scp.TryGetCustomProperty("TrapName", out cp))
                 {
                     string peakName = cp.m_Value;
-                    Peak peak = Instantiate((GameObject)Resources.Load("Trap/" + peakName), peakGb.transform.position, Quaternion.identity).GetComponent<Peak>();
-                    peak.transform.parent = peakGb.GetComponentInParent<BlockController>().gameObject.transform;
-                    AdjustingTileOffset(peak.transform);
+                    Trap trap = Instantiate((GameObject)Resources.Load("Trap/" + peakName), peakGb.transform.position, Quaternion.identity).GetComponent<Trap>();
+                    trap.transform.parent = peakGb.GetComponentInParent<BlockController>().gameObject.transform;
+                    AdjustingTileOffset(trap.transform);
                 }
             }
         }

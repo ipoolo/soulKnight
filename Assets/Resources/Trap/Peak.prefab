@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8168158060963561543}
   - component: {fileID: 8168158060963561539}
   - component: {fileID: 8168158060963561536}
-  - component: {fileID: 8168158060963561538}
+  - component: {fileID: 1902939133587261255}
   m_Layer: 19
   m_Name: Peak
   m_TagString: Untagged
@@ -151,7 +151,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &8168158060963561538
+--- !u!114 &1902939133587261255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,7 +160,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8168158060963561542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68638bf6dba54df42a1ed16ef536a75d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c844803bc41cb042ab1324ee6e7164f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   peakOn2OffTime: 2
@@ -168,3 +168,4 @@ MonoBehaviour:
   animator: {fileID: 0}
   animOffset: 0.5
   damage: 1
+  damageIntervalTime: 1

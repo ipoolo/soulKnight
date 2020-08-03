@@ -2,33 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IncreamSpeedBuffTile : MonoBehaviour
+public class IncreamSpeedBuffTile : EffectTile
 {
-    private float timer;
-    public float effectgIntervalTime = 1.0f;
     public string buffName;
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
-        
+
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        timer += Time.deltaTime;
+        base.Update();
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void LanuchBuff(NPC npc)
     {
-        LanuchBuff(other);
-
-    }
-
-    private void LanuchBuff(Collider2D other)
-    {
-        NPC npc = other.gameObject.GetComponentInChildren<NPC>();
         Buff buff = Instantiate((GameObject)Resources.Load("Buff/" + buffName)).GetComponentInChildren<Buff>();
         buff.BuffLoad(npc);
     }
+
+    public override void EffectBody(NPC npc)
+    {
+        base.EffectBody(npc);
+        LanuchBuff(npc);
+    }
+
 }
+
+
