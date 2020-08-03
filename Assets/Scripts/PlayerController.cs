@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerStateController playerStateController;
+    [HideInInspector]public PlayerStateController playerStateController;
 
     private Rigidbody2D rid2d;
   

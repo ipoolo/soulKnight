@@ -121,9 +121,7 @@ public class Weapon : MonoBehaviour
                 Transform temp = GameObject.FindGameObjectWithTag("WeaponPoint").GetComponent<Transform>();
                 float zRotaion = temp.rotation.eulerAngles.z;
                 Vector3 tempV = Quaternion.AngleAxis(zRotaion, Vector3.forward) * Vector3.right;
-                Debug.Log(zRotaion + "zRotaion||||" + tempV + "tempV");
                 emeny.ReceiveDamageWithRepelVector(ExcuteHittingBuffEffect(damage), tempV);
-                //emeny.receiverDamage(damage, player.transform.position, 1.0f);
             }
         }
     }
