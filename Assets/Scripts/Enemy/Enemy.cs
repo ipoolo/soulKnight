@@ -74,6 +74,10 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     public System.Action<Enemy> destoryDelegate;
 
+    private float accumulationTimer;
+    private float accumulationMaxTime = 2.0f;
+    private float accumulationDamage;
+
     // Start is called before the first frame update
     public new void Start()
     {
@@ -123,8 +127,12 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     // Update is called once per frame
     public new void Update()
     {
+        //伤害累加显示计算器
+        CalDamageAccumulationShow();
+
          if (!isPause) { 
             base.Update();
+            
             survivalTime += Time.deltaTime;
 
             //不是技能控制,不是失去控制时执行
@@ -143,6 +151,16 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
             //暂停状态 被攻击到不能移动.
         }
 
+    }
+
+    private void CalDamageAccumulationShow()
+    {
+        accumulationTimer += Time.deltaTime;
+        if (accumulationTimer > accumulationMaxTime)
+        {
+            accumulationDamage = 0;
+            accumulationTimer = 0;
+        }
     }
 
     IEnumerator BackToPatrol(Enemy t)
@@ -270,6 +288,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         RenderRed();
     }
 
+
     protected override void ReduceHealthBody(float _reduceValue)
     {
         int floorValue = Mathf.FloorToInt(_reduceValue);
@@ -278,7 +297,11 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         GameObject  psObject =  Instantiate(psEffect, transform.position, Quaternion.identity);
         //掉血数值 (暴击值和普通值这里应该通过配置设置不同效果)
         DamageText damageText = Instantiate(canvasDamage, transform.position, Quaternion.identity).GetComponent<DamageText>();
-        damageText.setDamageText(floorValue);
+
+        //伤害累加显示
+        accumulationDamage += floorValue;
+        accumulationTimer = 0;
+        damageText.setDamageText(accumulationDamage);
 
         //为了更容易被检测
         psObject.transform.parent = transform;
