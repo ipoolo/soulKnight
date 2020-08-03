@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         }
         else if(Input.GetMouseButtonUp(0))
         {
-            if (weaponPoint.currWeapon.isStoragePowerWeapon && weaponPoint.currWeapon.isStoragePower)
+            if (weaponPoint.currWeapon.isStoragePowerWeapon)
             {
                 weaponPoint.currWeapon.Attack();
             }

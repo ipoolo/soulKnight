@@ -332,8 +332,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
-  hintCanShow: 0
+  hintCanShow: 1
+  canReceiveTrigger: 1
   hintPrefabName: HintRestoreHealth
+  price: 0
   buffName: BuffHPHot
 --- !u!1 &1578183011343962038
 GameObject:
@@ -826,7 +828,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -694879033
-  m_SortingLayer: 7
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 7048901979985802438, guid: 2fa49404567406249a8c84188d8c6aa6,
     type: 3}

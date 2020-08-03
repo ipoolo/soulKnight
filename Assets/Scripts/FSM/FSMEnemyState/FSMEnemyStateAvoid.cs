@@ -23,6 +23,7 @@ public class FSMEnemyStateAvoid : FSMState<Enemy>
     public override void Enter(Enemy t)
     {
         CalAvoidTargetPosition(t);
+        t.isAvoid = true;
     }
 
     private void CalAvoidTargetPosition(Enemy t)
@@ -70,7 +71,7 @@ public class FSMEnemyStateAvoid : FSMState<Enemy>
 
     public override void Exit(Enemy t)
     {
-
+        t.isAvoid = false;
     }
 
     public override bool HandleMessage(Message msg)

@@ -25,6 +25,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     public float perspectiveSenseDistance;
     public float perspectiveSenseFiledOfView;
 
+    [HideInInspector]public  bool isAvoid = false;
     public float minAvoidDistance;
     public float maxAvoidDistance;
     [HideInInspector] public float distance2Player;
@@ -179,14 +180,22 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
     private void CheckVelocityDirection()
     {
-        if(rigid2d.velocity.x > 0)
+        float velocityDirectionX = rigid2d.velocity.x;
+        if (!isAvoid)
+        {
+            //躲避时,面向方向为速度相反方向
+            velocityDirectionX *= -1;
+        }
+
+        if (velocityDirectionX > 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if (rigid2d.velocity.x < 0)
+        else if (velocityDirectionX < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
+        
     }
 
     public void FireRandomSkill()

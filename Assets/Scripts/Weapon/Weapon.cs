@@ -5,7 +5,6 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     private Animator animator;
-    public RectTransform rectTransform;
     [SerializeField] public float damage;
     [SerializeField] public float attackInterval;
     [SerializeField] public bool isCloseInWeapon;
@@ -20,19 +19,22 @@ public class Weapon : MonoBehaviour
     private WeaponPoint weaponPoint;
 
     public bool isStoragePowerWeapon;
-    public bool isStoragePower;
+    protected bool isStoragePower;
     private PowerController powerController;
-    public float powerBarValue;
+    protected float powerBarValue;
 
     public object castor;
+    [HideInInspector]public SpriteRenderer sRender;
 
-
+    private void Awake()
+    {
+        sRender = GetComponent<SpriteRenderer>();
+    }
 
 
     public virtual void Start()
     {
         animator = GetComponent<Animator>();
-        rectTransform = GetComponent<RectTransform>();
 
         attackTimer = attackInterval;
         canAttack = true;
@@ -68,8 +70,22 @@ public class Weapon : MonoBehaviour
                 powerController.updatePowerBarValue(powerBarValue);
             }
         }
+    }
+
+    public void ChangeWeaponDirection(Vector2 weaponPointRightDirection)
+    {
+        if (Vector2.Dot(weaponPointRightDirection, Vector2.right) > 0)
+        {
+            sRender.flipY = false;
+        }
+        else
+        {
+            sRender.flipY = true;
+        }
 
     }
+
+
 
     public void Attack()
     {
