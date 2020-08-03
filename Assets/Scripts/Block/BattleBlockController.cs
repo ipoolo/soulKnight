@@ -10,11 +10,11 @@ public class BattleBlockController : BlockController
     private object[] enemyPrefabs;
     private Transform[] enemyStartPoints;
     public float spwanStepWaitTime;
-    public bool isBattleState = false;
-    public bool isFinishBattle = false;
+    protected bool isBattleState = false;
+    protected bool isFinishBattle = false;
     public int maxStepSpwanNum = 1;
-    public int alreadySpwanNum;
-    private int maxEnemyNum;
+    protected int alreadySpwanNum;
+    protected int maxEnemyNum;
 
     private List<Enemy> enemySurvivalList;
     private int lastStartIndex = -1;
@@ -26,15 +26,12 @@ public class BattleBlockController : BlockController
     new void Start()
     {
         base.Start();
-        configEnemyPrefabs();
-        collectEnemyStartPoints();
-        configSurvivaEnemyList();
+        ConfigEnemyPrefabs();
+        CollectEnemyStartPoints();
+        ConfigSurvivaEnemyList();
         maxEnemyNum = level + baseEnemyNum;
         removeEnmeyAction = new System.Action<Enemy>(removeFromSurvivalList);
         WaveSpawn();
-
-
-
     }
 
     // Update is called once per frame
@@ -43,6 +40,8 @@ public class BattleBlockController : BlockController
         base.Update();
         checkEnemySurvivalListCount();
     }
+
+
 
     public void checkEnemySurvivalListCount()
     {
@@ -100,12 +99,12 @@ public class BattleBlockController : BlockController
     {
         enemySurvivalList.ForEach(e =>
         {
-            e.isSuspend = !isBattleState;
+            e.isPause = !isBattleState;
         });
     }
 
 
-    public void collectEnemyStartPoints()
+    public void CollectEnemyStartPoints()
     {
 
         GameObject[] gbArray = GameObject.FindGameObjectsWithTag("WavePoint");
@@ -132,11 +131,11 @@ public class BattleBlockController : BlockController
         }
     }
 
-    public void configEnemyPrefabs()
+    public void ConfigEnemyPrefabs()
     {
         enemyPrefabs = Resources.LoadAll("Enemy");
     }
-    public void configSurvivaEnemyList()
+    public void ConfigSurvivaEnemyList()
     {
         enemySurvivalList = new List<Enemy>();
     }
@@ -169,7 +168,7 @@ public class BattleBlockController : BlockController
         GameObject prefabs = (GameObject)enemyPrefabs[getRamdomEnemyTypeIndex()];
         Enemy enemy = Instantiate(prefabs, startTransform.position, startTransform.rotation).GetComponentInChildren<Enemy>();
         enemy.destoryDelegate = removeEnmeyAction;
-        enemy.isSuspend = !isBattleState;
+        enemy.isPause = !isBattleState;
         configEnemy(enemy, _level);
         enemy.transform.parent.parent = transform;
         enemySurvivalList.Add(enemy);

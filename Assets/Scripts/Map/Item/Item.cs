@@ -7,7 +7,7 @@ public class Item : MonoBehaviour,InteractionInterface
 {
     public PlayerController playerController;
     public Vector3 offset;
-    public bool hintCanShow;
+    public bool hintCanShow = true;
     public bool canReceiveTrigger;
 
     private Hint hint;
@@ -21,7 +21,7 @@ public class Item : MonoBehaviour,InteractionInterface
 
     private void Awake()
     {
-        hintCanShow = true;
+        
         canReceiveTrigger = true;
     }
 

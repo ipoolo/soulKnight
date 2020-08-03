@@ -123,7 +123,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     // Update is called once per frame
     public new void Update()
     {
-         if (!isSuspend) { 
+         if (!isPause) { 
             base.Update();
             survivalTime += Time.deltaTime;
 
@@ -258,19 +258,19 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     public override void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
         //暂停状态 不吃攻击
-        if (!isSuspend)
+        if (!isPause)
         {
             base.ReceiveDamageWithRepelVector(_damage, _repelVector);
 
         }
     }
 
-    public override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
+    protected override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
         RenderRed();
     }
 
-    public override void ReduceHealthBody(float _reduceValue)
+    protected override void ReduceHealthBody(float _reduceValue)
     {
         int floorValue = Mathf.FloorToInt(_reduceValue);
         health -= floorValue;

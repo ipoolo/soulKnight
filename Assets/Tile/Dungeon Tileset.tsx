@@ -118,6 +118,16 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="220">
+  <properties>
+   <property name="unity:Tag" value="Trap"/>
+  </properties>
+ </tile>
+ <tile id="221">
+  <properties>
+   <property name="unity:Tag" value="BuffTile"/>
+  </properties>
+ </tile>
  <tile id="246">
   <properties>
    <property name="unity:IsTrigger" type="bool" value="true"/>

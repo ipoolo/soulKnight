@@ -172,7 +172,7 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
 
     //receiveDamage
 
-    public override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
+    protected override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
         if (isReceiveDamage) { 
            isReceiveDamage = false;
@@ -186,12 +186,12 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
     }
 
 
-    public override void BackToUnderControlBody(bool _isOutControl)
+    protected override void BackToUnderControlBody(bool _isOutControl)
     {
         pc.isOutController = _isOutControl;
     }
 
-    public override void ReduceHealthBody(float _reduceValue)
+    protected override void ReduceHealthBody(float _reduceValue)
     {
         int floorValue = Mathf.FloorToInt(_reduceValue);
 

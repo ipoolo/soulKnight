@@ -32,7 +32,7 @@ public class NPC : Entity
     //buff
     private List<Buff> buffList = new List<Buff>();
 
-    public bool isSuspend = false;
+    public bool isPause = false;
 
     public void Start()
     {
@@ -154,7 +154,7 @@ public class NPC : Entity
 
     public virtual void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
-        if (isReceiveDamage)
+        if (isReceiveDamage && isPause != true)
         {
             if (canReceiveRepel)
             {
@@ -169,7 +169,7 @@ public class NPC : Entity
         ReceiveDamageWithRepelVectorBody(_damage, _repelVector);
 
     }
-    public virtual void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
+    protected virtual void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
     }
     IEnumerator BackToUnderControl()
@@ -179,7 +179,7 @@ public class NPC : Entity
         BackToUnderControlBody(isOutControl);
     }
 
-    public virtual void BackToUnderControlBody(bool _isOutControl)
+    protected virtual void BackToUnderControlBody(bool _isOutControl)
     {
         
     }
@@ -189,7 +189,7 @@ public class NPC : Entity
     {
         ReduceHealthBody(_reduceValue);
     }
-    public virtual void ReduceHealthBody(float _reduceValue)
+    protected virtual void ReduceHealthBody(float _reduceValue)
     {
 
     }
@@ -217,7 +217,8 @@ public class NPC : Entity
         return true;
     }
 
-    public bool ReceiveDamage(int damage)
+    protected bool ReceiveDamage(int damage)
+        //只有继承类才能使用
     {
         bool receiveSuccess = true;
         int temp = armor - damage;

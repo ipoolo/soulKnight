@@ -1072,7 +1072,7 @@ MonoBehaviour:
   nodeList: []
   keyList: []
   channelLines: []
-  blockInterval: 20
+  blockInterval: 25
   channelLayer: {fileID: 717179826}
 --- !u!1 &512629374
 GameObject:
@@ -1661,7 +1661,7 @@ MonoBehaviour:
   isReceiveDamage: 1
   isOutControl: 0
   rigid2d: {fileID: 0}
-  isSuspend: 0
+  isPause: 0
   canReceiveRepel: 1
   statePanel: {fileID: 0}
   spController: {fileID: 0}
@@ -2265,7 +2265,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 397, y: -348.4}
+  m_AnchoredPosition: {x: 308, y: -266}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1496916350

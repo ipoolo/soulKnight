@@ -21,6 +21,8 @@ TagManager:
   - BrakGroud
   - ExitPoint
   - MapLocation
+  - BuffTile
+  - Trap
   layers:
   - Default
   - TransparentFX
@@ -41,7 +43,7 @@ TagManager:
   - InvincibilityLayer
   - EnemySence
   - ObstructBullet
-  - 
+  - Peak
   - 
   - 
   - 
@@ -66,6 +68,9 @@ TagManager:
     locked: 0
   - name: Door
     uniqueID: 2739573513
+    locked: 0
+  - name: Buff
+    uniqueID: 1450506105
     locked: 0
   - name: Enemy
     uniqueID: 3553028773

@@ -33,9 +33,11 @@ public class Treasure : Item
     {
         if (!isOpened) {
             isOpened = true;
-            treasureAnimator.SetTrigger("Open");
+           treasureAnimator.SetTrigger("Open");
             Invoke("SpwanCoin", openTimeOffset);
-            HideFoucsArror();
+            if (hintCanShow) { 
+                HideFoucsArror();
+            }
             hintCanShow = false;
         }
     }

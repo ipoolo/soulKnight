@@ -110,23 +110,25 @@ public class BlockManager : MonoBehaviour
             switch (mbi.blockType)
             {
                 case MapBlockType.battleType:
-                    prefeb = (GameObject)Resources.Load(Path + "BattleBlockMap");
+                    prefeb = GetRamdomPrefab(Path + "BattleBlock/", mbi.blockType);
                     break;
                 case MapBlockType.eventType:
-                    prefeb = (GameObject)Resources.Load(Path + "EventBlockMap");
+                    prefeb = GetRamdomPrefab(Path + "EventBlock/", mbi.blockType);
                     break;
                 case MapBlockType.endType:
-                    prefeb = (GameObject)Resources.Load(Path + "EndBlockMap");
+                    prefeb = GetRamdomPrefab(Path + "EndBlock/", mbi.blockType);
                     break;
                 case MapBlockType.shopType:
-                    prefeb = (GameObject)Resources.Load(Path + "ShopBlockMap");
+                    prefeb = GetRamdomPrefab(Path + "ShopBlock/", mbi.blockType);
                     break;
                 case MapBlockType.startType:
-                    prefeb = (GameObject)Resources.Load(Path + "StartBlockMap");
+                    prefeb = GetRamdomPrefab(Path + "StartBlock/", mbi.blockType);
                     break;
                 case MapBlockType.BossType:
+                    //TODO
                     break;
             }
+
             if(prefeb != null) { 
                 BlockController bc = Instantiate(prefeb, Vector2.zero, Quaternion.identity).GetComponent<BlockController>();
                 bc.blockManager = this;
@@ -143,6 +145,65 @@ public class BlockManager : MonoBehaviour
                 bc.transform.position = position;
             }
         });
+    }
+
+    private List<GameObject> battlePrefabBlocks;
+    private List<GameObject> eventPrefabBlocks;
+    private List<GameObject> startPrefabBlocks;
+    private List<GameObject> endPrefabBlocks;
+    private List<GameObject> shopPrefabBlocks;
+    private List<GameObject> bossPrefabBlocks;
+    private GameObject GetRamdomPrefab(string _path, MapBlockType blockType)
+    {
+
+        GameObject prefeb = null;
+        switch (blockType)
+        {
+            case MapBlockType.battleType:
+                if (battlePrefabBlocks == null)
+                {
+                    battlePrefabBlocks = new List<GameObject>(Resources.LoadAll<GameObject>(_path));
+                }
+                prefeb = battlePrefabBlocks[Random.Range(0, battlePrefabBlocks.Count)];
+                break;
+            case MapBlockType.eventType:
+                if (eventPrefabBlocks == null)
+                {
+                    eventPrefabBlocks = new List<GameObject>(Resources.LoadAll<GameObject>(_path));
+                }
+                prefeb = eventPrefabBlocks[Random.Range(0, eventPrefabBlocks.Count)];
+                break;
+            case MapBlockType.endType:
+                if (endPrefabBlocks == null)
+                {
+                    endPrefabBlocks = new List<GameObject>(Resources.LoadAll<GameObject>(_path));
+                }
+                prefeb = endPrefabBlocks[Random.Range(0, endPrefabBlocks.Count)];
+                break;
+            case MapBlockType.shopType:
+                if (shopPrefabBlocks == null)
+                {
+                    shopPrefabBlocks = new List<GameObject>(Resources.LoadAll<GameObject>(_path));
+                }
+                prefeb = shopPrefabBlocks[Random.Range(0, shopPrefabBlocks.Count)];
+                break;
+            case MapBlockType.startType:
+                if (startPrefabBlocks == null)
+                {
+                    startPrefabBlocks = new List<GameObject>(Resources.LoadAll<GameObject>(_path));
+                }
+                prefeb = startPrefabBlocks[Random.Range(0, startPrefabBlocks.Count)];
+                break;
+            case MapBlockType.BossType:
+                if (bossPrefabBlocks == null)
+                {
+                    bossPrefabBlocks = new List<GameObject>(Resources.LoadAll<GameObject>(_path));
+                }
+                prefeb = bossPrefabBlocks[Random.Range(0, bossPrefabBlocks.Count)];
+                break;
+        }
+        return prefeb;
+
     }
 
     //判断mbi的方向

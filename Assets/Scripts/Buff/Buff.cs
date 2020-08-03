@@ -45,6 +45,10 @@ public class Buff : MonoBehaviour
     {
         
     }
+    public Buff BuffLoad(NPC _npc)
+    {
+        return BuffLoad((_npc.gameObject));
+    }
 
     public Buff BuffLoad(GameObject _target)
     {

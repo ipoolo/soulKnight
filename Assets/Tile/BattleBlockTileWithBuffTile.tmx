@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="left-up" compressionlevel="1" width="15" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="167">
+ <editorsettings>
+  <export target="../DemoTile..tmx" format="tmx"/>
+ </editorsettings>
+ <properties>
+  <property name="unity:tag" value="Block"/>
+ </properties>
+ <tileset firstgid="1" source="Dungeon Tileset.tsx"/>
+ <layer id="1" name="Floor" width="15" height="15">
+  <properties>
+   <property name="unity:layer" value="BackGround"/>
+  </properties>
+  <data encoding="csv">
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,196,142,142,142,142,142,142,142,142,196,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,195,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,196,142,195,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,195,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,195,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142
+</data>
+ </layer>
+ <layer id="3" name="Wall" width="15" height="15">
+  <properties>
+   <property name="unity:layer" value="Wall"/>
+  </properties>
+  <data encoding="csv">
+114,115,115,115,115,115,142,142,142,115,115,115,115,115,116,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+142,0,0,0,0,0,0,0,0,0,0,0,0,0,142,
+142,0,0,0,0,0,0,0,0,0,0,0,0,0,142,
+142,0,0,0,0,0,0,0,0,0,0,0,0,0,142,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+168,169,169,169,169,169,142,142,142,169,169,169,169,169,170
+</data>
+ </layer>
+ <objectgroup id="2" name="ItemBackGroud">
+  <properties>
+   <property name="unity:SortingLayer" value="BackGround"/>
+  </properties>
+  <object id="11" name="WaveUpLeft" x="71" y="73">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="12" name="WaveUpRight" x="181" y="73">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="13" name="WaveBottomLeft" x="75" y="193">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="14" name="WaveBottomRight" x="168" y="190">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="15" name="WaveBoss" x="120" y="133">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="125" name="MidLeft" x="67" y="132">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="126" name="MidRight" x="179" y="135">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="21" name="BuffTile">
+  <object id="127" gid="222" x="32" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="128" gid="222" x="32" y="64" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="129" gid="222" x="32" y="80" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="130" gid="222" x="32" y="144" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="131" gid="222" x="32" y="96" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="132" gid="222" x="32" y="112" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="133" gid="222" x="32" y="128" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="134" gid="222" x="32" y="160" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="135" gid="222" x="32" y="192" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="136" gid="222" x="32" y="176" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="137" gid="222" x="48" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="138" gid="222" x="64" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="139" gid="222" x="80" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="140" gid="222" x="96" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="141" gid="222" x="112" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="142" gid="222" x="128" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="143" gid="222" x="144" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="144" gid="222" x="160" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="145" gid="222" x="176" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="146" gid="222" x="192" y="48" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="147" gid="222" x="192" y="64" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="148" gid="222" x="192" y="80" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="149" gid="222" x="192" y="96" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="150" gid="222" x="192" y="112" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="151" gid="222" x="192" y="128" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="152" gid="222" x="192" y="144" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="153" gid="222" x="192" y="160" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="154" gid="222" x="192" y="176" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="155" gid="222" x="192" y="192" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="156" gid="222" x="192" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="157" gid="222" x="176" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="158" gid="222" x="160" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="159" gid="222" x="144" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="160" gid="222" x="128" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="161" gid="222" x="112" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="162" gid="222" x="96" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="163" gid="222" x="80" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="164" gid="222" x="64" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="165" gid="222" x="48" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+  <object id="166" gid="222" x="32" y="208" width="16" height="16">
+   <properties>
+    <property name="BuffName" value="BuffSpeedIncrementPresent"/>
+    <property name="BuffTileName" value="IncreamSpeedBuffTile"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <group id="9" name="出入口">
+  <objectgroup id="7" name="LeftWall">
+   <properties>
+    <property name="channel" value="Left"/>
+    <property name="unity:Tag" value="ChannelWall"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="86" gid="141" x="0" y="112" width="16" height="16"/>
+   <object id="87" gid="141" x="0" y="128" width="16" height="16"/>
+   <object id="88" gid="141" x="0" y="144" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup id="10" name="BottomWall">
+   <properties>
+    <property name="channel" value="Down"/>
+    <property name="unity:Tag" value="ChannelWall"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="80" gid="169" x="96" y="240" width="16" height="16"/>
+   <object id="81" gid="169" x="112" y="240" width="16" height="16"/>
+   <object id="82" gid="169" x="128" y="240" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup id="13" name="RightWall">
+   <properties>
+    <property name="channel" value="Right"/>
+    <property name="unity:Tag" value="ChannelWall"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="77" gid="143" x="224" y="112" width="16" height="16"/>
+   <object id="78" gid="143" x="224" y="128" width="16" height="16"/>
+   <object id="79" gid="143" x="224" y="144" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup id="12" name="TopWall">
+   <properties>
+    <property name="channel" value="Top"/>
+    <property name="unity:Tag" value="ChannelWall"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="72" gid="115" x="97" y="16" width="16" height="16"/>
+   <object id="73" gid="115" x="113" y="16" width="16" height="16"/>
+   <object id="74" gid="115" x="129" y="16" width="16" height="16"/>
+  </objectgroup>
+ </group>
+ <objectgroup id="5" name="ItemForeGroud">
+  <properties>
+   <property name="unity:SortingLayer" value="ForeGround"/>
+  </properties>
+ </objectgroup>
+ <layer id="4" name="ForeGroud" width="15" height="15">
+  <properties>
+   <property name="unity:SortingLayer" value="ForeGround"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

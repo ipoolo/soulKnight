@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="left-up" compressionlevel="1" width="15" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="152">
+ <editorsettings>
+  <export target="../DemoTile..tmx" format="tmx"/>
+ </editorsettings>
+ <properties>
+  <property name="unity:tag" value="Block"/>
+ </properties>
+ <tileset firstgid="1" source="Dungeon Tileset.tsx"/>
+ <layer id="1" name="Floor" width="15" height="15">
+  <properties>
+   <property name="unity:layer" value="BackGround"/>
+  </properties>
+  <data encoding="csv">
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,196,142,142,142,142,142,142,142,142,196,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,196,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,195,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,195,142,142,142,142,142,142,142,196,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142,
+142,142,142,142,142,142,142,142,142,142,142,142,142,142,142
+</data>
+ </layer>
+ <layer id="3" name="Wall" width="15" height="15">
+  <properties>
+   <property name="unity:layer" value="Wall"/>
+  </properties>
+  <data encoding="csv">
+114,115,115,115,115,115,142,142,142,115,115,115,115,115,116,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+142,0,0,0,0,0,0,0,0,0,0,0,0,0,142,
+142,0,0,0,0,0,0,0,0,0,0,0,0,0,142,
+142,0,0,0,0,0,0,0,0,0,0,0,0,0,142,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+141,0,0,0,0,0,0,0,0,0,0,0,0,0,143,
+168,169,169,169,169,169,142,142,142,169,169,169,169,169,170
+</data>
+ </layer>
+ <objectgroup id="2" name="ItemBackGroud">
+  <properties>
+   <property name="unity:SortingLayer" value="BackGround"/>
+  </properties>
+  <object id="11" name="WaveUpLeft" x="71" y="73">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="12" name="WaveUpRight" x="181" y="73">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="13" name="WaveBottomLeft" x="75" y="193">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="14" name="WaveBottomRight" x="192" y="192">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="15" name="WaveBoss" x="120" y="133">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="125" name="MidLeft" x="67" y="132">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+  <object id="126" name="MidRight" x="192" y="128">
+   <properties>
+    <property name="unity:Tag" value="WavePoint"/>
+    <property name="unity:layer" value="Item"/>
+   </properties>
+   <point/>
+  </object>
+ </objectgroup>
+ <objectgroup id="21" name="Peak">
+  <object id="131" gid="221" x="80" y="32" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="132" gid="221" x="80" y="48" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="133" gid="221" x="80" y="64" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="134" gid="221" x="80" y="80" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="135" gid="221" x="80" y="96" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="136" gid="221" x="80" y="112" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="137" gid="221" x="80" y="128" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="138" gid="221" x="80" y="144" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="139" gid="221" x="80" y="160" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="140" gid="221" x="80" y="176" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="141" gid="221" x="144" y="224" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="142" gid="221" x="144" y="208" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="143" gid="221" x="144" y="192" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="144" gid="221" x="144" y="176" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="145" gid="221" x="144" y="160" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="146" gid="221" x="144" y="144" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="147" gid="221" x="144" y="128" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="148" gid="221" x="144" y="112" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="149" gid="221" x="144" y="96" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+  <object id="150" gid="221" x="144" y="80" width="16" height="16">
+   <properties>
+    <property name="TrapName" value="Peak"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <group id="9" name="出入口">
+  <objectgroup id="7" name="LeftWall">
+   <properties>
+    <property name="channel" value="Left"/>
+    <property name="unity:Tag" value="ChannelWall"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="86" gid="141" x="0" y="112" width="16" height="16"/>
+   <object id="87" gid="141" x="0" y="128" width="16" height="16"/>
+   <object id="88" gid="141" x="0" y="144" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup id="10" name="BottomWall">
+   <properties>
+    <property name="channel" value="Down"/>
+    <property name="unity:Tag" value="ChannelWall"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="80" gid="169" x="96" y="240" width="16" height="16"/>
+   <object id="81" gid="169" x="112" y="240" width="16" height="16"/>
+   <object id="82" gid="169" x="128" y="240" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup id="13" name="RightWall">
+   <properties>
+    <property name="channel" value="Right"/>
+    <property name="unity:Tag" value="ChannelWall"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="77" gid="143" x="224" y="112" width="16" height="16"/>
+   <object id="78" gid="143" x="224" y="128" width="16" height="16"/>
+   <object id="79" gid="143" x="224" y="144" width="16" height="16"/>
+  </objectgroup>
+  <objectgroup id="12" name="TopWall">
+   <properties>
+    <property name="channel" value="Top"/>
+    <property name="unity:Tag" value="ChannelWall"/>
+    <property name="unity:layer" value="Wall"/>
+   </properties>
+   <object id="72" gid="115" x="97" y="16" width="16" height="16"/>
+   <object id="73" gid="115" x="113" y="16" width="16" height="16"/>
+   <object id="74" gid="115" x="129" y="16" width="16" height="16"/>
+  </objectgroup>
+ </group>
+ <objectgroup id="5" name="ItemForeGroud">
+  <properties>
+   <property name="unity:SortingLayer" value="ForeGround"/>
+  </properties>
+ </objectgroup>
+ <layer id="4" name="ForeGroud" width="15" height="15">
+  <properties>
+   <property name="unity:SortingLayer" value="ForeGround"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

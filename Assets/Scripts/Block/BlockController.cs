@@ -34,13 +34,13 @@ public class BlockController : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public BlockType blockType = BlockType.battleType;
+    public BlockType blockType;
     [HideInInspector]public int blockWidth;
     private int blockDirectionOffset;
     private Vector2 blockCenterPosation;
     public List<BlockDireciton> directions = new List<BlockDireciton>();
     public BlockManager blockManager;
-    private bool isPlayerFirstEnter;
+    protected bool isPlayerFirstEnter;
     public MapBlockInfo mbi;
 
     private void Awake()
@@ -105,9 +105,11 @@ public class BlockController : MonoBehaviour
 
     public virtual void ReceivePlayerEnter()
     {
-        if (isPlayerFirstEnter) {
-            isPlayerFirstEnter = false;
-            blockManager.PlayerEnterBlock(this);
+        if (blockType != BlockType.startType) { 
+            if (isPlayerFirstEnter) {
+                isPlayerFirstEnter = false;
+                blockManager.PlayerEnterBlock(this);
+            }
         }
     
     }
