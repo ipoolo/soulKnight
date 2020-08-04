@@ -92,6 +92,7 @@ public class WeaponPoint : MonoBehaviour
         curr.sRender.sortingLayerName = "WeaponHide";
         curr.sRender.flipY = false;
         curr.sRender.flipX = false;
+        curr.isStopFire = true;
         curr.transform.parent = backUpGb.transform;
         next.sRender.sortingLayerName = "Weapon";
         if (next.animator)
@@ -100,6 +101,7 @@ public class WeaponPoint : MonoBehaviour
         }
         next.transform.parent = transform;
         next.transform.rotation = transform.rotation;
+        next.isStopFire = false;
         currWeapon = next;
     }
 

@@ -34,18 +34,24 @@ public class Bow : Weapon
     IEnumerator Fire()
     {
         while(fireTimes < fireMaxTimes) {
-            Bullet b = Instantiate(bullet, firePoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
-            b.targetDirection = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
-            b.damage = damage * (1 + powerBarValue);
-            b.speed *= (1 + powerBarValue);
-            b.castor = castor;
-            fireTimes++;
-            if(fireTimes == fireMaxTimes)
+            if (!isStopFire) { 
+                Bullet b = Instantiate(bullet, firePoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
+                b.targetDirection = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
+                b.damage = damage * (1 + powerBarValue);
+                b.speed *= (1 + powerBarValue);
+                b.castor = castor;
+                fireTimes++;
+                if(fireTimes == fireMaxTimes)
+                {
+                    fireTimes = 0;
+                    break;
+                }
+                yield return new WaitForSeconds(fireTimeStep);
+            }
+            else
             {
-                fireTimes = 0;
                 break;
             }
-            yield return new WaitForSeconds(fireTimeStep);
         }
     }
 

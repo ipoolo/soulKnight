@@ -22,6 +22,7 @@ public class Weapon : MonoBehaviour
     public bool isStoragePower;
     private PowerController powerController;
     protected float powerBarValue;
+    public bool isStopFire = false;
 
     public object castor;
     [HideInInspector]public SpriteRenderer sRender;
