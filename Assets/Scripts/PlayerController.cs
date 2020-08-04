@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     public List<InteractionInterface> interactionList;
 
-    public bool isOutController;
+    public bool isOutControl;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         rid2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         weaponPoint = GetComponentInChildren<WeaponPoint>();
-        isOutController = false;
+        isOutControl = false;
         playerStateController = GetComponentInChildren<PlayerStateController>();
     }
 
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isOutController) { 
+        if (!isOutControl) { 
             playerMove();
         }
 

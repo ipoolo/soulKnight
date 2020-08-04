@@ -58,45 +58,67 @@ public class GameController : MonoBehaviour
             }
         }
 
-        GameObject[] peakGbs = GameObject.FindGameObjectsWithTag("Trap");
-        foreach (GameObject peakGb in peakGbs)
+        GameObject[] peakPositions = GameObject.FindGameObjectsWithTag("Trap");
+        foreach (GameObject peakPosition in peakPositions)
         {
-            SuperCustomProperties scp = peakGb.GetComponent<SuperCustomProperties>();
+            SuperCustomProperties scp = peakPosition.GetComponent<SuperCustomProperties>();
             if (scp != null)
             {
                 CustomProperty cp;
                 if (scp.TryGetCustomProperty("TrapName", out cp))
                 {
                     string peakName = cp.m_Value;
-                    Trap trap = Instantiate((GameObject)Resources.Load("Trap/" + peakName), peakGb.transform.position, Quaternion.identity).GetComponent<Trap>();
-                    trap.transform.parent = peakGb.GetComponentInParent<BlockController>().gameObject.transform;
+                    Trap trap = Instantiate((GameObject)Resources.Load("Trap/" + peakName), peakPosition.transform.position, Quaternion.identity).GetComponent<Trap>();
+                    trap.transform.parent = peakPosition.GetComponentInParent<BlockController>().gameObject.transform;
                     AdjustingTileOffset(trap.transform);
                 }
+                Destroy(peakPosition);
             }
         }
 
-        GameObject[] buffTileGbs = GameObject.FindGameObjectsWithTag("BuffTile");
-        foreach (GameObject buffTileGb in buffTileGbs)
+        GameObject[] buffTilePositions = GameObject.FindGameObjectsWithTag("BuffTile");
+        foreach (GameObject buffTilePosition in buffTilePositions)
         {
-            SuperCustomProperties scp = buffTileGb.GetComponent<SuperCustomProperties>();
+            SuperCustomProperties scp = buffTilePosition.GetComponent<SuperCustomProperties>();
             if (scp != null)
             {
                 CustomProperty cp;
                 if (scp.TryGetCustomProperty("BuffTileName", out cp))
                 {
                     string BuffTileName = cp.m_Value;
-                    IncreamSpeedBuffTile increamSpeedBuffTile = Instantiate((GameObject)Resources.Load("BuffTile/" + BuffTileName), buffTileGb.transform.position, Quaternion.identity).GetComponent<IncreamSpeedBuffTile>();
-                    increamSpeedBuffTile.transform.parent = buffTileGb.GetComponentInParent<BlockController>().gameObject.transform;
+                    IncreamSpeedBuffTile increamSpeedBuffTile = Instantiate((GameObject)Resources.Load("BuffTile/" + BuffTileName), buffTilePosition.transform.position, Quaternion.identity).GetComponent<IncreamSpeedBuffTile>();
+                    increamSpeedBuffTile.transform.parent = buffTilePosition.GetComponentInParent<BlockController>().gameObject.transform;
                     AdjustingTileOffset(increamSpeedBuffTile.transform);
                     if (scp.TryGetCustomProperty("BuffSpeedIncrementPresent", out cp))
                     {
                         increamSpeedBuffTile.buffName = cp.m_Value;
                     }
+                    Destroy(buffTilePosition);
                 }
 
             }
         }
+
+        GameObject[] obstaclePositions = GameObject.FindGameObjectsWithTag("Obstacle");
+        foreach (GameObject obstaclePosition in obstaclePositions)
+        {
+            SuperCustomProperties scp = obstaclePosition.GetComponent<SuperCustomProperties>();
+            if (scp != null)
+            {
+                CustomProperty cp;
+                if (scp.TryGetCustomProperty("ObstacleName", out cp))
+                {
+                    string ObstacleName = cp.m_Value;
+                    Obstacle obstacle = Instantiate((GameObject)Resources.Load("Obstacle/" + ObstacleName), obstaclePosition.transform.position, Quaternion.identity).GetComponent<Obstacle>();
+                    obstacle.transform.parent = obstaclePosition.GetComponentInParent<BlockController>().gameObject.transform;
+                    AdjustingTileOffset(obstacle.transform);
+                    Destroy(obstaclePosition);
+                }
+            }
+        }
     }
+
+  
 
     private void AdjustingTileOffset(Transform t)
     {

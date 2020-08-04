@@ -38,12 +38,12 @@ public class Coin : MonoBehaviour
             coinValue = 1;
         }
 
-        if(senseRaidus == 0)
+        if (senseRaidus == 0)
         {
             senseRaidus = 10;
         }
 
-        if(followSpeed == 0)
+        if (followSpeed == 0)
         {
             followSpeed = 1;
         }
@@ -52,26 +52,39 @@ public class Coin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(dropPosition ,transform.position) < 0.1f)
+        if (Vector3.Distance(dropPosition, transform.position) < 0.1f)
         {
             canReceiver = true;
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, dropPosition,0.2f);
+            MoveToRandomLocation();
+
         }
 
         if (canReceiver)
         {
             if (isMovePlayer)
             {
-                movePlayerTimer += Time.deltaTime;
-                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, movePlayerTimer * followSpeed);
+                MoveToPlayer();
             }
-            else { 
+            else
+            {
                 checkIsFollowToPlayer();
             }
         }
+    }
+
+    private void MoveToRandomLocation()
+    {
+        transform.position = Vector3.Lerp(transform.position, dropPosition, 0.2f);
+    }
+
+    private void MoveToPlayer()
+    {
+        movePlayerTimer += Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, movePlayerTimer * followSpeed * 2);
+
     }
 
     public void checkIsFollowToPlayer()
@@ -79,7 +92,6 @@ public class Coin : MonoBehaviour
         Vector3 playerPosition = player.transform.position;
         if ((playerPosition - transform.position).magnitude < senseRaidus)
         {
-            //在感知范围（只要在范围内一次）
             isMovePlayer = true;
         }
 
@@ -95,7 +107,7 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(canReceiver && other.CompareTag("Player"))
+        if (canReceiver && other.CompareTag("Player"))
         {
             psc.CoinAdd(coinValue);
             Destroy(gameObject);

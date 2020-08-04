@@ -128,6 +128,11 @@
    <property name="unity:Tag" value="BuffTile"/>
   </properties>
  </tile>
+ <tile id="222">
+  <properties>
+   <property name="unity:Tag" value="Obstacle"/>
+  </properties>
+ </tile>
  <tile id="246">
   <properties>
    <property name="unity:IsTrigger" type="bool" value="true"/>

@@ -61,7 +61,7 @@ public class WeaponPoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Enemy>()) {
+        if (other.GetComponent<Enemy>()|| other.GetComponent<Obstacle>()) {
             UpdateWeapon2BackupLocation(closeinWeapon);
         }
 
@@ -70,7 +70,7 @@ public class WeaponPoint : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.GetComponent<Enemy>())
+        if (other.GetComponent<Enemy>() || other.GetComponent<Obstacle>())
         {
             UpdateWeapon2BackupLocation(rangedWeapon);
         }

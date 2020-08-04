@@ -6,9 +6,14 @@ public class Entity : MonoBehaviour
 {
     // Start is called before the first frame update
     [HideInInspector] public string entityIdString;
-    private void Awake()
+    protected bool isRegister = true;
+
+    private void OnEnable()
     {
-        entityIdString = EntityManager.ManagerInstance().RegisterEntity(this);
+        if (isRegister)
+        {
+            entityIdString = EntityManager.ManagerInstance().RegisterEntity(this);
+        }
     }
 
     private void OnDestroy()

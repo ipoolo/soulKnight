@@ -40,12 +40,11 @@ public class SwordAttack : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         //近战武器触发伤害
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") || other.CompareTag("Obstacle"))
         {
-            Enemy emeny = other.GetComponent<Enemy>();
-            emeny.ReceiveDamageWithRepelVector(fireWeapon.ExcuteHittingBuffEffect(fireWeapon.damage), fireWeapon.weaponPoint.transform.right);
+            NPC npc = other.GetComponent<NPC>();
+            npc.ReceiveDamageWithRepelVector(fireWeapon.ExcuteHittingBuffEffect(fireWeapon.damage), fireWeapon.weaponPoint.transform.right);
         }
-        
     }
 
 

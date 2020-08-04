@@ -24,6 +24,7 @@ TagManager:
   - BuffTile
   - Trap
   - IndicatorPanel
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -43,9 +44,9 @@ TagManager:
   - BulletEmeny
   - InvincibilityLayer
   - EnemySence
-  - ObstructBullet
+  - Obstacle
   - Peak
-  - 
+  - ObstacleWall
   - 
   - 
   - 
