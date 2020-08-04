@@ -50,7 +50,7 @@ public class BlockManager : MonoBehaviour
 
         ConfigDefault();
         ConfigMap();
-        
+
     }
     private void ConfigMap()
     {

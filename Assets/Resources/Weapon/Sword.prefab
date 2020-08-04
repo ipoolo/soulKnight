@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8612016666999201908}
   - component: {fileID: 8612016666999201911}
-  - component: {fileID: 8612016666999201910}
+  - component: {fileID: -8108171729690885789}
+  - component: {fileID: 898007068838437499}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -25,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8612016666999201909}
-  m_LocalRotation: {x: 0, y: 0, z: 0.92387956, w: 0.38268343}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 135}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8612016666999201911
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5dfda42cc369c0848814845f94af206b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.3125, y: 0.78125}
@@ -82,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8612016666999201910
+--- !u!114 &-8108171729690885789
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,12 +92,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 8612016666999201909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61a630f251b06a14d9ee3898a7e335e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 22a5436b90762844ea74e46d90b10b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   damage: 1
-  attackInterval: 0.1
+  attackInterval: 0
   isCloseInWeapon: 1
   powerMaxSecond: 0
   canAttack: 0
   isStoragePowerWeapon: 0
+  isStoragePower: 0
+  sRender: {fileID: 0}
+  attackBodyPrefabName: SwordAttack
+  attackBodyOffset: 2
+--- !u!95 &898007068838437499
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8612016666999201909}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18e03ca4ffe1d5940a14dfe8753a1aac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

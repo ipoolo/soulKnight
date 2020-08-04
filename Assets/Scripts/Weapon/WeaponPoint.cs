@@ -19,15 +19,8 @@ public class WeaponPoint : MonoBehaviour
         isFollow = true;
         GameObject weaponObject = Instantiate((GameObject)Resources.Load("Weapon/Bow"), transform.position, Quaternion.identity);
         rangedWeapon = weaponObject.GetComponent<Weapon>();
-        rangedWeapon.transform.SetParent(transform);
-        //if (weaponObject.GetComponent<Weapon>().isCloseInWeapon) {
-        //    currWeapon.transform.position += new Vector3(currWeapon.rectTransform.sizeDelta.x / 2 * currWeapon.rectTransform.localScale.x, 0, 0);
-        //}
-
         weaponObject = Instantiate((GameObject)Resources.Load("Weapon/Sword"), transform.position, Quaternion.identity);
         closeinWeapon = weaponObject.GetComponent<Weapon>();
-        closeinWeapon.transform.SetParent(transform);
-        //closeinWeapon.transform.position += new Vector3(closeinWeapon.rectTransform.sizeDelta.x / 2 * closeinWeapon.rectTransform.localScale.x, 0, 0);
 
         currWeapon = closeinWeapon;
         UpdateWeapon2BackupLocation(rangedWeapon);
@@ -43,8 +36,10 @@ public class WeaponPoint : MonoBehaviour
     {
         if (isFollow) {
             Vector2 directionV = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
             float rotaion = Mathf.Atan2(directionV.y, directionV.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0,0,rotaion);
+
             if(currWeapon == closeinWeapon) { 
                 currWeapon.ChangeWeaponDirection(transform.right);
             }
@@ -63,11 +58,12 @@ public class WeaponPoint : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.GetComponent<Enemy>()) { 
+        if (other.GetComponent<Enemy>()) {
             UpdateWeapon2BackupLocation(closeinWeapon);
         }
 
     }
+
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -88,10 +84,20 @@ public class WeaponPoint : MonoBehaviour
         {
             rotaion -= 90.0f;
         }
-        curr.transform.rotation = Quaternion.Euler(0, 0, rotaion);
+        curr.InterruptStoragePower();
+        if (curr.animator) { 
+            curr.animator.enabled = false;
+        }
+        curr.transform.rotation = backUpGb.transform.rotation * Quaternion.Euler(0, 0, rotaion);
         curr.sRender.sortingLayerName = "WeaponHide";
+        curr.sRender.flipY = false;
+        curr.sRender.flipX = false;
         curr.transform.parent = backUpGb.transform;
         next.sRender.sortingLayerName = "Weapon";
+        if (next.animator)
+        {
+            next.animator.enabled = true;
+        }
         next.transform.parent = transform;
         next.transform.rotation = transform.rotation;
         currWeapon = next;

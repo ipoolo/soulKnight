@@ -4,22 +4,22 @@ using Unity.Mathematics;
 using UnityEngine;
 
 public class Bow : Weapon
+    //改成基类
 {
     [SerializeField] public Bullet bullet;
     [SerializeField] public GameObject firePoint;
     private int fireTimes;
-    private int fireMaxTimes = 5;
+    public int fireMaxTimes = 5;
     private float fireTimeStep = 0.1f;
-    private bool isFire = false ;
 
     // Start is called before the first frame update
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
     }
 
     // Update is called once per frame
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
     }
@@ -29,17 +29,11 @@ public class Bow : Weapon
         base.AttackBody();
         StartCoroutine(Fire());
 
-        //Input.mousePosition
-
-        //限制mousePosition 
-
-
     }
 
     IEnumerator Fire()
     {
         while(fireTimes < fireMaxTimes) {
-            isFire = true;
             Bullet b = Instantiate(bullet, firePoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
             b.targetDirection = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
             b.damage = damage * (1 + powerBarValue);
@@ -53,8 +47,6 @@ public class Bow : Weapon
             }
             yield return new WaitForSeconds(fireTimeStep);
         }
-        isFire = false;
-
     }
 
 

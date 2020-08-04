@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    private Animator animator;
+    public Animator animator;
     [SerializeField] public float damage;
     [SerializeField] public float attackInterval;
     [SerializeField] public bool isCloseInWeapon;
@@ -19,21 +19,16 @@ public class Weapon : MonoBehaviour
     private WeaponPoint weaponPoint;
 
     public bool isStoragePowerWeapon;
-    protected bool isStoragePower;
+    public bool isStoragePower;
     private PowerController powerController;
     protected float powerBarValue;
 
     public object castor;
     [HideInInspector]public SpriteRenderer sRender;
 
-    private void Awake()
+    protected void Awake()
     {
         sRender = GetComponent<SpriteRenderer>();
-    }
-
-
-    public virtual void Start()
-    {
         animator = GetComponent<Animator>();
 
         attackTimer = attackInterval;
@@ -43,12 +38,19 @@ public class Weapon : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         powerController = GameObject.FindGameObjectWithTag("UI_PowerBar").GetComponent<PowerController>();
-        if (castor == null) { 
+        if (castor == null)
+        {
             castor = GameObject.FindGameObjectWithTag("PlayerStateController").GetComponent<PlayerStateController>();
         }
     }
 
-    public virtual void Update()
+
+    protected virtual void Start()
+    {
+
+    }
+
+    protected virtual void Update()
     {
         if (attackTimer >= attackInterval)
         {
@@ -68,9 +70,25 @@ public class Weapon : MonoBehaviour
                 float tempPowerValue = storagePowersustainTime / powerMaxSecond;
                 powerBarValue = tempPowerValue > 1 ? 1 : tempPowerValue;
                 powerController.updatePowerBarValue(powerBarValue);
+                StoragePowerUpdateBody(powerBarValue);
             }
         }
     }
+    public void InterruptStoragePower()
+    {
+        storagePowersustainTime = 0;
+        isStoragePower = false;
+        powerBarValue = 0;
+        powerController.updatePowerBarValue(powerBarValue);
+        powerController.hidePowerBar();
+    }
+
+    protected virtual void StoragePowerUpdateBody(float persent)
+    {
+
+    }
+
+
 
     public void ChangeWeaponDirection(Vector2 weaponPointRightDirection)
     {
@@ -85,7 +103,7 @@ public class Weapon : MonoBehaviour
 
     }
 
-
+    //这里用动画用动画配置Fire名称,并且回调AnimFireCallBack方法
 
     public void Attack()
     {
@@ -93,8 +111,7 @@ public class Weapon : MonoBehaviour
         {
             if (animator != null)
             {
-                animator.Play("fire", 0, .0f);
-                animator.SetBool("Fire", true);
+                animator.SetTrigger("Fire");
                 weaponPoint.pauseFollow();
             }
 
@@ -120,44 +137,15 @@ public class Weapon : MonoBehaviour
         attackTimer = 0.0f;
     }
 
-    public void finishAnim()
+    private void AnimFireCallBack()
     {
         weaponPoint.continueFollow();
+        AnimFireCallBackBody();
     }
 
-    public void OnTriggerEnter2D(Collider2D other)
+    protected virtual void AnimFireCallBackBody()
     {
-        if (isCloseInWeapon)
-        {
-            //近战武器触发伤害
-            if (other.CompareTag("Enemy"))
-            {
-                //{
-                Enemy emeny = other.GetComponent<Enemy>();
-                Transform temp = GameObject.FindGameObjectWithTag("WeaponPoint").GetComponent<Transform>();
-                float zRotaion = temp.rotation.eulerAngles.z;
-                Vector3 tempV = Quaternion.AngleAxis(zRotaion, Vector3.forward) * Vector3.right;
-                emeny.ReceiveDamageWithRepelVector(ExcuteHittingBuffEffect(damage), tempV);
-            }
-        }
-    }
 
-    private float ExcuteHittingBuffEffect(float _damage)
-    {
-        float tmp = _damage;
-        if (castor is BuffReceiverInterFace)
-        {
-            List<Buff> buffList = (castor as BuffReceiverInterFace).GetBuffList();
-            foreach (Buff buff in buffList)
-            {
-                if (buff is BuffReceiveHittingDamageInterFace)
-                {
-                    tmp = ((BuffReceiveHittingDamageInterFace)buff).BuffReceiveHittingDamageInterFaceBody(tmp);
-                }
-            }
-        }
-
-        return tmp;
     }
 
     //StoragePower
