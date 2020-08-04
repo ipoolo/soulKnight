@@ -122,7 +122,6 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     {
         fsm = new StateMachine<Enemy>();
         fsm.ConfigState(this, FSMEnemyStatePatrol.singleInstance, FSMEnemyStateGolbal.singleInstance);
-        //golbalState还没写
     }
 
     // Update is called once per frame
