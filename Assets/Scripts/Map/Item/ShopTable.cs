@@ -44,13 +44,13 @@ public class ShopTable : MonoBehaviour
 
     public void ConfigTable()
     {
-        table.playerEnterAction = new System.Action(playerEnterTable);
-        table.interactionBodyAction= new System.Action(playerInteractionTable);
-        table.playerExitAction = new System.Action(playerLeaveTable);
+        table.playerEnterAction = new System.Action(PlayerEnterTable);
+        table.interactionBodyAction= new System.Action(PlayerInteractionTable);
+        table.playerExitAction = new System.Action(PlayerExitTable);
         table.hintCanShow = false;
     }
 
-    private void playerEnterTable()
+    private void PlayerEnterTable()
     {
         if (!isGoodsSold)
         {
@@ -58,19 +58,24 @@ public class ShopTable : MonoBehaviour
             sellInfoCanvas.SetActive(true);
             textMesh.text = string.Format("{0}", goods.price);
             coinImage.SetActive(true);
+            if(goods is ItemWeapon)
+            {
+                goods.playerEnterAction();
+            }
         }
     }
-    private void playerInteractionTable()
+    private void PlayerInteractionTable()
     {
         if (!isGoodsSold)
         {
-            if (player.playerStateController.coinReduce(10))
+            if (player.playerStateController.coinReduce(goods.price))
             {
                 isGoodsSold = true;
                 if (goods.interactionBodyAction != null)
                 {
                     goods.interactionBodyAction();
                 }
+               table.ItemInvalidation();
 
                 sellInfoCanvas.SetActive(false);
             }
@@ -83,12 +88,16 @@ public class ShopTable : MonoBehaviour
 
     }
 
-    private void playerLeaveTable()
+    private void PlayerExitTable()
     {
         if (!isGoodsSold)
         {
             sellInfoCanvas.SetActive(false);
             //hide canva
+            if (goods is ItemWeapon)
+            {
+                goods.playerExitAction();
+            }
         }
     }
 

@@ -18,6 +18,7 @@ public class Item : MonoBehaviour,InteractionInterface
     public Action playerEnterAction;
     public Action playerExitAction;
     public int price;
+    public Collider2D collider;
 
     protected void Awake()
     {
@@ -29,6 +30,7 @@ public class Item : MonoBehaviour,InteractionInterface
     public void Start()
     {
         configHint();
+        collider = GetComponent<Collider2D>();
     }
 
     private void configHint()
@@ -44,6 +46,11 @@ public class Item : MonoBehaviour,InteractionInterface
     public void Update()
     {
         
+    }
+
+    public void ItemInvalidation()
+    {
+        collider.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D ohter)
