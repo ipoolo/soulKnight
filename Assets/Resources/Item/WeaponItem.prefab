@@ -128,5 +128,5 @@ MonoBehaviour:
   hintCanShow: 1
   canReceiveTrigger: 1
   hintPrefabName: Hint
-  price: 0
+  price: 20
   weapon: {fileID: 0}

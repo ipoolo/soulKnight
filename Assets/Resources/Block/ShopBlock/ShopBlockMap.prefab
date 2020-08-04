@@ -51,7 +51,7 @@ MonoBehaviour:
   mbi: {fileID: 0}
   itemPrefabNames:
   - ItemHealthVial
-  - ItemHealthVial
+  - WeaponItem
   - ItemHealthVial
   tableOffset: 2
 --- !u!1001 &6806494814492038473

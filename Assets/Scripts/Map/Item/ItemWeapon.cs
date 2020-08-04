@@ -34,7 +34,6 @@ public class ItemWeapon : Item
             weapon.transform.parent = transform.parent;
             weapon.transform.rotation = transform.rotation;
 
-
     }
 
     // Update is called once per frame
@@ -49,7 +48,6 @@ public class ItemWeapon : Item
             weapon.weaponPoint.ChangeWeapon(weapon);
         }
         Destroy(transform.parent.gameObject);
-
     }
 
     public void ShowWeaponInfo()

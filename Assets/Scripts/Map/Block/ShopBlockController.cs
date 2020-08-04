@@ -21,7 +21,8 @@ public class ShopBlockController : BlockController
             GameObject shopTablePrefab;
             Vector2 centerPosition = new Vector2(transform.position.x + blockWidth / 2.0f, transform.position.y - blockWidth / 2.0f);
 
-            for (int i = 0; i< itemPrefabNames.Count; i++) { 
+            for (int i = 0; i< itemPrefabNames.Count; i++) {
+
                 shopTablePrefab = (GameObject)Resources.Load("Item/ShopTable");
                 Vector2 spwanLocation = new Vector2(centerPosition.x + (-1 + i) * tableOffset, centerPosition.y);
                 ShopTable st = Instantiate(shopTablePrefab, spwanLocation, Quaternion.identity).GetComponent<ShopTable>();
