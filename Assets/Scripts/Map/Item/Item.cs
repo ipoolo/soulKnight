@@ -16,10 +16,10 @@ public class Item : MonoBehaviour,InteractionInterface
     //delegate
     public Action interactionBodyAction;
     public Action playerEnterAction;
-    public Action playerLeavection;
+    public Action playerExitAction;
     public int price;
 
-    private void Awake()
+    protected void Awake()
     {
         
         canReceiveTrigger = true;
@@ -71,9 +71,9 @@ public class Item : MonoBehaviour,InteractionInterface
                 //将自己移出player的InteractionList;
                 playerController.remove2InteractionList(this);
                 OnTriggerExit2DBody();
-                if (playerLeavection != null)
+                if (playerExitAction != null)
                 {
-                    playerLeavection();
+                    playerExitAction();
                 }
             }
         }

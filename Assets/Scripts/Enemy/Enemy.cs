@@ -76,7 +76,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     public System.Action<Enemy> destoryDelegate;
 
     private float accumulationTimer;
-    private float accumulationMaxTime = 2.0f;
+    private float accumulationMaxTime = 1.5f;
     private float accumulationDamage;
 
     // Start is called before the first frame update

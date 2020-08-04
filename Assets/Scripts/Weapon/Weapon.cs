@@ -27,6 +27,16 @@ public class Weapon : MonoBehaviour
     public object castor;
     [HideInInspector]public SpriteRenderer sRender;
 
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (name == "GodSword") { 
+            Debug.Log("transform.position" + transform.position);
+        }
+    }
+#endif
+
     protected void Awake()
     {
         sRender = GetComponent<SpriteRenderer>();
@@ -201,4 +211,6 @@ public class Weapon : MonoBehaviour
             weaponPoint.continueFollow();
         }
     }
+
+
 }

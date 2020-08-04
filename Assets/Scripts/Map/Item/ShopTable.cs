@@ -46,7 +46,7 @@ public class ShopTable : MonoBehaviour
     {
         table.playerEnterAction = new System.Action(playerEnterTable);
         table.interactionBodyAction= new System.Action(playerInteractionTable);
-        table.playerLeavection = new System.Action(playerLeaveTable);
+        table.playerExitAction = new System.Action(playerLeaveTable);
         table.hintCanShow = false;
     }
 

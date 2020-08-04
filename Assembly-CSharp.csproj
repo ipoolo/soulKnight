@@ -121,6 +121,7 @@
     <Compile Include="Assets\Scripts\Map\Item\Hint.cs" />
     <Compile Include="Assets\Scripts\Map\Item\Item.cs" />
     <Compile Include="Assets\Scripts\Map\Item\ItemHealthVial.cs" />
+    <Compile Include="Assets\Scripts\Map\Item\ItemWeapon.cs" />
     <Compile Include="Assets\Scripts\Map\Item\RestoreHealthHeadStone.cs" />
     <Compile Include="Assets\Scripts\Map\Item\ShopTable.cs" />
     <Compile Include="Assets\Scripts\Map\Item\Treasure.cs" />

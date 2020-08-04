@@ -22,11 +22,11 @@ public class WeaponPoint : MonoBehaviour
         weaponObject = Instantiate((GameObject)Resources.Load("Weapon/Sword"), transform.position, Quaternion.identity);
         closeinWeapon = weaponObject.GetComponent<Weapon>();
 
-        currWeapon = rangedWeapon;
-        UpdateWeapon2BackupLocation(closeinWeapon);
+        //currWeapon = rangedWeapon;
+        //UpdateWeapon2BackupLocation(closeinWeapon);
 
-        //currWeapon = closeinWeapon;
-        //UpdateWeapon2BackupLocation(rangedWeapon);
+        currWeapon = closeinWeapon;
+        UpdateWeapon2BackupLocation(rangedWeapon);
     }
 
     // Update is called once per frame
@@ -77,13 +77,13 @@ public class WeaponPoint : MonoBehaviour
     }
     private void UpdateWeapon2BackupLocation(Weapon nextWeapon)
     {
-         ChangeWeaponWhenBackUp(currWeapon, nextWeapon, backUpRotaionRanged);
+         ChangeWeaponWhenBackUp(currWeapon, nextWeapon);
     }
 
-    private void ChangeWeaponWhenBackUp(Weapon curr,Weapon next,float backUpRotaion)
+    private Weapon ChangeWeaponWhenBackUp(Weapon curr,Weapon next)
     {
-        float rotaion = backUpRotaion;
-        if(curr == closeinWeapon)
+        float rotaion = backUpRotaionRanged;
+        if(curr.isCloseInWeapon)
         {
             rotaion -= 90.0f;
         }
@@ -92,20 +92,60 @@ public class WeaponPoint : MonoBehaviour
             curr.animator.enabled = false;
         }
         curr.transform.rotation = backUpGb.transform.rotation * Quaternion.Euler(0, 0, rotaion);
+        curr.transform.position = transform.position;
         curr.sRender.sortingLayerName = "WeaponHide";
         curr.sRender.flipY = false;
         curr.sRender.flipX = false;
         curr.ChangeIsStopFire(true);
         curr.transform.parent = backUpGb.transform;
-        next.sRender.sortingLayerName = "Weapon";
-        if (next.animator)
-        {
-            next.animator.enabled = true;
+        if(next != null) { 
+            next.sRender.sortingLayerName = "Weapon";
+
+            if (next.animator)
+            {
+                next.animator.enabled = true;
+            }
+            next.transform.parent = transform;
+            next.transform.position = transform.position;
+            next.transform.rotation = transform.rotation;
+            next.ChangeIsStopFire(false);
+            currWeapon = next;
         }
-        next.transform.parent = transform;
-        next.transform.rotation = transform.rotation;
-        next.ChangeIsStopFire(false);
-        currWeapon = next;
+
+
+        return curr;
     }
 
+    private Weapon WeaponBackUp(Weapon backUpWeapon)
+    {
+        return ChangeWeaponWhenBackUp(backUpWeapon, null);
+    }
+
+    public void ChangeWeapon(Weapon nextWeapon)
+    {
+        Weapon pre;
+        if (currWeapon.isCloseInWeapon == nextWeapon.isCloseInWeapon)
+        {
+             ChangeWeaponWhenBackUp(currWeapon, nextWeapon);
+        }
+        else
+        {
+            WeaponBackUp(nextWeapon);
+        }
+
+        if (nextWeapon.isCloseInWeapon)
+        {
+            pre = closeinWeapon;
+            closeinWeapon = nextWeapon;
+        }
+        else
+        {
+            pre = rangedWeapon;
+            rangedWeapon = nextWeapon;
+        }
+        
+        
+        ItemWeapon itemWeapon = Instantiate((GameObject)Resources.Load("Item/WeaponItem"), transform.parent.position + transform.right, Quaternion.identity).GetComponentInChildren<ItemWeapon>();
+        itemWeapon.ConfigWeapon(pre);
+    }
 }
