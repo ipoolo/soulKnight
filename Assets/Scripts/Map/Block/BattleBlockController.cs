@@ -41,7 +41,7 @@ public class BattleBlockController : BlockController
         checkEnemySurvivalListCount();
     }
 
-
+    private bool isWaving;
 
     public void checkEnemySurvivalListCount()
     {
@@ -49,8 +49,11 @@ public class BattleBlockController : BlockController
         {
             if(alreadySpwanNum < maxEnemyNum)
             {
-                WaveSpawn();
-            }else if (!isFinishBattle) { 
+                if (!isWaving) { 
+                    WaveSpawn();
+                }
+            }
+            else if (!isFinishBattle) { 
             
                 BattleFinish();
                 //battleEnd
@@ -145,25 +148,34 @@ public class BattleBlockController : BlockController
         StartCoroutine(WaveSpawn(level));
     }
 
-
     IEnumerator WaveSpawn(int _level)
     {
-
+        isWaving = true;
         //_level + baseEnemyNum为生成总量
         int num = maxEnemyNum - alreadySpwanNum;
         num = Mathf.Clamp(num,0, maxStepSpwanNum);
         for (int i = 0; i < num; i++)
         {
-            SpawnEneny(_level);
+            Transform startTransform;
+            startTransform = enemyStartPoints[getRamdomStartIndex()];
+            SpawnPort(startTransform);
+            yield return new WaitForSeconds(Port.lifeTime * 0.75f);
+            SpawnEneny(_level, startTransform);
             yield return new WaitForSeconds(spwanStepWaitTime);
         }
-
+        isWaving = false;
     }
 
-    public void SpawnEneny(int _level)
+    public virtual void SpawnPort(Transform startTransfor)
     {
-        Transform startTransform;
-        startTransform = enemyStartPoints[getRamdomStartIndex()];
+        GameObject portGB = Instantiate((GameObject)Resources.Load("EnemyPort"));
+        portGB.transform.parent = transform;
+        portGB.transform.position = startTransfor.position;
+    }
+
+    public void SpawnEneny(int _level, Transform startTransform)
+    {
+        
         //获得随机初始怪物预制体(不能与上一个相同)
         GameObject prefabs = (GameObject)enemyPrefabs[getRamdomEnemyTypeIndex()];
         Enemy enemy = Instantiate(prefabs, startTransform.position, startTransform.rotation).GetComponentInChildren<Enemy>();

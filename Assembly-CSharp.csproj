@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\Enemy\NPC.cs" />
     <Compile Include="Assets\Scripts\Enemy\Partcles\BloodEffect.cs" />
     <Compile Include="Assets\Scripts\Enemy\Partcles\HotEffect.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Port\Port.cs" />
     <Compile Include="Assets\Scripts\Enemy\TouchSense.cs" />
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
     <Compile Include="Assets\Scripts\Entity\EntityManager.cs" />
