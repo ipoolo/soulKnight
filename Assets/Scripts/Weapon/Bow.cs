@@ -40,6 +40,7 @@ public class Bow : Weapon
                 b.damage = damage * (1 + powerBarValue);
                 b.speed *= (1 + powerBarValue);
                 b.castor = castor;
+                b.fireWeapon = this;
                 fireTimes++;
                 if(fireTimes == fireMaxTimes)
                 {

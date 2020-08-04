@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class NPC : Entity
+public class NPC : Entity, BuffReceiverInterFace
 {
     public float moveSpeed;
     public float damage;
@@ -18,8 +18,8 @@ public class NPC : Entity
     public float recoverArmorStepTime;
     public int recoverArmorStepValue;
     public float recoverArmorInterruptTime;
-    private float recoverArmorCounter;
-    private float recoverArmorInterruptCounter;
+    protected float recoverArmorCounter;
+    protected float recoverArmorInterruptCounter;
 
     public Vector3 buffPositionOffset;
 
@@ -46,7 +46,7 @@ public class NPC : Entity
 
     public void Update()
     {
-        checkRecoverArmor();
+        
     }
 
     //buffList
@@ -136,7 +136,7 @@ public class NPC : Entity
         }
     }
 
-    public virtual void RestoreHealthBody(int _hp)
+    protected virtual void RestoreHealthBody(int _hp)
     {
         //body都是预留给子类实现的,其实可以写个Interface 强制要求子类实现,代码阅读起来容易点
 
@@ -152,146 +152,62 @@ public class NPC : Entity
         ReceiveDamageWithRepelVector(_damage, Vector3.zero);
     }
 
-    public virtual void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
+    public void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
     {
-        if (isReceiveDamage && isPause != true)
-        {
-            if (canReceiveRepel)
+        if (!isPause) { 
+            if (isReceiveDamage)
             {
-                isOutControl = true;
-                rigid2d.velocity = _repelVector / outControlTime;
-                StartCoroutine("BackToUnderControl");
+                if (canReceiveRepel)
+                {
+                    Debug.Log("v");
+
+                    TurnOutControl();
+                    rigid2d.velocity = _repelVector / outControlTime;
+                    StartCoroutine("BackToUnderControl");
+                }
+                if (ReceiveDamageWithRepelVectorBody(ExcuteHittedBuffEffect(_damage), _repelVector))
+                {
+                    DeathBody();
+                }
+
             }
-
-            ReduceHealth(ExcuteHittedBuffEffect(_damage));
-
         }
-        ReceiveDamageWithRepelVectorBody(_damage, _repelVector);
-
-    }
-    protected virtual void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
-    {
-    }
-    IEnumerator BackToUnderControl()
-    {
-        yield return new WaitForSeconds(outControlTime);
-        isOutControl = false;
-        BackToUnderControlBody(isOutControl);
     }
 
-    protected virtual void BackToUnderControlBody(bool _isOutControl)
+    
+    protected virtual bool ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
+    {
+        return false;
+    }
+
+    protected virtual void DeathBody()
+    {
+
+    }
+    private void TurnOutControl()
+    {
+        isOutControl = true;
+        TurnOutControlBody();
+    }
+
+    protected virtual void TurnOutControlBody()
     {
         
     }
 
+    IEnumerator BackToUnderControl()
+    {
+        yield return new WaitForSeconds(outControlTime);
+        isOutControl = false;
+        BackToUnderControlBody();
+    }
+
+    protected virtual void BackToUnderControlBody()
+    {
+
+    }
+
     //掉血
-    public void ReduceHealth(float _reduceValue)
-    {
-        ReduceHealthBody(_reduceValue);
-    }
-    protected virtual void ReduceHealthBody(float _reduceValue)
-    {
 
-    }
-
-    //mana
-    public bool ReceiveManaReduce(int manaReduce)
-    {
-        if (mana == 0)
-        {
-            return false;
-        }
-
-        int temp = mana - manaReduce;
-        if (temp >= 0)
-        {
-            mana = temp;
-        }
-        else
-        {
-            mana = 0;
-        }
-
-        UpdateStateUI();
-
-        return true;
-    }
-
-    protected bool ReceiveDamage(int damage)
-        //只有继承类才能使用
-    {
-        bool receiveSuccess = true;
-        int temp = armor - damage;
-
-        //开启中断recoverArmorInterruptCounter
-        isRecoverArmor = false;
-        recoverArmorInterruptCounter = 0;//重新计时
-
-        if (temp >= 0)
-        {
-            //防御足够吸收
-            armor = temp;
-        }
-        else
-        {
-            armor = 0;
-            health -= Mathf.Abs(temp);
-            if (health <= 0)
-            {
-                //血量不足以吸收伤害
-                health = 0;
-                receiveSuccess = false;
-                //TODO
-                Debug.Log("PlayerDeal");
-            }
-        }
-        UpdateStateUI();
-        return receiveSuccess;
-    }
-    private void RecoverArmor(int i)
-    {
-        armor += 1;
-        armor = armor >= maxArmor ? maxArmor : armor;
-        UpdateStateUI();
-    }
-
-    private void checkRecoverArmor()
-    {
-        if (isRecoverArmor)
-        {
-            recoverArmorCounter += Time.deltaTime;
-            if (recoverArmorCounter >= recoverArmorStepTime)
-            {
-                //等待时间触发恢复
-                RecoverArmor(recoverArmorStepValue);
-                //reset
-                recoverArmorCounter = 0;
-            }
-        }
-        else
-        {
-            recoverArmorInterruptCounter += Time.deltaTime;
-            if (recoverArmorInterruptCounter >= recoverArmorInterruptTime)
-            {
-                isRecoverArmor = true;
-                recoverArmorInterruptCounter = 0;
-                //中断结束立刻恢复一次(offset一下恢复计数器达到效果)
-                recoverArmorCounter = recoverArmorStepTime;
-            }
-        }
-
-    }
-
-
-        //界面更新
-     private void UpdateStateUI()
-    {
-        UpdateStateUIBody();
-    }
-
-    public virtual void UpdateStateUIBody()
-    {
-
-    }
 
 }

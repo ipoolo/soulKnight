@@ -143,8 +143,7 @@ public class Trap : MonoBehaviour, IBattleState
     protected void EffectBody(NPC npc)
     {
         Vector2 repel = npc.transform.position - transform.position;
-        repel = Vector2.zero;
-        npc.ReceiveDamageWithRepelVector(Mathf.FloorToInt(damage), repel.normalized);
+        npc.ReceiveDamageWithRepelVector(Mathf.FloorToInt(damage), repel);
     }
 
     public void BattleStart()

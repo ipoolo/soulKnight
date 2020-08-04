@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 2375976318143651438}
   - component: {fileID: 2375976318143651436}
   - component: {fileID: 2375976318143651437}
-  m_Layer: 18
+  m_Layer: 20
   m_Name: ObstructBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

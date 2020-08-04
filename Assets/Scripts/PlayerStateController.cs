@@ -87,21 +87,11 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
     new void Update()
     {
         base.Update();
+        checkRecoverArmor();
     }
 
-    //RestoreHealth
-    //public void RestoreHealth(int _hp)
-    //{
-    //    if(_hp > 0) { 
-    //        int tmp = health + _hp;
-    //        health = tmp > maxHealth ? maxHealth : tmp;
-    //        //restoreEffect
-    //        RestoreEffect();
-    //        UpdateStatePlane();
-    //    }
-    //}
 
-    public override void RestoreHealthBody(int _hp)
+    protected override void RestoreHealthBody(int _hp)
     {
         RestoreEffect();
         UpdateStatePlane();
@@ -126,7 +116,7 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
         render.color = originalColor;
     }
 
-    public override void UpdateStateUIBody()
+    public void UpdateStateUIBody()
     {
         UpdateStatePlane();
     }
@@ -170,29 +160,30 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
 
     }
 
-    //receiveDamage
-
-    protected override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
+    protected override void BackToUnderControlBody()
     {
-        if (isReceiveDamage) { 
-           isReceiveDamage = false;
-            RenderWhiteAndTurnInvincibilityLayer();
+        base.BackToUnderControlBody();
+        pc.isOutControl = false;
+    }
+    protected override void TurnOutControlBody()
+    {
+        base.TurnOutControlBody();
+        pc.isOutControl = true;
+    }
 
-        }
-        if (isOutControl)
-        {
-            pc.isOutController = true;
-        }
+    protected override bool ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
+    {
+        bool isDeath = false;
+        RenderWhiteAndTurnInvincibilityLayer();
+        isDeath = ReduceHealthBody(_damage);
+        return isDeath;
+
     }
 
 
-    protected override void BackToUnderControlBody(bool _isOutControl)
+    protected bool ReduceHealthBody(float _reduceValue)
     {
-        pc.isOutController = _isOutControl;
-    }
-
-    protected override void ReduceHealthBody(float _reduceValue)
-    {
+        bool isDeath = false;
         int floorValue = Mathf.FloorToInt(_reduceValue);
 
         //掉血粒子效果 （可以设置专门的出血位）
@@ -202,12 +193,117 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
         tmp += new Vector3(0, canvasDamageOffsetY,0);
         Instantiate(canvasDamage, tmp, Quaternion.identity).GetComponent<DamageText>().setDamageText(floorValue);
         //扣血
-        ReceiveDamage(floorValue);
+        isDeath = !ReceiveDamage(floorValue);
+        return isDeath;
 
     }
 
+
+    private bool ReceiveDamage(int damage)
+    {
+        bool receiveSuccess = true;
+        int temp = armor - damage;
+
+        //开启中断recoverArmorInterruptCounter
+        isRecoverArmor = false;
+        recoverArmorInterruptCounter = 0;//重新计时
+
+        if (temp >= 0)
+        {
+            //防御足够吸收
+            armor = temp;
+        }
+        else
+        {
+            armor = 0;
+            health -= Mathf.Abs(temp);
+            if (health <= 0)
+            {
+                //血量不足以吸收伤害
+                health = 0;
+                receiveSuccess = false;
+                //TODO
+
+            }
+        }
+        UpdateStateUI();
+        return receiveSuccess;
+    }
+
+    protected override void DeathBody()
+    {
+        base.DeathBody();
+        Debug.Log("PlayerDeal");
+    }
+
+    //mana
+    public bool ReceiveManaReduce(int manaReduce)
+    {
+        if (mana == 0)
+        {
+            return false;
+        }
+
+        int temp = mana - manaReduce;
+        if (temp >= 0)
+        {
+            mana = temp;
+        }
+        else
+        {
+            mana = 0;
+        }
+
+        UpdateStateUI();
+
+        return true;
+    }
+
+    private void RecoverArmor(int i)
+    {
+        armor += 1;
+        armor = armor >= maxArmor ? maxArmor : armor;
+        UpdateStateUI();
+    }
+
+    private void UpdateStateUI()
+    {
+        UpdateStateUIBody();
+    }
+
+    private void checkRecoverArmor()
+    {
+        if (isRecoverArmor)
+        {
+            recoverArmorCounter += Time.deltaTime;
+            if (recoverArmorCounter >= recoverArmorStepTime)
+            {
+                //等待时间触发恢复
+                RecoverArmor(recoverArmorStepValue);
+                //reset
+                recoverArmorCounter = 0;
+            }
+        }
+        else
+        {
+            recoverArmorInterruptCounter += Time.deltaTime;
+            if (recoverArmorInterruptCounter >= recoverArmorInterruptTime)
+            {
+                isRecoverArmor = true;
+                recoverArmorInterruptCounter = 0;
+                //中断结束立刻恢复一次(offset一下恢复计数器达到效果)
+                recoverArmorCounter = recoverArmorStepTime;
+            }
+        }
+
+    }
+
+
+
+
     private void RenderWhiteAndTurnInvincibilityLayer()
     {
+        isReceiveDamage = false;
         render.color = Color.red;
         StartCoroutine("BackToOriginalColorAndUninvincibility");
         player.layer = LayerMask.NameToLayer("InvincibilityLayer");

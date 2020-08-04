@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]public float repelPower;
     [SerializeField]public float turnSpeed;
     [SerializeField]public float reboundTimes;
+    public Weapon fireWeapon;
     public object castor;
 
     public Rigidbody2D rigid2D;
@@ -49,6 +50,11 @@ public class Bullet : MonoBehaviour
     public void Update()
     {
         autoFollowTarget();
+    }
+
+    public void configFireWeapon(Weapon _fireWeapon)
+    {
+        fireWeapon = _fireWeapon;
     }
 
     public void autoFollowTarget()
@@ -94,19 +100,17 @@ public class Bullet : MonoBehaviour
 
         Collider2D other = _collision.collider;
         Collider2D selfCollider = _collision.otherCollider;
-        if (other.CompareTag("Enemy"))
-        {
-            Enemy emeny = other.GetComponent<Enemy>();
-            emeny.ReceiveDamageWithRepelVector(ExcuteHittingBuffEffect(damage), transform.right.normalized * repelPower);
 
-            
-            Instantiate(Resources.Load("EnemyDeath"),transform.position,Quaternion.identity);
+        if (other.CompareTag("Enemy")|| other.CompareTag("Obstacle") )
+        {
+            NPC npc = other.GetComponent<NPC>();
+            npc.ReceiveDamageWithRepelVector(fireWeapon.ExcuteHittingBuffEffect(damage), transform.right.normalized * repelPower);
+            Instantiate(Resources.Load("BulletBomb"),transform.position,Quaternion.identity);
             Destroy(gameObject);
-            //emeny.receiverDamage(damage, player.transform.position, 1.0f);
         }
 
-        string[] layerNames = { "Wall" ,"Item", "ObstructBullet" };
-        if (selfCollider.IsTouchingLayers(LayerMask.GetMask(layerNames)))
+        string[] wallLayerNames = { "Wall" ,"Item" };
+        if (selfCollider.IsTouchingLayers(LayerMask.GetMask(wallLayerNames)))
         {
            
             if (reboundTimes > 0) {
@@ -120,34 +124,14 @@ public class Bullet : MonoBehaviour
             //emeny.receiverDamage(damage, player.transform.position, 1.0f);
         }
 
-        string[] obstructBulletlayerNames = { "ObstructBullet" };
+        string[] obstructBulletlayerNames = { "ObstacleWall" };
         //碰到虚拟墙
         if (selfCollider.IsTouchingLayers(LayerMask.GetMask(obstructBulletlayerNames)))
         {
 
             knockWallBody(_collision);
-            //emeny.receiverDamage(damage, player.transform.position, 1.0f);
         }
 
-    }
-
-
-    private float ExcuteHittingBuffEffect(float _damage)
-    {
-        float tmp = _damage;
-        if (castor is BuffReceiverInterFace)
-        {
-            List<Buff>  buffList= (castor as BuffReceiverInterFace).GetBuffList();
-            foreach(Buff buff in buffList)
-            {
-                if (buff is BuffReceiveHittingDamageInterFace)
-                {
-                    tmp = ((BuffReceiveHittingDamageInterFace)buff).BuffReceiveHittingDamageInterFaceBody(tmp);
-                }
-            }
-        }
-        
-        return tmp;
     }
 
 
@@ -188,7 +172,7 @@ public class Bullet : MonoBehaviour
 
     public void knockWallBody(Collision2D _collision)
     {
-            Instantiate(Resources.Load("EnemyDeath"),transform.position,Quaternion.identity);
+            Instantiate(Resources.Load("BulletBomb"),transform.position,Quaternion.identity);
             Destroy(gameObject);
     }
 

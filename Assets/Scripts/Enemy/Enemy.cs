@@ -6,7 +6,7 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCallBack
+public class Enemy : NPC ,CanSkillControl, SkillFinishCallBack
 {
     
     enum EnemyStateType
@@ -127,6 +127,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     // Update is called once per frame
     public new void Update()
     {
+        base.Update();
         //伤害累加显示计算器
         CalDamageAccumulationShow();
 
@@ -281,24 +282,20 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
 
     }
-    public override void ReceiveDamageWithRepelVector(float _damage, Vector3 _repelVector)
-    {
-        //暂停状态 不吃攻击
-        if (!isPause)
-        {
-            base.ReceiveDamageWithRepelVector(_damage, _repelVector);
 
-        }
-    }
-
-    protected override void ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
+    protected override bool ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
+        bool isDeath = false;
         RenderRed();
+        isDeath = ReduceHealthBody(_damage);
+        return isDeath;
+
     }
 
 
-    protected override void ReduceHealthBody(float _reduceValue)
+    protected bool ReduceHealthBody(float _reduceValue)
     {
+        bool isDeath = false;
         int floorValue = Mathf.FloorToInt(_reduceValue);
         health -= floorValue;
         //掉血粒子效果
@@ -316,18 +313,24 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
 
         if (health <= 0)
         {
-            //新建死亡效果
+            isDeath = true;
 
-            Instantiate(Resources.Load("EnemyDeath"), transform.position, Quaternion.identity);
-            //新建宝物掉落
-            Coin coin = Instantiate((GameObject)Resources.Load("Coin")).GetComponent<Coin>();
-            coin.transform.position = transform.position;
-            coin.radius = 2.0f;
-
-            //销毁自己
-            GetComponentInParent<EnemyBase>().baseDestory();
         }
 
+        return isDeath;
+    }
+
+    protected override void DeathBody()
+    {
+        base.DeathBody();
+        //新建死亡效果
+        Instantiate(Resources.Load("EnemyDeath"), transform.position, Quaternion.identity);
+        //新建宝物掉落
+        Coin coin = Instantiate((GameObject)Resources.Load("Coin")).GetComponent<Coin>();
+        coin.transform.position = transform.position;
+        coin.radius = 2.0f;
+        //销毁自己
+        GetComponentInParent<EnemyBase>().baseDestory();
     }
 
     private void RenderRed()
