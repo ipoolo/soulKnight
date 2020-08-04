@@ -138,8 +138,9 @@
     <Compile Include="Assets\Scripts\Skill\SkillFireConditionController.cs" />
     <Compile Include="Assets\Scripts\Skill\SkillRage.cs" />
     <Compile Include="Assets\Scripts\Skill\SkillRushAttack.cs" />
-    <Compile Include="Assets\Scripts\StatePanel\StatePanelController.cs" />
     <Compile Include="Assets\Scripts\Tools\Singleton.cs" />
+    <Compile Include="Assets\Scripts\UI\IndicatorPanelController.cs" />
+    <Compile Include="Assets\Scripts\UI\StatePanelController.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bow.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\BulletArrow.cs" />

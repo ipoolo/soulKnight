@@ -23,6 +23,7 @@ TagManager:
   - MapLocation
   - BuffTile
   - Trap
+  - IndicatorPanel
   layers:
   - Default
   - TransparentFX

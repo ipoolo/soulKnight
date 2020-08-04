@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemWeapon : Item
 {
     public Weapon weapon;
+    protected IndicatorPanelController indicatorPanel;
     // Start is called before the first frame update
     private new void Awake()
     {
@@ -14,6 +15,8 @@ public class ItemWeapon : Item
         interactionBodyAction = new System.Action(ChangeWeapon);
         playerEnterAction = new System.Action(ShowWeaponInfo);
         playerExitAction = new System.Action(HideWeaponInfo);
+
+        indicatorPanel = GameObject.FindObjectOfType<IndicatorPanelController>();
     }
 
     new void Start()
@@ -52,11 +55,11 @@ public class ItemWeapon : Item
 
     public void ShowWeaponInfo()
     {
-
+        indicatorPanel.ShowIndicatorPanel(string.Format("{0}", weapon.damage),weapon.sRender.sprite);
     }
 
     public void HideWeaponInfo()
     {
-
+        indicatorPanel.HideIndicatorPanel();
     }
 }
