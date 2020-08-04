@@ -22,8 +22,11 @@ public class WeaponPoint : MonoBehaviour
         weaponObject = Instantiate((GameObject)Resources.Load("Weapon/Sword"), transform.position, Quaternion.identity);
         closeinWeapon = weaponObject.GetComponent<Weapon>();
 
-        currWeapon = closeinWeapon;
-        UpdateWeapon2BackupLocation(rangedWeapon);
+        currWeapon = rangedWeapon;
+        UpdateWeapon2BackupLocation(closeinWeapon);
+
+        //currWeapon = closeinWeapon;
+        //UpdateWeapon2BackupLocation(rangedWeapon);
     }
 
     // Update is called once per frame
@@ -56,7 +59,7 @@ public class WeaponPoint : MonoBehaviour
         isFollow = true;
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<Enemy>()) {
             UpdateWeapon2BackupLocation(closeinWeapon);
@@ -92,7 +95,7 @@ public class WeaponPoint : MonoBehaviour
         curr.sRender.sortingLayerName = "WeaponHide";
         curr.sRender.flipY = false;
         curr.sRender.flipX = false;
-        curr.isStopFire = true;
+        curr.ChangeIsStopFire(true);
         curr.transform.parent = backUpGb.transform;
         next.sRender.sortingLayerName = "Weapon";
         if (next.animator)
@@ -101,7 +104,7 @@ public class WeaponPoint : MonoBehaviour
         }
         next.transform.parent = transform;
         next.transform.rotation = transform.rotation;
-        next.isStopFire = false;
+        next.ChangeIsStopFire(false);
         currWeapon = next;
     }
 

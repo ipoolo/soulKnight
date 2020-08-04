@@ -28,7 +28,6 @@ public class Sword : Weapon
     public override void AttackBody()
     {
         //这里用动画用fire
-        Debug.Log("Sword.positon"+transform.position);
     }
 
     protected override void AnimFireCallBackBody()

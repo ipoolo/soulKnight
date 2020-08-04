@@ -55,15 +55,17 @@ public class FSMEnemyStateGolbal : FSMState<Enemy>
         Debug.DrawLine(t.transform.position, new Vector3(t.transform.position.x+ postion2Target2.normalized.x *t.perspectiveSenseDistance, t.transform.position.y + postion2Target2.normalized.y * t.perspectiveSenseDistance,0), Color.green); ;
         Debug.DrawLine(t.transform.position, new Vector3(t.transform.position.x + postion2Target2.normalized.x * t.perspectiveSenseDistance, t.transform.position.y - postion2Target2.normalized.y * t.perspectiveSenseDistance, 0), Color.yellow); ;
 
-        t.distance2Player = Vector3.Distance(t.playerPosition, t.transform.position);
+        t.distance2Player = Mathf.Abs( Vector3.Distance(t.playerPosition, t.transform.position));
 
         if (t.isTouchSensePalyer || t.isPerspectiveSense)
         {
             if(t.fsm.currState == FSMEnemyStatePatrol.singleInstance)
             {//从巡逻跳转到 追击/逃避 则重置技能
+                //生成hint叹号
+                t.showEnemyHint();
                 t.skillCoolDownTimer = 0;
                 t.isSkillTimerStop = false;
-                if (t.distance2Player < t.minAvoidDistance)
+                if (t.distance2Player < t.minAvoidDistance && t.minAvoidDistance != 0)
                 {
                     //跳转到回避状态
                     t.fsm.ChangeState(FSMEnemyStateAvoid.singleInstance);
@@ -94,6 +96,8 @@ public class FSMEnemyStateGolbal : FSMState<Enemy>
     {
         return false;
     }
+
+
 
 
 }

@@ -16,13 +16,13 @@ public class Weapon : MonoBehaviour
     private float attackTimer;
     [HideInInspector]  public bool canAttack;
     private GameObject player;
-    private WeaponPoint weaponPoint;
+    public WeaponPoint weaponPoint;
 
     public bool isStoragePowerWeapon;
     public bool isStoragePower;
     private PowerController powerController;
     protected float powerBarValue;
-    public bool isStopFire = false;
+    protected bool isStopFire = false;
 
     public object castor;
     [HideInInspector]public SpriteRenderer sRender;
@@ -159,7 +159,23 @@ public class Weapon : MonoBehaviour
             powerController.showPowerBar();
         }
     }
+    public float ExcuteHittingBuffEffect(float _damage)
+    {
+        float tmp = _damage;
+        if (castor is BuffReceiverInterFace)
+        {
+            List<Buff> buffList = (castor as BuffReceiverInterFace).GetBuffList();
+            foreach (Buff buff in buffList)
+            {
+                if (buff is BuffReceiveHittingDamageInterFace)
+                {
+                    tmp = ((BuffReceiveHittingDamageInterFace)buff).BuffReceiveHittingDamageInterFaceBody(tmp);
+                }
+            }
+        }
 
+        return tmp;
+    }
     //检查mouse 小于武器出口时翻转向量
     public Vector3 CalTargetDirection(Vector3 _firePointPosition, Vector3 _mousePosition, Vector3 _transformPosition)
     {
@@ -175,5 +191,14 @@ public class Weapon : MonoBehaviour
         }
 
         return targetDirection;
+    }
+
+    public void ChangeIsStopFire(bool isStop)
+    {
+        isStopFire = isStop;
+        if (isStopFire)
+        {
+            weaponPoint.continueFollow();
+        }
     }
 }

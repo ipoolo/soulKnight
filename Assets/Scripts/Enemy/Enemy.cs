@@ -181,7 +181,7 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
     private void CheckVelocityDirection()
     {
         float velocityDirectionX = rigid2d.velocity.x;
-        if (!isAvoid)
+        if (isAvoid)
         {
             //躲避时,面向方向为速度相反方向
             velocityDirectionX *= -1;
@@ -372,9 +372,20 @@ public class Enemy : NPC, BuffReceiverInterFace, CanSkillControl, SkillFinishCal
         return fsm.receiveMessage(msg);
     }
 
+    private EnemyHint eHint;
+    public void showEnemyHint()
+    {
+        if(eHint == null) {
+            eHint = Instantiate((GameObject)Resources.Load("Hint/EnemyHint"), transform.position, Quaternion.identity).GetComponent<EnemyHint>();
+            eHint.transform.parent = transform;
+        }
+    }
+
     private void OnDestroy()
     {
         destoryDelegate(this);
     }
+
+
 
 }

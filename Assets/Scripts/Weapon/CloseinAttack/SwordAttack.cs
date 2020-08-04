@@ -43,30 +43,11 @@ public class SwordAttack : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             Enemy emeny = other.GetComponent<Enemy>();
-            Transform temp = GameObject.FindGameObjectWithTag("WeaponPoint").GetComponent<Transform>();
-            float zRotaion = temp.rotation.eulerAngles.z;
-            Vector3 tempV = Quaternion.AngleAxis(zRotaion, Vector3.forward) * Vector3.right;
-            emeny.ReceiveDamageWithRepelVector(ExcuteHittingBuffEffect(fireWeapon.damage), tempV);
+            emeny.ReceiveDamageWithRepelVector(fireWeapon.ExcuteHittingBuffEffect(fireWeapon.damage), fireWeapon.weaponPoint.transform.right);
         }
         
     }
-    private float ExcuteHittingBuffEffect(float _damage)
-    {
-        float tmp = _damage;
-        if (fireWeapon.castor is BuffReceiverInterFace)
-        {
-            List<Buff> buffList = (fireWeapon.castor as BuffReceiverInterFace).GetBuffList();
-            foreach (Buff buff in buffList)
-            {
-                if (buff is BuffReceiveHittingDamageInterFace)
-                {
-                    tmp = ((BuffReceiveHittingDamageInterFace)buff).BuffReceiveHittingDamageInterFaceBody(tmp);
-                }
-            }
-        }
 
-        return tmp;
-    }
 
 
 }
