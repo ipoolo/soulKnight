@@ -173,8 +173,18 @@ public class Enemy : NPC ,CanSkillControl, SkillFinishCallBack
 
     public void CalculateNewTarget(Enemy t)
     {
-        t.patrolTargetPosition = new Vector3(Random.Range(t.patrolBottomLeft.position.x, t.patrolTopRight.position.x),
-        Random.Range(t.patrolBottomLeft.position.y, t.patrolTopRight.position.y), 0);
+        bool isLegalPosition = false;
+        while (!isLegalPosition) { 
+            t.patrolTargetPosition = new Vector3(Random.Range(t.patrolBottomLeft.position.x, t.patrolTopRight.position.x),
+            Random.Range(t.patrolBottomLeft.position.y, t.patrolTopRight.position.y), 0);
+            float distance = Vector2.Distance(t.patrolTargetPosition, transform.position);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, t.patrolTargetPosition - transform.position, distance, LayerMask.GetMask("Item", "Wall"));
+            if(hit.collider == null)
+            {
+                isLegalPosition = true;
+            }
+        }
+        
         t.isPatrolRunning = true;
     }
 
