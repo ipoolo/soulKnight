@@ -147,7 +147,9 @@
     <Compile Include="Assets\Scripts\Weapon\Bullet\Bullet.cs" />
     <Compile Include="Assets\Scripts\Weapon\Bullet\BulletArrow.cs" />
     <Compile Include="Assets\Scripts\Weapon\CloseinAttack\SwordAttack.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Raycast.cs" />
     <Compile Include="Assets\Scripts\Weapon\Slash.cs" />
+    <Compile Include="Assets\Scripts\Weapon\Staff.cs" />
     <Compile Include="Assets\Scripts\Weapon\Sword.cs" />
     <Compile Include="Assets\Scripts\Weapon\Weapon.cs" />
     <Compile Include="Assets\Scripts\Weapon\WeaponPoint.cs" />

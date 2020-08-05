@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.iOS;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -179,7 +177,7 @@ public class Enemy : NPC ,CanSkillControl, SkillFinishCallBack
             Random.Range(t.patrolBottomLeft.position.y, t.patrolTopRight.position.y), 0);
             float distance = Vector2.Distance(t.patrolTargetPosition, transform.position);
             RaycastHit2D hit = Physics2D.Raycast(transform.position, t.patrolTargetPosition - transform.position, distance, LayerMask.GetMask("Item", "Wall"));
-            if(hit.collider == null)
+            if (hit.collider == null)
             {
                 isLegalPosition = true;
             }

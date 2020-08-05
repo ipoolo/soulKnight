@@ -5,12 +5,14 @@ using UnityEngine;
 public class ItemWeapon : Item
 {
     public Weapon weapon;
+    public string weaponName;
     protected IndicatorPanelController indicatorPanel;
     // Start is called before the first frame update
     private new void Awake()
     {
         base.Awake();
-        weapon = Instantiate((GameObject)Resources.Load("Weapon/GodSword"), transform.parent.position, Quaternion.identity).GetComponent<Weapon>();
+        
+        weapon = Instantiate((GameObject)Resources.Load("Weapon/"+weaponName), transform.parent.position, Quaternion.identity).GetComponent<Weapon>();
         weapon.transform.parent = transform.parent;
         interactionBodyAction = new System.Action(ChangeWeapon);
         playerEnterAction = new System.Action(ShowWeaponInfo);

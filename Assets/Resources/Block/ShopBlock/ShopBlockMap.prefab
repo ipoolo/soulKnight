@@ -51,8 +51,8 @@ MonoBehaviour:
   mbi: {fileID: 0}
   itemPrefabNames:
   - ItemHealthVial
-  - WeaponItem
-  - ItemHealthVial
+  - WeaponItem-GodSword
+  - WeaponItem-Staff
   tableOffset: 2
 --- !u!1001 &6806494814492038473
 PrefabInstance:

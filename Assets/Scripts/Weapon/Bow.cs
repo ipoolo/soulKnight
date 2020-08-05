@@ -7,7 +7,7 @@ public class Bow : Weapon
     //改成基类
 {
     [SerializeField] public Bullet bullet;
-    [SerializeField] public GameObject firePoint;
+
     private int fireTimes;
     public int fireMaxTimes = 5;
     private float fireTimeStep = 0.1f;

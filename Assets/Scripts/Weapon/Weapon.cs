@@ -23,6 +23,7 @@ public class Weapon : MonoBehaviour
     private PowerController powerController;
     protected float powerBarValue;
     protected bool isStopFire = false;
+    [SerializeField] public GameObject firePoint;
 
     public object castor;
     [HideInInspector]public SpriteRenderer sRender;
