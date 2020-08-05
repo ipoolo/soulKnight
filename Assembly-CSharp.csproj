@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\ChannelWallController.cs" />
     <Compile Include="Assets\Scripts\CoinAreaController.cs" />
     <Compile Include="Assets\Scripts\DamageText.cs" />
+    <Compile Include="Assets\Scripts\Demo\OneWayWall.cs" />
     <Compile Include="Assets\Scripts\Enemy\Bat.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyBase.cs" />
