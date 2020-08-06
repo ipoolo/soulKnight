@@ -25,7 +25,7 @@ public class Sword : Weapon
         base.Update();
     }
     private SwordAttack sa;
-    public override void AttackBody()
+    protected override void AttackBody()
     {
         //这里用动画用fire
     }

@@ -1,8 +1,15 @@
 ﻿<Properties StartupConfiguration="{01637993-8C57-6833-53E8-421C7781BDEC}|">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Weapon/WeaponPoint.cs">
     <Files>
-      <File FileName="Assets/Scripts/Weapon/Raycast.cs" Line="66" Column="17" />
-      <File FileName="Assets/Scripts/Weapon/Staff.cs" Line="8" Column="35" />
+      <File FileName="Assets/Scripts/Weapon/Staff.cs" Line="34" Column="144" />
+      <File FileName="Assets/Scripts/Weapon/Raycast.cs" />
+      <File FileName="Assets/Scripts/Weapon/Weapon.cs" />
+      <File FileName="Assets/Scripts/Map/Trap/Trap.cs" />
+      <File FileName="Assets/Scripts/Tools/NpcTimer.cs" />
+      <File FileName="Assets/Scripts/Map/BuffTile/IncreamSpeedBuffTile.cs" />
+      <File FileName="Assets/Scripts/Map/BuffTile/EffectTile.cs" />
+      <File FileName="Assets/Scripts/Enemy/Enemy.cs" />
+      <File FileName="Assets/Scripts/Weapon/WeaponPoint.cs" Line="163" Column="30" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -10,16 +17,26 @@
           <Node name="SoulKnight" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
+                <Node name="Enemy" expanded="True" />
                 <Node name="Map" expanded="True">
-                  <Node name="Block" expanded="True" />
-                  <Node name="Wall" expanded="True" />
+                  <Node name="BuffTile" expanded="True" />
+                  <Node name="Trap" expanded="True" />
                 </Node>
+                <Node name="Tools" expanded="True" />
                 <Node name="Weapon" expanded="True">
-                  <Node name="Raycast.cs" selected="True" />
+                  <Node name="WeaponPoint.cs" selected="True" />
                 </Node>
               </Node>
             </Node>
           </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="SoulKnight" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>

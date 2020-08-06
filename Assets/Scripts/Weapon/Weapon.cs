@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EWeaponType{
+    normal,
+    storagePower,
+    coutinue,
+    storagePoweAndCoutinue
+}
+
 public class Weapon : MonoBehaviour
 {
     public Animator animator;
@@ -17,9 +24,9 @@ public class Weapon : MonoBehaviour
     [HideInInspector]  public bool canAttack;
     private GameObject player;
     public WeaponPoint weaponPoint;
+    public EWeaponType weaponType;
 
-    public bool isStoragePowerWeapon;
-    public bool isStoragePower;
+    private bool isStoragePower;
     private PowerController powerController;
     protected float powerBarValue;
     protected bool isStopFire = false;
@@ -27,7 +34,6 @@ public class Weapon : MonoBehaviour
 
     public object castor;
     [HideInInspector]public SpriteRenderer sRender;
-
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -83,7 +89,16 @@ public class Weapon : MonoBehaviour
                 powerBarValue = tempPowerValue > 1 ? 1 : tempPowerValue;
                 powerController.updatePowerBarValue(powerBarValue);
                 StoragePowerUpdateBody(powerBarValue);
+                if(weaponType == EWeaponType.storagePoweAndCoutinue && tempPowerValue >1)
+                {
+                    isStoragePower = false;
+                    Attack();
+                }
             }
+        }
+        if (isExecuteUpdate)
+        {
+            ContinueUpdate();
         }
     }
     public void InterruptStoragePower()
@@ -127,10 +142,26 @@ public class Weapon : MonoBehaviour
                 weaponPoint.pauseFollow();
             }
 
-            if (isStoragePowerWeapon)
+            if (weaponType == EWeaponType.storagePower)
             {
                 if (isStoragePower) { 
                     AttackBody();
+                }
+            }
+            else if (weaponType == EWeaponType.coutinue)
+            {
+                AttackBody();
+                if(animator == null)
+                {
+                    AnimFireCallBack();
+                }
+            }
+            else if (weaponType == EWeaponType.storagePoweAndCoutinue)
+            {
+                AttackBody();
+                if (animator == null)
+                {
+                    AnimFireCallBack();
                 }
             }
             else
@@ -144,22 +175,26 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public virtual void AttackBody()
+    protected virtual void AttackBody()
     {
         attackTimer = 0.0f;
     }
 
     private void AnimFireCallBack()
     {
-        weaponPoint.continueFollow();
+        weaponPoint.ContinueFollow();
         AnimFireCallBackBody();
     }
 
+    private bool isExecuteUpdate = false;
+
     protected virtual void AnimFireCallBackBody()
     {
-
+        if (weaponType == EWeaponType.coutinue || weaponType == EWeaponType.storagePoweAndCoutinue)
+        {
+            isExecuteUpdate = true;
+        }
     }
-
     //StoragePower
     public void StoragePower()
     {
@@ -209,8 +244,32 @@ public class Weapon : MonoBehaviour
         isStopFire = isStop;
         if (isStopFire)
         {
-            weaponPoint.continueFollow();
+            weaponPoint.ContinueFollow();
+            ContinueFinish();
         }
+    }
+
+    private void ContinueUpdate()
+    {
+        ContinueUpdateBody();
+    }
+
+    protected virtual void ContinueUpdateBody()
+    //每一帧都会调用
+    {
+
+    }
+
+    //
+    public void ContinueFinish()
+    {
+        isExecuteUpdate = false;
+        ContinueFinishBody();
+    }
+
+    protected virtual void ContinueFinishBody()
+    {
+
     }
 
 

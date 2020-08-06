@@ -53,7 +53,7 @@ public class WeaponPoint : MonoBehaviour
         isFollow = false;
     }
 
-    public  void continueFollow()
+    public  void ContinueFollow()
     {
         isFollow = true;
     }
@@ -146,5 +146,50 @@ public class WeaponPoint : MonoBehaviour
         
         ItemWeapon itemWeapon = Instantiate((GameObject)Resources.Load("Item/WeaponItem"), transform.parent.position + transform.right, Quaternion.identity).GetComponentInChildren<ItemWeapon>();
         itemWeapon.ConfigWeapon(pre);
+    }
+
+    public void playerPressAttackDown()
+    {
+
+        switch (currWeapon.weaponType)
+        {
+            case EWeaponType.normal:
+                currWeapon.Attack();
+                break;
+            case EWeaponType.storagePower:
+                currWeapon.StoragePower();
+                break;
+            case EWeaponType.coutinue:
+                currWeapon.Attack();
+                break;
+            case EWeaponType.storagePoweAndCoutinue:
+                //蓄力满了自动攻击
+                currWeapon.StoragePower();
+                break;
+
+
+        }
+
+
+    }
+
+    public void playerPressAttackUp()
+    {
+        switch (currWeapon.weaponType)
+        {
+            case EWeaponType.normal:
+                break;
+            case EWeaponType.storagePower:
+                currWeapon.Attack();
+                break;
+            case EWeaponType.coutinue:
+                currWeapon.ContinueFinish();
+                break;
+            case EWeaponType.storagePoweAndCoutinue:
+                currWeapon.ContinueFinish();
+                break;
+
+
+        }
     }
 }

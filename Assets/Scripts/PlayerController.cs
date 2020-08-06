@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public List<InteractionInterface> interactionList;
 
-    public bool isOutControl;
+    [HideInInspector]public bool isOutControl;
 
     private void Awake()
     {
@@ -87,23 +87,11 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //attack
-            if (!weaponPoint.currWeapon.isStoragePowerWeapon) { 
-                weaponPoint.currWeapon.Attack();
-            }
-            else
-            {
-                //StoragePower
-                weaponPoint.currWeapon.StoragePower();
-            }
-
+            weaponPoint.playerPressAttackDown();
         }
         else if(Input.GetMouseButtonUp(0))
         {
-            if (weaponPoint.currWeapon.isStoragePowerWeapon)
-            {
-                weaponPoint.currWeapon.Attack();
-            }
+            weaponPoint.playerPressAttackUp();
         }
 
     }
@@ -181,5 +169,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
 
 }

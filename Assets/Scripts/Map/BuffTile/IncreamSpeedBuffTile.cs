@@ -26,6 +26,7 @@ public class IncreamSpeedBuffTile : EffectTile
     {
         base.EffectBody(npc);
         LanuchBuff(npc);
+        Debug.Log("time"+ Time.time);
     }
 
 }

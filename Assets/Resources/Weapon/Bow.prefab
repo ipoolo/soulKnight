@@ -125,12 +125,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6b16f089bb64cc4897bbde88df08704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   damage: 1
   attackInterval: 0.5
   isCloseInWeapon: 0
   powerMaxSecond: 1
   canAttack: 0
-  isStoragePowerWeapon: 1
+  weaponPoint: {fileID: 0}
+  weaponType: 1
+  isStoragePower: 0
+  firePoint: {fileID: 8729756494701990561}
   sRender: {fileID: 0}
   bullet: {fileID: 405724270304420307, guid: 50d88dbed09bf494aa44153dc8a63c64, type: 3}
-  firePoint: {fileID: 8729756494701990561}
+  fireMaxTimes: 5
