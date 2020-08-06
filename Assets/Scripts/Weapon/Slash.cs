@@ -16,7 +16,7 @@ public class Slash : Weapon
         base.Update();
     }
 
-    public override void AttackBody()
+    protected override void AttackBody()
     {
         base.AttackBody();
 

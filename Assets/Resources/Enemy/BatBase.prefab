@@ -339,6 +339,7 @@ MonoBehaviour:
   touchSenseDistance: 4
   perspectiveSenseDistance: 6
   perspectiveSenseFiledOfView: 60
+  isAvoid: 0
   minAvoidDistance: 0
   maxAvoidDistance: 0
   distance2Player: 0

@@ -99,15 +99,15 @@ MonoBehaviour:
   damage: 1
   attackInterval: 0.5
   isCloseInWeapon: 0
-  powerMaxSecond: 0
+  powerMaxSecond: 1
   canAttack: 0
   weaponPoint: {fileID: 0}
-  isStoragePowerWeapon: 0
-  isStoragePower: 0
+  weaponType: 3
   firePoint: {fileID: 9076290847943449156}
   sRender: {fileID: 0}
   reboundTimes: 2
-  raycastDistance: 100
+  raycastDistance: 5
+  raycastHoldTime: 0
 --- !u!1 &9076290847943449156
 GameObject:
   m_ObjectHideFlags: 0
