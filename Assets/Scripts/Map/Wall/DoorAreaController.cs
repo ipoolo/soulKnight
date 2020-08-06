@@ -44,7 +44,6 @@ public class DoorAreaController : MonoBehaviour, IBattleState
                 break;
             case BlockDireciton.Left:
                 obstrucetBullet.transform.rotation = Quaternion.Euler(0, 0, 180);
-                hitbox.transform.rotation = Quaternion.Euler(0, 0, 270);
                 daDircetion = BlockDireciton.Left;
                 break;
         }

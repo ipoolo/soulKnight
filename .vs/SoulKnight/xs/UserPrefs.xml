@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{01637993-8C57-6833-53E8-421C7781BDEC}|">
+  <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="Assets/Scripts/Weapon/Raycast.cs" Line="66" Column="17" />
+      <File FileName="Assets/Scripts/Weapon/Staff.cs" Line="8" Column="35" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="SoulKnight" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Map" expanded="True">
+                  <Node name="Block" expanded="True" />
+                  <Node name="Wall" expanded="True" />
+                </Node>
+                <Node name="Weapon" expanded="True">
+                  <Node name="Raycast.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="d779e2f2-1019-42ae-a4e6-4305ca3863ee" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

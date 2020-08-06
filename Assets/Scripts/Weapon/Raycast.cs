@@ -7,6 +7,8 @@ public class Raycast : MonoBehaviour
     public SpriteRenderer sr;
     public float damage;
     public Weapon fireWeapon;
+    public int residueTimes;
+    public string[] maskLayer;
     // Start is called before the first frame update
 
     private void Awake()
@@ -17,11 +19,15 @@ public class Raycast : MonoBehaviour
     {
         
     }
-    public void ConfigRaycast(float direction,float _damage,Weapon _fireWeapon)
+    public void ConfigRaycast(float distance,Weapon _fireWeapon,int _residueTimes , Vector2 _position , Quaternion _rotation,string[] _maskLayer)
     {
-        sr.size = new Vector2(direction, 1);
-        damage = _damage;
+        sr.size = new Vector2(distance, sr.size.y);
+        residueTimes = _residueTimes;
+        damage = _fireWeapon.damage;
         fireWeapon = _fireWeapon;
+        transform.position = _position;
+        transform.rotation = _rotation;
+        maskLayer = _maskLayer;
     }
 
     // Update is called once per frame
@@ -50,5 +56,47 @@ public class Raycast : MonoBehaviour
         }
     }
 
+    public void ReboundRaycast(RaycastHit2D preHit, float residueDistance, Vector2 incomingVector)
+    {
+
+        //获得反射向量
+        Vector2 reflectVector = Vector2.Reflect(incomingVector, preHit.normal);
+        Vector2 startPoint = preHit.point - incomingVector.normalized * sr.size.y * 0.5f - reflectVector.normalized * sr.size.y * 0.5f + reflectVector.normalized*0.0001f;
+
+        RaycastHit2D hit = Physics2D.Raycast(startPoint, reflectVector, residueDistance, LayerMask.GetMask(maskLayer));
+        Color color = Color.red;
+
+        if(residueTimes%2 == 0) {
+            color = Color.yellow;
+        }
+        else
+        {
+            color = Color.blue;
+        }
+
+        float currDistance;
+        if (hit.collider)
+        {
+            currDistance = hit.fraction * residueDistance;
+        }
+        else
+        {
+            currDistance = residueDistance;
+        }
+
+        Raycast raycast = Instantiate((GameObject)Resources.Load("Bullet/Raycast/Raycast")).GetComponent<Raycast>();
+        Quaternion newRotation = Quaternion.FromToRotation(Vector2.right, reflectVector);
+        raycast.ConfigRaycast(currDistance, fireWeapon, residueTimes-1, startPoint, newRotation, maskLayer);
+        if (raycast.residueTimes > 0)
+        {
+            raycast.ReboundRaycast(hit, residueDistance - currDistance, reflectVector);
+        }
+           
+        
+
+
+    }
 
 }
+
+
