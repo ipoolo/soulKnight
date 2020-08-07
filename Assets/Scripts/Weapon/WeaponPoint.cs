@@ -162,7 +162,7 @@ public class WeaponPoint : MonoBehaviour
             case EWeaponType.coutinue:
                 currWeapon.Attack();
                 break;
-            case EWeaponType.storagePoweAndCoutinue:
+            case EWeaponType.storagePowerAndCoutinue:
                 //蓄力满了自动攻击
                 currWeapon.StoragePower();
                 break;
@@ -185,8 +185,8 @@ public class WeaponPoint : MonoBehaviour
             case EWeaponType.coutinue:
                 currWeapon.ContinueFinish();
                 break;
-            case EWeaponType.storagePoweAndCoutinue:
-                currWeapon.ContinueFinish();
+            case EWeaponType.storagePowerAndCoutinue:
+                currWeapon.PlayerKeyUpWhenStoragePowerAndCoutinue();
                 break;
 
 

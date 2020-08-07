@@ -36,7 +36,7 @@ public class Staff : Weapon
             raycast.ReboundRaycast(hit, (1-hit.fraction) * raycastDistance, direction);
         }
 
-        if (weaponType == EWeaponType.coutinue || weaponType == EWeaponType.storagePoweAndCoutinue)
+        if (weaponType == EWeaponType.coutinue || weaponType == EWeaponType.storagePowerAndCoutinue)
         {
             raycast.transform.parent = weaponPoint.transform;
         }

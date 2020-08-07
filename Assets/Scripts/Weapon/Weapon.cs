@@ -6,7 +6,7 @@ public enum EWeaponType{
     normal,
     storagePower,
     coutinue,
-    storagePoweAndCoutinue
+    storagePowerAndCoutinue
 }
 
 public class Weapon : MonoBehaviour
@@ -89,7 +89,7 @@ public class Weapon : MonoBehaviour
                 powerBarValue = tempPowerValue > 1 ? 1 : tempPowerValue;
                 powerController.updatePowerBarValue(powerBarValue);
                 StoragePowerUpdateBody(powerBarValue);
-                if(weaponType == EWeaponType.storagePoweAndCoutinue && tempPowerValue >1)
+                if(weaponType == EWeaponType.storagePowerAndCoutinue && tempPowerValue >1)
                 {
                     isStoragePower = false;
                     Attack();
@@ -156,7 +156,7 @@ public class Weapon : MonoBehaviour
                     AnimFireCallBack();
                 }
             }
-            else if (weaponType == EWeaponType.storagePoweAndCoutinue)
+            else if (weaponType == EWeaponType.storagePowerAndCoutinue)
             {
                 AttackBody();
                 if (animator == null)
@@ -190,7 +190,7 @@ public class Weapon : MonoBehaviour
 
     protected virtual void AnimFireCallBackBody()
     {
-        if (weaponType == EWeaponType.coutinue || weaponType == EWeaponType.storagePoweAndCoutinue)
+        if (weaponType == EWeaponType.coutinue || weaponType == EWeaponType.storagePowerAndCoutinue)
         {
             isExecuteUpdate = true;
         }
@@ -237,6 +237,18 @@ public class Weapon : MonoBehaviour
         }
 
         return targetDirection;
+    }
+
+    public void PlayerKeyUpWhenStoragePowerAndCoutinue()
+    {
+        if (isStoragePower)
+        {
+            InterruptStoragePower();
+        }
+        else
+        {
+            ContinueFinish();
+        }
     }
 
     public void ChangeIsStopFire(bool isStop)

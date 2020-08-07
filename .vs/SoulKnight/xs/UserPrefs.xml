@@ -1,15 +1,15 @@
 ﻿<Properties StartupConfiguration="{01637993-8C57-6833-53E8-421C7781BDEC}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Weapon/WeaponPoint.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Weapon/Weapon.cs">
     <Files>
       <File FileName="Assets/Scripts/Weapon/Staff.cs" Line="34" Column="144" />
       <File FileName="Assets/Scripts/Weapon/Raycast.cs" />
-      <File FileName="Assets/Scripts/Weapon/Weapon.cs" />
+      <File FileName="Assets/Scripts/Weapon/Weapon.cs" Line="99" Column="29" />
       <File FileName="Assets/Scripts/Map/Trap/Trap.cs" />
       <File FileName="Assets/Scripts/Tools/NpcTimer.cs" />
       <File FileName="Assets/Scripts/Map/BuffTile/IncreamSpeedBuffTile.cs" />
       <File FileName="Assets/Scripts/Map/BuffTile/EffectTile.cs" />
       <File FileName="Assets/Scripts/Enemy/Enemy.cs" />
-      <File FileName="Assets/Scripts/Weapon/WeaponPoint.cs" Line="163" Column="30" />
+      <File FileName="Assets/Scripts/Weapon/WeaponPoint.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -24,7 +24,7 @@
                 </Node>
                 <Node name="Tools" expanded="True" />
                 <Node name="Weapon" expanded="True">
-                  <Node name="WeaponPoint.cs" selected="True" />
+                  <Node name="Weapon.cs" selected="True" />
                 </Node>
               </Node>
             </Node>

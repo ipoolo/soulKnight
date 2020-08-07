@@ -102,7 +102,7 @@ MonoBehaviour:
   powerMaxSecond: 1
   canAttack: 0
   weaponPoint: {fileID: 0}
-  weaponType: 3
+  weaponType: 2
   firePoint: {fileID: 9076290847943449156}
   sRender: {fileID: 0}
   reboundTimes: 2
