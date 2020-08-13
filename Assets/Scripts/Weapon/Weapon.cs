@@ -23,6 +23,7 @@ public class Weapon : MonoBehaviour
     private float attackTimer;
     [HideInInspector]  public bool canAttack;
     private GameObject player;
+    [HideInInspector]
     public WeaponPoint weaponPoint;
     public EWeaponType weaponType;
 
@@ -34,6 +35,7 @@ public class Weapon : MonoBehaviour
 
     public object castor;
     [HideInInspector]public SpriteRenderer sRender;
+    public bool IsAutoFireAnimator = true;
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -136,7 +138,7 @@ public class Weapon : MonoBehaviour
     {
         if (canAttack)
         {
-            if (animator != null)
+            if (animator != null && IsAutoFireAnimator)
             {
                 animator.SetTrigger("Fire");
                 weaponPoint.pauseFollow();

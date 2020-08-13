@@ -25,6 +25,7 @@ TagManager:
   - Trap
   - IndicatorPanel
   - Obstacle
+  - Shells
   layers:
   - Default
   - TransparentFX

@@ -74,9 +74,7 @@ public class MoveHelper : MonoBehaviour
     private void CheckPlayerHelper()
     {
 
-        Debug.Log("playerC.playerStateController.moveSpeed" + playerC.playerStateController.moveSpeed);
         Vector2 extraSpeed = Vector2.right.normalized * playerC.playerStateController.moveSpeed;
-        Debug.Log("extraSpeed" + extraSpeed);
         if (Input.GetKey(KeyCode.W) && !canMoveUp)
         {
             if (canMoveRight && !Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))

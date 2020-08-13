@@ -16,7 +16,7 @@ public class WeaponPoint : MonoBehaviour
     void Start()
     {
         isFollow = true;
-        GameObject weaponObject = Instantiate((GameObject)Resources.Load("Weapon/Bow"), transform.position, Quaternion.identity);
+        GameObject weaponObject = Instantiate((GameObject)Resources.Load("Weapon/SubmachineGun"), transform.position, Quaternion.identity);
         rangedWeapon = weaponObject.GetComponent<Weapon>();
         weaponObject = Instantiate((GameObject)Resources.Load("Weapon/Sword"), transform.position, Quaternion.identity);
         closeinWeapon = weaponObject.GetComponent<Weapon>();
@@ -42,9 +42,9 @@ public class WeaponPoint : MonoBehaviour
             float rotaion = Mathf.Atan2(directionV.y, directionV.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0,0,rotaion);
 
-            if(currWeapon == closeinWeapon) { 
+            //if(currWeapon == closeinWeapon) { 
                 currWeapon.ChangeWeaponDirection(transform.right);
-            }
+            //}
         }
     }
 
