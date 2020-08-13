@@ -54,7 +54,10 @@ public class Gun : Weapon
                 GameObject gb = Instantiate((GameObject)Resources.Load("Weapon/ShellBullet/GunShellBullet"));
                 gb.transform.parent = GameObject.FindGameObjectWithTag("Shells").transform;
                 gb.transform.position = firePoint.transform.position;
-                Instantiate((GameObject)Resources.Load("Weapon/MuzzleFlash/"+ muzzleFlashName),firePoint.transform.position,weaponPoint.transform.rotation);
+
+                GameObject muzzleFlash = Instantiate((GameObject)Resources.Load("Weapon/MuzzleFlash/"+ muzzleFlashName),firePoint.transform.position,weaponPoint.transform.rotation);
+                muzzleFlash.transform.parent = transform;
+
                 Bullet b = Instantiate(bullet, firePoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
                 b.targetDirection = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
                 b.damage = damage * (1 + powerBarValue);
