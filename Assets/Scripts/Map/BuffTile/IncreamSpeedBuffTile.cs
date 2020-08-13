@@ -18,15 +18,16 @@ public class IncreamSpeedBuffTile : EffectTile
     }
     private void LanuchBuff(NPC npc)
     {
-        Buff buff = Instantiate((GameObject)Resources.Load("Buff/" + buffName)).GetComponentInChildren<Buff>();
-        buff.BuffLoad(npc);
+        if (!npc.isPause) { 
+            Buff buff = Instantiate((GameObject)Resources.Load("Buff/" + buffName)).GetComponentInChildren<Buff>();
+            buff.BuffLoad(npc);
+        }
     }
 
     public override void EffectBody(NPC npc)
     {
         base.EffectBody(npc);
         LanuchBuff(npc);
-        Debug.Log("time"+ Time.time);
     }
 
 }
