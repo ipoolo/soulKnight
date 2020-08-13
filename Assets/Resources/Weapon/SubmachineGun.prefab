@@ -138,7 +138,7 @@ MonoBehaviour:
   firePoint: {fileID: 1293376689979571846}
   sRender: {fileID: 0}
   IsAutoFireAnimator: 0
-  bullet: {fileID: 405724270304420307, guid: 50d88dbed09bf494aa44153dc8a63c64, type: 3}
+  bulletName: BulletGun
   impulseScale: 0.2
   fireMaxTimes: 3
   muzzleFlashName: GunMuzzleFlash

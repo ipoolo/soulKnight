@@ -6,38 +6,43 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField]public float speed;
-    [SerializeField]public int ejectionNum;
     [SerializeField]public float offsetRadius;
     [SerializeField]public float liftTime;
     [SerializeField]public bool isAutoFollow;
-    [SerializeField]public float damage;
+    [HideInInspector]public float damage;
     [SerializeField]public float repelPower;
     [SerializeField]public float turnSpeed;
     [SerializeField]public float reboundTimes;
-    public Weapon fireWeapon;
+    public string collisionDestoryEffectName = "BulletBomb";
+    [HideInInspector]public Weapon fireWeapon;
     public object castor;
 
-    public Rigidbody2D rigid2D;
-    private RectTransform rectTransform;
+    [HideInInspector] private Rigidbody2D rigid2D;
 
 
-    public GameObject targetObject;
-    public Vector3 targetDirection;
+    [HideInInspector] public GameObject targetObject;
+    [HideInInspector] public Vector3 targetDirection;
+    private BoxCollider2D collision2d;
     //自动巡航用
 
     //加减速待完成
 
+    private void Awake()
+    {
+        rigid2D = GetComponent<Rigidbody2D>();
+        collision2d = GetComponent<BoxCollider2D>();
+    }
     // Start is called before the first frame update
     public void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
 
         PointToTarget();
-
+        collision2d.
         //随机一个角度偏移
         transform.rotation *= Quaternion.Euler(0, 0, Random.Range(-offsetRadius, offsetRadius));
         //将子弹移出炮孔
-        transform.position += new Vector3(rectTransform.rect.width * rectTransform.sizeDelta.x / 2, 0, 0);
+
+        transform.position += new Vector3(collision2d.size.x * transform.lossyScale.x / 2, 0, 0);
 
         updateSpeed();
         rigid2D.gravityScale = 0.0f;
@@ -105,7 +110,7 @@ public class Bullet : MonoBehaviour
         {
             NPC npc = other.GetComponent<NPC>();
             npc.ReceiveDamageWithRepelVector(fireWeapon.ExcuteHittingBuffEffect(damage), transform.right.normalized * repelPower);
-            Instantiate(Resources.Load("BulletBomb"),transform.position,Quaternion.identity);
+            Instantiate(Resources.Load(collisionDestoryEffectName),transform.position,Quaternion.identity);
             Destroy(gameObject);
         }
 
@@ -170,9 +175,11 @@ public class Bullet : MonoBehaviour
         rigid2D.velocity = transform.right * speed;
     }
 
-    public void knockWallBody(Collision2D _collision)
+    protected virtual void knockWallBody(Collision2D _collision)
     {
-            Instantiate(Resources.Load("BulletBomb"),transform.position,Quaternion.identity);
+            ContactPoint2D cp = _collision.contacts[0];
+            Vector2 ImpactRight = cp.normal * -1;
+            GameObject bullet = Instantiate((GameObject)Resources.Load(collisionDestoryEffectName),transform.position,Quaternion.FromToRotation(Vector2.right, ImpactRight));
             Destroy(gameObject);
     }
 

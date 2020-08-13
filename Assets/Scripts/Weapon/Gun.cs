@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Gun : Weapon
 {
-    [SerializeField] public Bullet bullet;
+    [SerializeField] public string bulletName;
     public float impulseScale;
 
 
@@ -58,7 +58,7 @@ public class Gun : Weapon
                 GameObject muzzleFlash = Instantiate((GameObject)Resources.Load("Weapon/MuzzleFlash/"+ muzzleFlashName),firePoint.transform.position,weaponPoint.transform.rotation);
                 muzzleFlash.transform.parent = transform;
 
-                Bullet b = Instantiate(bullet, firePoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
+                Bullet b = Instantiate((GameObject)Resources.Load("Bullet/"+bulletName), firePoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
                 b.targetDirection = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
                 b.damage = damage * (1 + powerBarValue);
                 b.speed *= (1 + powerBarValue);
