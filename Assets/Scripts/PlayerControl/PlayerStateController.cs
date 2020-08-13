@@ -174,8 +174,10 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
     protected override bool ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
         bool isDeath = false;
-        RenderWhiteAndTurnInvincibilityLayer();
-        isDeath = ReduceHealthBody(_damage);
+        if (_damage > 0) { 
+            RenderWhiteAndTurnInvincibilityLayer();
+            isDeath = ReduceHealthBody(_damage);
+        }
         return isDeath;
 
     }

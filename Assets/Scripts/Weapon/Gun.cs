@@ -58,6 +58,9 @@ public class Gun : Weapon
                 GameObject muzzleFlash = Instantiate((GameObject)Resources.Load("Weapon/MuzzleFlash/"+ muzzleFlashName),firePoint.transform.position,weaponPoint.transform.rotation);
                 muzzleFlash.transform.parent = transform;
 
+                //给玩家反冲
+                player.playerStateController.ReceiveDamageWithRepelVector(0,(player.transform.position - firePoint.transform.position).normalized * 0.1f);
+
                 Bullet b = Instantiate((GameObject)Resources.Load("Bullet/"+bulletName), firePoint.transform.position, Quaternion.identity).GetComponent<Bullet>();
                 b.targetDirection = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
                 b.damage = damage * (1 + powerBarValue);
