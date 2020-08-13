@@ -133,6 +133,7 @@
     <Compile Include="Assets\Scripts\PlayerControl\CMFollowControl.cs" />
     <Compile Include="Assets\Scripts\PlayerControl\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\PlayerControl\GameController.cs" />
+    <Compile Include="Assets\Scripts\PlayerControl\MapMove2RightTop.cs" />
     <Compile Include="Assets\Scripts\PlayerControl\MoveHelper.cs" />
     <Compile Include="Assets\Scripts\PlayerControl\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerControl\PlayerStateController.cs" />

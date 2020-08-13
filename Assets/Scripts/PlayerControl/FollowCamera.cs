@@ -20,6 +20,7 @@ public class FollowCamera : MonoBehaviour
         followPlayer();
     }
 
+
     void followPlayer()
     {
         if(playerGb != null) {
@@ -35,7 +36,7 @@ public class FollowCamera : MonoBehaviour
             Vector3 temp = Vector3.Lerp(transform.position, new Vector3(playerGb.transform.position.x+ offsetX, playerGb.transform.position.y+ offsetY, transform.position.z),
                 followStepScale);
             
-            transform.position = temp;
+            //transform.position = temp;
         }
     }
 }
