@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameController : MonoBehaviour
 {
@@ -115,8 +116,19 @@ public class GameController : MonoBehaviour
                     Destroy(obstaclePosition);
                 }
             }
+            PhysicsMaterial2D pMaterial2D = (PhysicsMaterial2D)Resources.Load("ZeroFrictionPhysicsMaterial2D");
+            Collider2D[] collider2Ds = GameObject.FindObjectsOfType<Collider2D>();
+            foreach (Collider2D collider2D in collider2Ds)
+            {
+                if(collider2D.gameObject.layer == LayerMask.NameToLayer("Wall"))
+                {
+                    collider2D.sharedMaterial = pMaterial2D;
+                }
+            }
         }
     }
+
+
 
   
 

@@ -159,8 +159,6 @@ public class NPC : Entity, BuffReceiverInterFace
             {
                 if (canReceiveRepel)
                 {
-                    Debug.Log("v");
-
                     TurnOutControl();
                     rigid2d.velocity = _repelVector / outControlTime;
                     StartCoroutine("BackToUnderControl");
