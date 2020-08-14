@@ -8,6 +8,7 @@ public class Staff : Weapon
     private Raycast currRaycast;
     public float raycastHoldTime;
     private List<PS_RayAbsorb> currPsList = new List<PS_RayAbsorb>();
+    private GameObject rayCastMuzzleGB;
     
 
     protected override void AttackBody()
@@ -23,17 +24,34 @@ public class Staff : Weapon
         base.StoragePowerOnceBody();
         pastPersent = 0.0f;
         currPsList = new List<PS_RayAbsorb>();
+        if (!rayCastMuzzleGB) { 
+            rayCastMuzzleGB = Instantiate((GameObject)Resources.Load("Weapon/RayCastFirePoint"));
+            rayCastMuzzleGB.transform.parent = weaponPoint.transform;
+            rayCastMuzzleGB.transform.position = firePoint.transform.position + firePoint.transform.right.normalized * rayCastMuzzleGB.GetComponent<SpriteRenderer>().size.x / 2.0f;
+        }
+        UpdateMuzzleScale(0);
+        rayCastMuzzleGB.SetActive(true);
+
     }
 
     protected override void StoragePowerUpdateBody(float persent)
     {
-        if(persent - pastPersent >= 0.195f)
+        UpdateMuzzleScale(persent);
+        if (persent - pastPersent >= 0.195f)
         {
             pastPersent = persent;
             SpwanPS();
             MiniShakeCamera();
         }
         base.StoragePowerUpdateBody(persent);
+    }
+
+    protected void UpdateMuzzleScale(float persent)
+    {
+        if (rayCastMuzzleGB)
+        {
+            rayCastMuzzleGB.transform.localScale = new Vector3(persent, persent, 1);
+        }
     }
 
     protected void SpwanPS()
@@ -56,7 +74,7 @@ public class Staff : Weapon
             main.loop = false;
             Destroy(ps.gameObject, main.duration);
         });
-
+        rayCastMuzzleGB.SetActive(false);
     }
 
     protected override void InterruptStoragePowerBody()
