@@ -51,7 +51,6 @@ public class Weapon : MonoBehaviour
     private void OnValidate()
     {
         if (name == "GodSword") { 
-            Debug.Log("transform.position" + transform.position);
         }
     }
 #endif

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class NPC : Entity, BuffReceiverInterFace
     protected float recoverArmorCounter;
     protected float recoverArmorInterruptCounter;
 
+
+
     public Vector3 buffPositionOffset;
 
     private float outControlTime = 0.05f;
@@ -28,11 +31,17 @@ public class NPC : Entity, BuffReceiverInterFace
 
     [HideInInspector] public bool isOutControl;
     [HideInInspector] public Rigidbody2D rigid2d;
+    public SpriteRenderer sr;
 
     //buff
     private List<Buff> buffList = new List<Buff>();
 
     public bool isPause = false;
+
+    [Header("shadowEffect")]
+    public Color trailColor;
+    public Color fadeColor;
+    public float fadeTime;
 
     public void Start()
     {
@@ -42,6 +51,7 @@ public class NPC : Entity, BuffReceiverInterFace
     void ConfigDefalut()
     {
         rigid2d = GetComponentInParent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     public void Update()
@@ -205,7 +215,33 @@ public class NPC : Entity, BuffReceiverInterFace
 
     }
 
-    //掉血
+    public void SpwanSilderShadow()
+    {
+        Sequence s = DOTween.Sequence();
+        //创建一个阴影
+        GameObject gb = (GameObject)Resources.Load("Materials/Shadow");
+        Transform currentshadow = Instantiate(gb).transform;
+        s.AppendCallback(() => currentshadow.position = transform.position);
+        if (Vector2.Dot(transform.right, Vector2.right) > 0)
+        {
+            s.AppendCallback(() => currentshadow.GetComponent<SpriteRenderer>().flipX = false);
+        }
+        else
+        {
+            s.AppendCallback(() => currentshadow.GetComponent<SpriteRenderer>().flipX = true);
+        }
+
+        s.AppendCallback(() => currentshadow.GetComponent<SpriteRenderer>().sprite = sr.sprite);
+        s.Append(currentshadow.GetComponent<SpriteRenderer>().material.DOColor(trailColor, 0));
+        s.AppendCallback(() => FadeSprite(currentshadow));
+    }
+
+    private void FadeSprite(Transform shadownTransform)
+    {
+        shadownTransform.GetComponent<SpriteRenderer>().material.DOKill();
+        shadownTransform.GetComponent<SpriteRenderer>().material.DOColor(fadeColor, fadeTime);
+    }
+
 
 
 }

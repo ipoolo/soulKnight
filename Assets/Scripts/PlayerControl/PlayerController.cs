@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
+
 public class PlayerController : MonoBehaviour
 {
     [HideInInspector]public PlayerStateController playerStateController;
 
     private Rigidbody2D rid2d;
   
-    private Animator animator;
+    public Animator animator;
     private WeaponPoint weaponPoint;
 
     public List<InteractionInterface> interactionList;
 
     [HideInInspector]public bool isOutControl;
+    [HideInInspector] public bool isDead = false;
 
     private void Awake()
     {
@@ -31,16 +34,17 @@ public class PlayerController : MonoBehaviour
         playerStateController = GetComponentInChildren<PlayerStateController>();
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        checkAttack();
-        checkToward();
-        checkInteractionList();
-
-
-        //test
-        CheckInput();
+        if (!isDead) {
+            checkAttack();
+       
+            checkInteractionList();
+            //test
+            CheckInput();
+        }
     }
 
     public void CheckInput()
@@ -66,8 +70,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isOutControl) { 
-            playerMove();
+        if (!isDead) { 
+            if (!isOutControl) { 
+                playerMove();
+            }
         }
 
     }
@@ -103,13 +109,14 @@ public class PlayerController : MonoBehaviour
 
     void checkToward()
     {
-        
         if(Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
         {
+            Debug.Log("A");
             transform.rotation = Quaternion.Euler(0,0,0);
         }
         else
         {
+            Debug.Log("B");
             transform.rotation = Quaternion.Euler(0, 180.0f, 0);
         }
     }
@@ -124,6 +131,14 @@ public class PlayerController : MonoBehaviour
                 InteractionInterface interaction = interactionList[interactionList.Count - 1];
                 interaction.InteractionBody();
             }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (!isDead)
+        {
+            checkToward();
         }
     }
 

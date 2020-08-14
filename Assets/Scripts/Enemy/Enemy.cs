@@ -283,10 +283,11 @@ public class Enemy : NPC ,CanSkillControl, SkillFinishCallBack
 
     public virtual void TouchPlayerBody(Collision2D _collision, Collider2D _player)
     {
-
-        PlayerStateController pc = _player.GetComponentInChildren<PlayerStateController>();
-        //pc 受伤伤害 TODO
-        pc.ReceiveDamageWithRepelVector(ExcuteHittingBuffEffect(damage), _player.transform.position - transform.position);
+        if (!_player.GetComponent<PlayerController>().isDead) { 
+            PlayerStateController pc = _player.GetComponentInChildren<PlayerStateController>();
+            //pc 受伤伤害 TODO
+            pc.ReceiveDamageWithRepelVector(ExcuteHittingBuffEffect(damage), _player.transform.position - transform.position);
+        }
 
 
     }
@@ -294,10 +295,22 @@ public class Enemy : NPC ,CanSkillControl, SkillFinishCallBack
     protected override bool ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
         bool isDeath = false;
-        RenderRed();
-        isDeath = ReduceHealthBody(_damage);
+        if(_damage > 0) { 
+            RenderRed();
+            //;
+            EffectBlood(_repelVector);
+            isDeath = ReduceHealthBody(_damage);
+        }
         return isDeath;
 
+    }
+
+    protected void EffectBlood(Vector3 _repelVector)
+    {
+        GameObject bloodGB = Instantiate((GameObject)Resources.Load("Effect/Blood/BloodLeft"));
+        bloodGB.transform.parent = transform;
+        bloodGB.transform.position = transform.position ;
+        bloodGB.transform.rotation = Quaternion.FromToRotation(Vector2.left, _repelVector);
     }
 
 
@@ -337,7 +350,10 @@ public class Enemy : NPC ,CanSkillControl, SkillFinishCallBack
         Coin coin = Instantiate((GameObject)Resources.Load("Coin")).GetComponent<Coin>();
         coin.transform.position = transform.position;
         coin.radius = 2.0f;
+        AudioManager.Instance.PlaySound3WithTime("Voices/RetroExplosionShort15", 0.0f);
+        Instantiate((GameObject)Resources.Load("Effect/BloodArea"), transform.position, Quaternion.identity);
         //销毁自己
+
         GetComponentInParent<EnemyBase>().baseDestory();
     }
 
@@ -393,6 +409,8 @@ public class Enemy : NPC ,CanSkillControl, SkillFinishCallBack
 
     private void OnDestroy()
     {
+
+
         destoryDelegate(this);
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -60,7 +61,7 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
         cac = GameObject.FindGameObjectWithTag("CoinAreaController").GetComponent<CoinAreaController>();
         psEffect = Resources.Load("Partcles/PS_BloodEffect") as GameObject;
         canvasDamage = Resources.Load("CanvasDamage") as GameObject;
-        pc = player.GetComponent<PlayerController>();
+        pc = GetComponentInParent<PlayerController>();
 
         isRecoverArmor = true;
 
@@ -86,8 +87,10 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
     // Update is called once per frame
     new void Update()
     {
-        base.Update();
-        checkRecoverArmor();
+        if (!pc.isDead) { 
+            base.Update();
+            checkRecoverArmor();
+        }
     }
 
 
@@ -100,6 +103,7 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
 
     private void RestoreEffect()
     {
+        AudioManager.Instance.PlaySound3WithTime("Voices/Health", 0.0f);
         //加一点粒子效果
         if (restoreEffectPathStrInRes.Length != 0)
         {
@@ -174,12 +178,23 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
     protected override bool ReceiveDamageWithRepelVectorBody(float _damage, Vector3 _repelVector)
     {
         bool isDeath = false;
-        if (_damage > 0) { 
-            RenderWhiteAndTurnInvincibilityLayer();
+        if (_damage > 0) {
+            AudioManager.Instance.PlaySound("Voices/Damaged3");
             isDeath = ReduceHealthBody(_damage);
+            RenderWhiteAndTurnInvincibilityLayer(isDeath);
+            PlayerBloodEffectAnim();
         }
         return isDeath;
 
+    }
+
+    public void PlayerBloodEffectAnim()
+    {
+        GameObject gb = Instantiate((GameObject)Resources.Load("Effect/Player/PlayerBlood"));
+        gb.transform.parent = player.transform;
+        gb.transform.position = player.transform.position;
+
+        Instantiate((GameObject)Resources.Load("Effect/BloodArea"), transform.position, Quaternion.identity);
     }
 
 
@@ -235,7 +250,30 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
     protected override void DeathBody()
     {
         base.DeathBody();
-        Debug.Log("PlayerDeal");
+        //不受控
+        player.layer = LayerMask.NameToLayer("InvincibilityLayer");
+
+        pc.isDead = true;
+
+        Time.timeScale = 0.5f;
+        //怪物停止
+        GameObject[] eob = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(GameObject eb  in eob)
+        {
+            eb.GetComponent<Enemy>().isPause = true;
+        }
+
+        //播放音乐
+        AudioManager.Instance.PlaySoundWithTime("Voices/GameOver", 0.0f);
+        
+        //拉近镜头
+        CMFollowControl.Instance.PlayerDead();
+        //死亡动画
+        Sequence s = DOTween.Sequence();
+        pc.animator.SetTrigger("Dead");
+        s.Join(pc.transform.DOJump(transform.position - Vector3.right * 1.0f, 1.0f, 1, 1.0f));
+        s.AppendCallback(() => { pc.GetComponent<Rigidbody2D>().velocity = Vector3.zero; });
+
     }
 
     //mana
@@ -303,23 +341,26 @@ public class PlayerStateController : NPC,BuffReceiverInterFace
 
 
 
-    private void RenderWhiteAndTurnInvincibilityLayer()
+    private void RenderWhiteAndTurnInvincibilityLayer(bool isDead)
     {
         isReceiveDamage = false;
         render.color = Color.red;
-        StartCoroutine("BackToOriginalColorAndUninvincibility");
+        StartCoroutine(BackToOriginalColorAndUninvincibility(isDead));
         player.layer = LayerMask.NameToLayer("InvincibilityLayer");
     }
 
-    IEnumerator BackToOriginalColorAndUninvincibility()
+    IEnumerator BackToOriginalColorAndUninvincibility(bool isDead)
     {
         isLayerShake = true;
         StartCoroutine("LayerShake");
         yield return new WaitForSeconds(invincibilityTime);
         isLayerShake = false;
-        render.color = originalColor;
-        isReceiveDamage = true;
-        player.layer = LayerMask.NameToLayer("Player");
+        if (!isDead)
+        {
+            render.color = originalColor;
+            isReceiveDamage = true;
+            player.layer = LayerMask.NameToLayer("Player");
+        }
     }
 
     IEnumerator LayerShake()

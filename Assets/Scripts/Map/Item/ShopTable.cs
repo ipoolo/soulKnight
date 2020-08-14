@@ -69,6 +69,7 @@ public class ShopTable : MonoBehaviour
             if (player.playerStateController.coinReduce(goods.price))
             {
                 isGoodsSold = true;
+                AudioManager.Instance.PlaySound3WithTime("Voices/ItemAppears",0.0f);
                 if (goods.interactionBodyAction != null)
                 {
                     goods.interactionBodyAction();

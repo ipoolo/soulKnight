@@ -50,9 +50,9 @@ MonoBehaviour:
   blockManager: {fileID: 0}
   mbi: {fileID: 0}
   level: 1
-  baseEnemyNum: 3
+  baseEnemyNum: 7
   spwanStepWaitTime: 0
-  maxStepSpwanNum: 3
+  maxStepSpwanNum: 4
 --- !u!1001 &7087638866747916474
 PrefabInstance:
   m_ObjectHideFlags: 0

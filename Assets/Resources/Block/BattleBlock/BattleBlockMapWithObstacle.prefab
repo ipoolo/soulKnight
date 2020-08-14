@@ -50,7 +50,7 @@ MonoBehaviour:
   blockManager: {fileID: 0}
   mbi: {fileID: 0}
   level: 1
-  baseEnemyNum: 3
+  baseEnemyNum: 7
   spwanStepWaitTime: 0
   maxStepSpwanNum: 3
 --- !u!1001 &4470244343832138687

@@ -109,7 +109,7 @@ public class Coin : MonoBehaviour
     {
         if (canReceiver && other.CompareTag("Player"))
         {
-            AudioManager.Instance.PlaySound("Voices/" + "Money");
+            AudioManager.Instance.PlaySound3WithTime("Voices/" + "Money",0.0f);
             psc.CoinAdd(coinValue);
             Destroy(gameObject);
         }

@@ -21,6 +21,7 @@ public class Staff : Weapon
     private float pastPersent;
     protected override void StoragePowerOnceBody()
     {
+        AudioManager.Instance.PlaySound("Voices/RetroAscendingShort20");
         base.StoragePowerOnceBody();
         pastPersent = 0.0f;
         currPsList = new List<PS_RayAbsorb>();
@@ -30,7 +31,7 @@ public class Staff : Weapon
             rayCastMuzzleGB.transform.position = firePoint.transform.position + firePoint.transform.right.normalized * rayCastMuzzleGB.GetComponent<SpriteRenderer>().size.x / 2.0f;
         }
         UpdateMuzzleScale(0);
-        rayCastMuzzleGB.SetActive(true);
+        rayCastMuzzleGB.transform.localScale = new Vector3(0, 0, 1);
 
     }
 
@@ -39,9 +40,14 @@ public class Staff : Weapon
         UpdateMuzzleScale(persent);
         if (persent - pastPersent >= 0.195f)
         {
+            
             pastPersent = persent;
             SpwanPS();
             MiniShakeCamera();
+        }
+        if(persent > 0.95f)
+        {
+            AudioManager.Instance.PlaySoundWithTimeLoop("Voices/Magic", 0.5f);
         }
         base.StoragePowerUpdateBody(persent);
     }
@@ -75,12 +81,15 @@ public class Staff : Weapon
             Destroy(ps.gameObject, main.duration);
         });
         currPsList = new List<PS_RayAbsorb>();
-        rayCastMuzzleGB.SetActive(false);
+        if (rayCastMuzzleGB) { 
+            rayCastMuzzleGB.transform.localScale = new Vector3(0, 0, 0);
+        }
     }
 
     protected override void InterruptStoragePowerBody()
     {
         base.InterruptStoragePowerBody();
+        AudioManager.Instance.PlaySoundStop();
         RemovePs();
     }
 
@@ -147,6 +156,7 @@ public class Staff : Weapon
     protected override void ContinueFinishBody()
     {
         base.ContinueFinishBody();
+        AudioManager.Instance.PlaySoundStopByLoop();
         if (currRaycast) { 
             currRaycast.RaycastChinaAnimation2Exit();
         }

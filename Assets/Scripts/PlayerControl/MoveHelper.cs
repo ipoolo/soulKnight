@@ -27,8 +27,10 @@ public class MoveHelper : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        CheckCanMove();
-        CheckPlayerHelper();
+        if (!playerC.isDead) { 
+            CheckCanMove();
+            CheckPlayerHelper();
+        }
     }
 
 

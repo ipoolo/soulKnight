@@ -296,7 +296,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStateController: {fileID: 0}
+  animator: {fileID: 0}
   isOutControl: 0
+  isDead: 0
 --- !u!114 &162741826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,7 +398,7 @@ SpriteRenderer:
   m_SortingLayerID: 746028777
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 577b9167e167fa94789e8bc1749d5e63, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f62a98b551bb6c34aa79692ca800cf62, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -960,6 +962,8 @@ MonoBehaviour:
   closeinWeapon: {fileID: 0}
   backUpGb: {fileID: 1767538956}
   backUpRotaionRanged: 225
+  pc: {fileID: 0}
+  switchWeaponSoundName: RetroWeaponReloadBestA03
 --- !u!60 &446224739
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -1940,6 +1944,7 @@ MonoBehaviour:
   soundBulletPlayer: {fileID: 734323975}
   soundBulletPlayer2: {fileID: 734323977}
   soundBulletPlayer3: {fileID: 734323976}
+  backgroudStr: RetroAmbienceAcute01
 --- !u!82 &734323975
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2336,7 +2341,11 @@ MonoBehaviour:
   isReceiveDamage: 1
   isOutControl: 0
   rigid2d: {fileID: 0}
+  sr: {fileID: 0}
   isPause: 0
+  trailColor: {r: 0, g: 0, b: 0, a: 0}
+  fadeColor: {r: 0, g: 0, b: 0, a: 0}
+  fadeTime: 0
   canReceiveRepel: 1
   statePanel: {fileID: 0}
   spController: {fileID: 0}

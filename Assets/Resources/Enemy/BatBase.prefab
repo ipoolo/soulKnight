@@ -331,13 +331,17 @@ MonoBehaviour:
   isReceiveDamage: 1
   isOutControl: 0
   rigid2d: {fileID: 0}
+  sr: {fileID: 0}
   isPause: 0
+  trailColor: {r: 0.990566, g: 0.45790318, b: 0.45790318, a: 0.7058824}
+  fadeColor: {r: 0, g: 0, b: 0, a: 0}
+  fadeTime: 2
   canReceiveRepel: 1
   animator: {fileID: 0}
   moveSpeedLevelUpScale: 0
   damageLevelUpScale: 0
-  touchSenseDistance: 4
-  perspectiveSenseDistance: 6
+  touchSenseDistance: 8
+  perspectiveSenseDistance: 10
   perspectiveSenseFiledOfView: 60
   isAvoid: 0
   minAvoidDistance: 0

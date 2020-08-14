@@ -32,8 +32,10 @@ public class Treasure : Item
     private void OpenTreasure()
     {
         if (!isOpened) {
+            
+            AudioManager.Instance.PlaySound("Voices/Jump3");
             isOpened = true;
-           treasureAnimator.SetTrigger("Open");
+            treasureAnimator.SetTrigger("Open");
             Invoke("SpwanCoin", openTimeOffset);
             if (hintCanShow) { 
                 HideFoucsArror();

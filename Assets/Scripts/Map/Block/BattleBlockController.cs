@@ -70,6 +70,7 @@ public class BattleBlockController : BlockController
             gameObject.BroadcastMessage("BattleStart");
             isBattleState = true;
             EnemyGoBattleState();
+            AudioManager.Instance.PlaySound3WithTime("Voices/Stairs", 0.0f);
         }
     }
 
@@ -87,6 +88,7 @@ public class BattleBlockController : BlockController
 
             //创造宝箱
             SwpanTreasure();
+            AudioManager.Instance.PlaySound3WithTime("Voices/Stairs", 0.0f);
         }
     }
 

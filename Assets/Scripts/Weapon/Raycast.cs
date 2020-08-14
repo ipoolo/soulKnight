@@ -211,6 +211,7 @@ public class Raycast : MonoBehaviour
 
             if (npcTimer.CheckTimerForEffect(npc))
             {
+                AudioManager.Instance.PlaySound("Voices/Magic2");
                 DamageEffectBody(npc);
             }
         }

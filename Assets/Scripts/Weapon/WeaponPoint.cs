@@ -12,6 +12,7 @@ public class WeaponPoint : MonoBehaviour
     public GameObject backUpGb;
     private bool isFollow;
     public float backUpRotaionRanged = 225.0f;
+    public PlayerController pc;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class WeaponPoint : MonoBehaviour
         weaponObject = Instantiate((GameObject)Resources.Load("Weapon/Sword"), transform.position, Quaternion.identity);
         closeinWeapon = weaponObject.GetComponent<Weapon>();
 
+        pc = GetComponentInParent<PlayerController>();
         //currWeapon = rangedWeapon;
         //UpdateWeapon2BackupLocation(closeinWeapon);
 
@@ -31,7 +33,9 @@ public class WeaponPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        followMouse();
+        if (!pc.isDead) { 
+            followMouse();
+        }
     }
 
     private void followMouse()
@@ -75,9 +79,12 @@ public class WeaponPoint : MonoBehaviour
         }
     }
 
+    public string switchWeaponSoundName;
     public void SwitchWeapon()
     {
-        if(currWeapon != rangedWeapon) { 
+        
+        AudioManager.Instance.PlaySound("Voices/RetroWeaponReloadBestA03");
+        if (currWeapon != rangedWeapon) { 
             UpdateWeapon2BackupLocation(rangedWeapon);
         }
         else
@@ -134,6 +141,7 @@ public class WeaponPoint : MonoBehaviour
 
     public void ChangeWeapon(Weapon nextWeapon)
     {
+        AudioManager.Instance.PlaySound("Voices/RetroWeaponReloadBestA03");
         Weapon pre;
         if (currWeapon.isCloseInWeapon == nextWeapon.isCloseInWeapon)
         {

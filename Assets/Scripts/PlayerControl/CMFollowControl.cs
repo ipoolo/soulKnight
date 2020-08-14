@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CMFollowControl : MonoBehaviour
+public class CMFollowControl : Singleton<CMFollowControl>
 {
     private CinemachineVirtualCamera cm;
     CinemachineFramingTransposer transposer;
@@ -43,6 +43,15 @@ public class CMFollowControl : MonoBehaviour
 
     void Update()
     {
-        updateCamera();
+        if (!player.GetComponentInChildren<PlayerController>().isDead) { 
+            updateCamera();
+        }
+    }
+
+    public void PlayerDead()
+    {
+        transposer.m_ScreenX = 0.5f;
+        transposer.m_ScreenY = 0.5f;
+        cm.m_Lens.OrthographicSize = 2.0f;
     }
 }

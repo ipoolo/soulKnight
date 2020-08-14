@@ -106,6 +106,7 @@ public class BlockController : MonoBehaviour
     {
         if (blockType != BlockType.startType) { 
             if (isPlayerFirstEnter) {
+                
                 isPlayerFirstEnter = false;
                 blockManager.PlayerEnterBlock(this);
             }

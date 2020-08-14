@@ -25,7 +25,9 @@ public class SkillRushAttack : Skill
         targetPosition = skillConfig.targetPosition;
         castorRigidbody2d = skillConfig.castorRigidbody2d;
         timer = 0.0f;
+        AudioManager.Instance.PlaySoundWithTime("Voices/Arrow", 0.0f);
     }
+    private float shadowTimer;
     public override void RunningSkillUpdateBody(float castTimer)
     {
         timer += Time.deltaTime;
@@ -33,6 +35,15 @@ public class SkillRushAttack : Skill
         Vector3 normalizedVector = targetVector.normalized;
         Vector3 velocityVector = normalizedVector * rushSpeed;
         castorRigidbody2d.velocity = velocityVector;
+        shadowTimer += Time.deltaTime;
+
+        skillConfig.castor.GetComponentInChildren<NPC>().SpwanSilderShadow();
+
+        if (shadowTimer > 0.05f)
+        {
+            shadowTimer = 0;
+            skillConfig.castor.GetComponentInChildren<NPC>().SpwanSilderShadow();
+        }
         
 
         //旋转动画效果
