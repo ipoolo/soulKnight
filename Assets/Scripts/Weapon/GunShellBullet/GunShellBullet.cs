@@ -8,13 +8,13 @@ public class GunShellBullet : MonoBehaviour
 {
     private PlayerController playerC;
     private Rigidbody2D rb;
-    private BoxCollider2D collider;
+    private BoxCollider2D boxCollider;
 
     private void Awake()
     {
         playerC = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
-        collider = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
     // Start is called before the first frame update
     void Start()
@@ -36,7 +36,7 @@ public class GunShellBullet : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sortingLayerName = "BackGround";
             rb.velocity = new Vector2(0, 0);
-            collider.enabled = false;
+            boxCollider.enabled = false;
 
         });
     }

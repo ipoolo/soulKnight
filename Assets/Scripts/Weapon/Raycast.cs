@@ -80,7 +80,6 @@ public class Raycast : MonoBehaviour
 
     private void AnimationHoldFinish(string str)
     {
-        Debug.Log("AnimationHoldFinish" + str);
         switch (fireWeapon.weaponType)
         {
             case EWeaponType.normal:
@@ -138,8 +137,6 @@ public class Raycast : MonoBehaviour
     public void updateRaycastAndSubRaycast(float currDistance,Vector2 startPoint, Quaternion currRotation, RaycastHit2D hit,float residueDistance)
     {
 
-        Debug.Log("currDistance");
-        Debug.Log("residueTimes"+ residueTimes);
         ConfigRaycast(currDistance, fireWeapon, residueTimes, startPoint, currRotation, maskLayer, raycastHoldTime);
         float residueNextDistance = residueDistance - currDistance;
         if (residueTimes > 0 && residueNextDistance > 0) { 

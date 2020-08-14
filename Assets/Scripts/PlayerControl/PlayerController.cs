@@ -40,10 +40,10 @@ public class PlayerController : MonoBehaviour
 
 
         //test
-        test();
+        CheckInput();
     }
 
-    public void test()
+    public void CheckInput()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -56,6 +56,11 @@ public class PlayerController : MonoBehaviour
 
             Instantiate(Resources.Load("Buff/BuffSpeedIncrementPresent") as GameObject, Vector3.zero, Quaternion.identity).GetComponent<Buff>().BuffLoad(gameObject) ;
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            weaponPoint.SwitchWeapon();
         }
     }
 

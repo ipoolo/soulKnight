@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,10 +12,16 @@ public enum EWeaponType{
 
 public class Weapon : MonoBehaviour
 {
+    [Header("震动摄像机")]
+    public float shakeCameraStepTime;
+    protected float shakeCameraStepTimer;
+    public float impulseScale;
     public Animator animator;
+
     [SerializeField] public float damage;
     [SerializeField] public float attackInterval;
     [SerializeField] public bool isCloseInWeapon;
+    protected CinemachineImpulseSource impulseSource;
 
     [SerializeField] public float powerMaxSecond;
     
@@ -22,7 +29,7 @@ public class Weapon : MonoBehaviour
 
     private float attackTimer;
     [HideInInspector]  public bool canAttack;
-    private GameObject player;
+    protected PlayerController player;
     [HideInInspector]
     public WeaponPoint weaponPoint;
     public EWeaponType weaponType;
@@ -50,12 +57,13 @@ public class Weapon : MonoBehaviour
     {
         sRender = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
 
         attackTimer = attackInterval;
         canAttack = true;
 
         weaponPoint = GameObject.FindGameObjectWithTag("WeaponPoint").GetComponent<WeaponPoint>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         powerController = GameObject.FindGameObjectWithTag("UI_PowerBar").GetComponent<PowerController>();
         if (castor == null)
@@ -70,6 +78,7 @@ public class Weapon : MonoBehaviour
 
     }
 
+    private bool isDoneStoragePowerOnce = false;
     protected virtual void Update()
     {
         if (attackTimer >= attackInterval)
@@ -87,6 +96,10 @@ public class Weapon : MonoBehaviour
             storagePowersustainTime += Time.deltaTime;
             if (powerMaxSecond != 0)
             {
+                if (!isDoneStoragePowerOnce)
+                {
+                    StoragePowerOnceBody();
+                }
                 float tempPowerValue = storagePowersustainTime / powerMaxSecond;
                 powerBarValue = tempPowerValue > 1 ? 1 : tempPowerValue;
                 powerController.updatePowerBarValue(powerBarValue);
@@ -94,6 +107,7 @@ public class Weapon : MonoBehaviour
                 if(weaponType == EWeaponType.storagePowerAndCoutinue && tempPowerValue >1)
                 {
                     isStoragePower = false;
+                    isDoneStoragePowerOnce = false;
                     Attack();
                 }
             }
@@ -107,11 +121,25 @@ public class Weapon : MonoBehaviour
     {
         storagePowersustainTime = 0;
         isStoragePower = false;
+        isDoneStoragePowerOnce = false;
         powerBarValue = 0;
         powerController.updatePowerBarValue(powerBarValue);
         powerController.hidePowerBar();
+        InterruptStoragePowerBody();
     }
 
+    protected virtual void InterruptStoragePowerBody()
+    {
+
+    }
+
+
+
+    protected virtual void StoragePowerOnceBody()
+    {
+        Debug.Log("a");
+        isDoneStoragePowerOnce = true;
+    }
     protected virtual void StoragePowerUpdateBody(float persent)
     {
 
@@ -146,7 +174,7 @@ public class Weapon : MonoBehaviour
 
             if (weaponType == EWeaponType.storagePower)
             {
-                if (isStoragePower) { 
+                if (isStoragePower) {
                     AttackBody();
                 }
             }
@@ -172,6 +200,7 @@ public class Weapon : MonoBehaviour
             }
             //powerBar处理
             isStoragePower = false;
+            isDoneStoragePowerOnce = false;
             powerController.hidePowerBar();
         }
 

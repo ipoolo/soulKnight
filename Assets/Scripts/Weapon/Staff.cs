@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Staff : Weapon
@@ -9,16 +7,70 @@ public class Staff : Weapon
     public float raycastDistance = 100.0f;
     private Raycast currRaycast;
     public float raycastHoldTime;
+    private List<PS_RayAbsorb> currPsList = new List<PS_RayAbsorb>();
+    
 
     protected override void AttackBody()
     {
         base.AttackBody();
+        RemovePs();
         Fire();
+    }
+
+    private float pastPersent;
+    protected override void StoragePowerOnceBody()
+    {
+        base.StoragePowerOnceBody();
+        pastPersent = 0.0f;
+        currPsList = new List<PS_RayAbsorb>();
+    }
+
+    protected override void StoragePowerUpdateBody(float persent)
+    {
+        if(persent - pastPersent >= 0.195f)
+        {
+            pastPersent = persent;
+            SpwanPS();
+            MiniShakeCamera();
+        }
+        base.StoragePowerUpdateBody(persent);
+    }
+
+    protected void SpwanPS()
+    {
+        base.StoragePowerOnceBody();
+        GameObject gb = Instantiate((GameObject)Resources.Load("Partcles/PS_RayAbsorb"));
+        gb.transform.parent = player.transform;
+        gb.transform.position = player.transform.position;
+        PS_RayAbsorb ps = gb.GetComponent<PS_RayAbsorb>();
+        var main = ps.GetComponent<ParticleSystem>().main;
+        main.stopAction = ParticleSystemStopAction.Callback;
+        currPsList.Add(ps);
+    }
+
+    protected void RemovePs()
+    {
+        currPsList.ForEach(ps =>
+        {
+            var main = ps.GetComponent<ParticleSystem>().main;
+            main.loop = false;
+            Destroy(ps.gameObject, main.duration);
+        });
+
+    }
+
+    protected override void InterruptStoragePowerBody()
+    {
+        base.InterruptStoragePowerBody();
+        RemovePs();
     }
 
     private string[] maskLayer = { "Wall", "Obstacle", "ObstacleWall" };
     public void Fire()
     {
+        ShakeCamera();
+        shakeCameraStepTimer = 0.0f;
+
         Vector2 direction = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
         RaycastHit2D hit = Physics2D.Raycast(firePoint.transform.position, direction, raycastDistance, LayerMask.GetMask(maskLayer));
         float currRaycastDistance = 0;
@@ -43,8 +95,18 @@ public class Staff : Weapon
         currRaycast = raycast;
     }
 
+    //震动屏幕其实可以抽象到更高层
+
     protected override void ContinueUpdateBody()
     {
+
+        shakeCameraStepTimer += Time.deltaTime;
+        if(shakeCameraStepTimer > shakeCameraStepTime)
+        {
+            ShakeCamera();
+            shakeCameraStepTimer = 0.0f;
+        }
+
 
         base.ContinueUpdateBody();
         Vector2 direction = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
@@ -67,6 +129,22 @@ public class Staff : Weapon
         if (currRaycast) { 
             currRaycast.RaycastChinaAnimation2Exit();
         }
+    }
+
+    protected void ShakeCamera()
+    {
+       
+        Vector3 tmp = player.transform.position - firePoint.transform.position;
+        tmp += new Vector3(Random.Range(-1, 1), Random.Range(-1, 1));
+        impulseSource.GenerateImpulse(tmp.normalized * impulseScale);
+    }
+
+    protected void MiniShakeCamera()
+    {
+
+        Vector3 tmp = player.transform.position - firePoint.transform.position;
+        tmp += new Vector3(Random.Range(-1, 1), Random.Range(-1, 1));
+        impulseSource.GenerateImpulse(tmp.normalized * impulseScale * 0.3f);
     }
 
 

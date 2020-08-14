@@ -6,18 +6,16 @@ using UnityEngine;
 public class Gun : Weapon
 {
     [SerializeField] public string bulletName;
-    public float impulseScale;
+
 
 
     private int fireTimes;
     public int fireMaxTimes = 3;
     private float fireTimeStep = 0.1f;
     public string muzzleFlashName;
-    private PlayerController player;
     private new void Awake()
     {
         base.Awake();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
 
     // Start is called before the first frame update
@@ -39,7 +37,6 @@ public class Gun : Weapon
 
     }
 
-
     IEnumerator Fire()
     {
         while (fireTimes < fireMaxTimes)
@@ -48,9 +45,10 @@ public class Gun : Weapon
             {
                 animator.SetTrigger("GunFire");
 
-                var ImpulseSource = GetComponent<CinemachineImpulseSource>();
+
                 Vector3 tmp = player.transform.position - firePoint.transform.position;
-                ImpulseSource.GenerateImpulse(tmp.normalized * impulseScale);
+                impulseSource.GenerateImpulse(tmp.normalized * impulseScale);
+
                 GameObject gb = Instantiate((GameObject)Resources.Load("Weapon/ShellBullet/GunShellBullet"));
                 gb.transform.parent = GameObject.FindGameObjectWithTag("Shells").transform;
                 gb.transform.position = firePoint.transform.position;

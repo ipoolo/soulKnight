@@ -163,6 +163,7 @@
     <Compile Include="Assets\Scripts\Weapon\CloseinAttack\SwordAttack.cs" />
     <Compile Include="Assets\Scripts\Weapon\Gun.cs" />
     <Compile Include="Assets\Scripts\Weapon\GunShellBullet\GunShellBullet.cs" />
+    <Compile Include="Assets\Scripts\Weapon\PS\PS_RayAbsorb.cs" />
     <Compile Include="Assets\Scripts\Weapon\Raycast.cs" />
     <Compile Include="Assets\Scripts\Weapon\Slash.cs" />
     <Compile Include="Assets\Scripts\Weapon\Staff.cs" />
