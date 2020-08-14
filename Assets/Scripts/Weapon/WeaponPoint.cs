@@ -83,7 +83,7 @@ public class WeaponPoint : MonoBehaviour
     public void SwitchWeapon()
     {
         
-        AudioManager.Instance.PlaySound("Voices/RetroWeaponReloadBestA03");
+
         if (currWeapon != rangedWeapon) { 
             UpdateWeapon2BackupLocation(rangedWeapon);
         }
@@ -91,6 +91,7 @@ public class WeaponPoint : MonoBehaviour
         {
             UpdateWeapon2BackupLocation(closeinWeapon);
         }
+        AudioManager.Instance.PlaySound("Voices/RetroWeaponReloadBestA03");
     }
 
     private void UpdateWeapon2BackupLocation(Weapon nextWeapon)
@@ -141,7 +142,7 @@ public class WeaponPoint : MonoBehaviour
 
     public void ChangeWeapon(Weapon nextWeapon)
     {
-        AudioManager.Instance.PlaySound("Voices/RetroWeaponReloadBestA03");
+        
         Weapon pre;
         if (currWeapon.isCloseInWeapon == nextWeapon.isCloseInWeapon)
         {
@@ -162,8 +163,8 @@ public class WeaponPoint : MonoBehaviour
             pre = rangedWeapon;
             rangedWeapon = nextWeapon;
         }
-        
-        
+
+        AudioManager.Instance.PlaySound("Voices/RetroWeaponReloadBestA03");
         ItemWeapon itemWeapon = Instantiate((GameObject)Resources.Load("Item/WeaponItem"), transform.parent.position + transform.right, Quaternion.identity).GetComponentInChildren<ItemWeapon>();
         itemWeapon.ConfigWeapon(pre);
     }

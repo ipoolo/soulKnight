@@ -30,7 +30,6 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (clipName.Length > 0)
         {
-            AudioClip clip = Resources.Load<AudioClip>(clipName);
             PlayWithNamePlayer(musicPlayer, clipName, 0.0f, false);
         }
     }
@@ -40,8 +39,6 @@ public class AudioManager : Singleton<AudioManager>
 
         if (clipName.Length > 0)
         {
-
-            AudioClip clip = Resources.Load<AudioClip>(clipName);
             PlayWithNamePlayer(soundPlayer, clipName, 0.0f, false);
         }
     }
@@ -50,7 +47,6 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (clipName.Length > 0)
         {
-            AudioClip clip = Resources.Load<AudioClip>(clipName);
             PlayWithNamePlayer(soundPlayer, clipName, time, false);
         }
     }
@@ -59,7 +55,6 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (clipName.Length > 0)
         {
-            AudioClip clip = Resources.Load<AudioClip>(clipName);
             PlayWithNamePlayer(soundPlayer, clipName, time, true);
             soundPlayer.loop = true;
         }
@@ -79,7 +74,6 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (clipName.Length > 0)
         {
-            AudioClip clip = Resources.Load<AudioClip>(clipName);
             if (!soundBulletPlayer.isPlaying) {
                 PlayWithNamePlayer(soundBulletPlayer, clipName, time, false);
             }
@@ -101,7 +95,6 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (clipName.Length > 0)
         {
-            AudioClip clip = Resources.Load<AudioClip>(clipName);
             PlayWithNamePlayer(soundBulletPlayer3, clipName, time, false);
         }
     }
