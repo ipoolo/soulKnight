@@ -44,6 +44,9 @@ public class Weapon : MonoBehaviour
     [HideInInspector]public SpriteRenderer sRender;
     public bool IsAutoFireAnimator = true;
 
+    public string voiceName;
+    public float voiceTimeOffset;
+
 #if UNITY_EDITOR
     private void OnValidate()
     {

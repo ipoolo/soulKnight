@@ -74,6 +74,7 @@ public class Staff : Weapon
             main.loop = false;
             Destroy(ps.gameObject, main.duration);
         });
+        currPsList = new List<PS_RayAbsorb>();
         rayCastMuzzleGB.SetActive(false);
     }
 

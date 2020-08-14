@@ -127,6 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff50c912fdf036a44b01a466cc23de12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeCameraStepTime: 0
+  impulseScale: 0.2
   animator: {fileID: 0}
   damage: 2
   attackInterval: 0.1
@@ -138,8 +140,9 @@ MonoBehaviour:
   firePoint: {fileID: 1293376689979571846}
   sRender: {fileID: 0}
   IsAutoFireAnimator: 0
+  voiceName: RetroGunMultishots
+  voiceTimeOffset: -1
   bulletName: BulletGun
-  impulseScale: 0.2
   fireMaxTimes: 3
   muzzleFlashName: GunMuzzleFlash
 --- !u!95 &2981585804405424718

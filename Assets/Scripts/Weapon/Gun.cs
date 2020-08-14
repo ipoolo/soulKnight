@@ -7,8 +7,6 @@ public class Gun : Weapon
 {
     [SerializeField] public string bulletName;
 
-
-
     private int fireTimes;
     public int fireMaxTimes = 3;
     private float fireTimeStep = 0.1f;
@@ -33,14 +31,16 @@ public class Gun : Weapon
     protected override void AttackBody()
     {
         base.AttackBody();
+        AudioManager.Instance.PlaySoundWithTime("Voices/" + voiceName,voiceTimeOffset);
         StartCoroutine(Fire());
 
     }
 
     IEnumerator Fire()
     {
-        while (fireTimes < fireMaxTimes)
-        {
+        
+        while (fireTimes < fireMaxTimes) { 
+
             if (!isStopFire)
             {
                 animator.SetTrigger("GunFire");

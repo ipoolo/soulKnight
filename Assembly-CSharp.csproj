@@ -152,6 +152,7 @@
     <Compile Include="Assets\Scripts\Skill\SkillFireConditionController.cs" />
     <Compile Include="Assets\Scripts\Skill\SkillRage.cs" />
     <Compile Include="Assets\Scripts\Skill\SkillRushAttack.cs" />
+    <Compile Include="Assets\Scripts\Tools\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Tools\NpcTimer.cs" />
     <Compile Include="Assets\Scripts\Tools\Singleton.cs" />
     <Compile Include="Assets\Scripts\UI\IndicatorPanelController.cs" />

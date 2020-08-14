@@ -15,6 +15,8 @@ public class Bullet : MonoBehaviour
     [SerializeField]public float reboundTimes;
     public string collisionDestoryEffectName = "BulletBomb";
     [HideInInspector]public Weapon fireWeapon;
+    public string voiceName;
+    public float voiceTimeOffset;
     public object castor;
 
     [HideInInspector] private Rigidbody2D rigid2D;
@@ -108,6 +110,7 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Enemy")|| other.CompareTag("Obstacle") )
         {
+            AudioManager.Instance.PlaySoundBulletWithTime("Voices/" + voiceName, voiceTimeOffset);
             NPC npc = other.GetComponent<NPC>();
             npc.ReceiveDamageWithRepelVector(fireWeapon.ExcuteHittingBuffEffect(damage), transform.right.normalized * repelPower);
             Instantiate(Resources.Load(collisionDestoryEffectName),transform.position,Quaternion.identity);
@@ -117,14 +120,13 @@ public class Bullet : MonoBehaviour
         string[] wallLayerNames = { "Wall" ,"Item" };
         if (selfCollider.IsTouchingLayers(LayerMask.GetMask(wallLayerNames)))
         {
-           
             if (reboundTimes > 0) {
                 ReboundBody(_collision);
                 reboundTimes--;
             }
             else
             {
-                knockWallBody(_collision);
+                KnockWallBody(_collision);
             }
             //emeny.receiverDamage(damage, player.transform.position, 1.0f);
         }
@@ -134,7 +136,7 @@ public class Bullet : MonoBehaviour
         if (selfCollider.IsTouchingLayers(LayerMask.GetMask(obstructBulletlayerNames)))
         {
 
-            knockWallBody(_collision);
+            KnockWallBody(_collision);
         }
 
     }
@@ -175,12 +177,14 @@ public class Bullet : MonoBehaviour
         rigid2D.velocity = transform.right * speed;
     }
 
-    protected virtual void knockWallBody(Collision2D _collision)
+    protected virtual void KnockWallBody(Collision2D _collision)
     {
             ContactPoint2D cp = _collision.contacts[0];
             Vector2 ImpactRight = cp.normal * -1;
             GameObject bullet = Instantiate((GameObject)Resources.Load(collisionDestoryEffectName),transform.position,Quaternion.FromToRotation(Vector2.right, ImpactRight));
-            Destroy(gameObject);
+            AudioManager.Instance.PlaySoundBulletWithTime("Voices/" + voiceName, voiceTimeOffset);
+
+        Destroy(gameObject);
     }
 
 }

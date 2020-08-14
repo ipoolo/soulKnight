@@ -153,5 +153,7 @@ MonoBehaviour:
   reboundTimes: 0
   collisionDestoryEffectName: Bullet/BulletImpact
   fireWeapon: {fileID: 0}
+  voiceName: Shoot3
+  voiceTimeOffset: -0.22
   targetObject: {fileID: 0}
   targetDirection: {x: 0, y: 0, z: 0}
