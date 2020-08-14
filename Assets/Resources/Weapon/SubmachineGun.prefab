@@ -141,7 +141,7 @@ MonoBehaviour:
   sRender: {fileID: 0}
   IsAutoFireAnimator: 0
   voiceName: RetroGunMultishots
-  voiceTimeOffset: -1
+  voiceTimeOffset: 0.28
   bulletName: BulletGun
   fireMaxTimes: 3
   muzzleFlashName: GunMuzzleFlash
