@@ -68,7 +68,7 @@ public class Staff : Weapon
     private string[] maskLayer = { "Wall", "Obstacle", "ObstacleWall" };
     public void Fire()
     {
-        ShakeCamera();
+        ShakeCameraAndRepel();
         shakeCameraStepTimer = 0.0f;
 
         Vector2 direction = CalTargetDirection(firePoint.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), transform.position);
@@ -103,8 +103,10 @@ public class Staff : Weapon
         shakeCameraStepTimer += Time.deltaTime;
         if(shakeCameraStepTimer > shakeCameraStepTime)
         {
-            ShakeCamera();
+            ShakeCameraAndRepel();
             shakeCameraStepTimer = 0.0f;
+            //给玩家反冲
+            
         }
 
 
@@ -131,12 +133,14 @@ public class Staff : Weapon
         }
     }
 
-    protected void ShakeCamera()
+    protected void ShakeCameraAndRepel()
     {
        
         Vector3 tmp = player.transform.position - firePoint.transform.position;
         tmp += new Vector3(Random.Range(-1, 1), Random.Range(-1, 1));
         impulseSource.GenerateImpulse(tmp.normalized * impulseScale);
+
+        player.playerStateController.ReceiveDamageWithRepelVector(0, (player.transform.position - firePoint.transform.position).normalized * 0.1f);
     }
 
     protected void MiniShakeCamera()
